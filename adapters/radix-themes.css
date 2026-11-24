@@ -1,0 +1,13 @@
+.radix-themes {
+  --scaling: var(--scale);
+}
+
+:where(.radix-themes) :where(svg[width="15"][height="15"]) {
+  width: calc(15px * var(--scale));
+  height: calc(15px * var(--scale));
+}
+
+:where(.radix-themes) :where(svg[width="9"][height="9"]) {
+  width: calc(9px * var(--scale));
+  height: calc(9px * var(--scale));
+}

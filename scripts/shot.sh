@@ -2,7 +2,7 @@
 set -euo pipefail
 
 usage() {
-  echo "Usage: scripts/shot.sh <experiment-dir> [--width <px>] [--height <px>] [--annotate] [--name <suffix>]" >&2
+  echo "Usage: scripts/shot.sh <experiment-dir> [--width <px>] [--height <px>] [--annotate] [--param <key=value>]... [--name <suffix>]" >&2
   exit 1
 }
 
@@ -14,6 +14,7 @@ width=1280
 height=800
 annotate=false
 suffix=""
+params=()
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -21,6 +22,7 @@ while [[ $# -gt 0 ]]; do
     --height) height="$2"; shift 2 ;;
     --annotate) annotate=true; shift ;;
     --name) suffix="-$2"; shift 2 ;;
+    --param) params+=("$2"); shift 2 ;;
     *) usage ;;
   esac
 done
@@ -30,13 +32,21 @@ page="$root/$experiment/index.html"
 [[ -f "$page" ]] || { echo "Not found: $page" >&2; exit 1; }
 
 slug="$(basename "$experiment")"
-url="file://$page"
 out="$root/screenshots/$slug-${width}w$suffix"
+query=()
+for param in ${params[@]+"${params[@]}"}; do
+  query+=("$param")
+  out="$out-${param/=/-}"
+done
 if $annotate; then
-  url="$url?annotate"
+  query+=("annotate")
   out="$out-annotated"
 fi
 out="$out.png"
+url="file://$page"
+if [[ ${#query[@]} -gt 0 ]]; then
+  url="$url?$(IFS='&'; echo "${query[*]}")"
+fi
 mkdir -p "$root/screenshots"
 
 session="jun-scale-ui-$$"
