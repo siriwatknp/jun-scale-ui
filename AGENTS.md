@@ -16,7 +16,13 @@ jun-scale-ui is a minimal CSS framework built around a scaling system. UI scales
 
 Every component has one default size. To change size, change `--scale` on the root or on a container. These properties follow the scale: width, height, margin, padding, font-size, line-height and border-radius.
 
-Components are sorted into groups. A bigger group may contain a smaller group, never the other way round. A bigger group controls the scale of the smaller groups inside it with `--scale-group<N>`, which falls back to `1`. Only the global scale exists so far.
+Components are sorted into groups. A bigger group may contain a smaller group, never the other way round. A bigger group controls the scale of the smaller groups inside it with `--scale-group<N>`, which falls back to `1`.
+
+- A component in group N renders at `--scale × var(--scale-group<N>, 1)`. The global scale always applies, so a group at 0.8 under a global scale of 1.2 renders at 0.96.
+- The nearest ancestor that sets `--scale-group<N>` wins, through normal CSS inheritance. A group 2 component that sets `--scale-group1` hides the `--scale-group1` set by a group 3 component further out. Flat CSS rules with fallbacks are enough. No rule needs to know the nesting depth.
+- Text has no group. It follows the component that renders it.
+
+The group list is still a proposal: see `experiments/002-group-map`. Only the global scale is built so far.
 
 ## Workflow
 
