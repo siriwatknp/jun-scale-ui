@@ -1,0 +1,63 @@
+# AGENTS.md
+
+jun-scale-ui is a minimal CSS framework built around a scaling system. UI scales without fixed sizes, and scaled parts can be composed together. It is plain HTML and CSS: no build step, no server, no dependencies.
+
+## Layout
+
+- `experiments/NNN-name/index.html` holds one experiment per folder. Number them in order and add a link to `index.html` at the root.
+- `src/` holds the framework CSS once ideas from experiments settle.
+- `tools/annotate.js` draws value labels on a page for screenshots.
+- `scripts/shot.sh` takes screenshots into `screenshots/`, which git ignores.
+
+## Workflow
+
+1. Code the experiment.
+2. Take screenshots with `scripts/shot.sh`. Use `--annotate` when the screenshot must prove values or tokens. Take extra widths with `--width` when the experiment is about scaling.
+3. Look at every screenshot before sending it. Check that labels don't cover the content they describe, and that no label is red unless the experiment shows a mismatch on purpose.
+4. Send the screenshots to the user with SendUserFile.
+
+## Annotations
+
+Load `tools/annotate.js` in the experiment page:
+
+```html
+<script src="../../tools/annotate.js" defer></script>
+```
+
+Mark elements with `data-annotate`, a space-separated list of `property` or `property:--token` entries. `data-annotate-name` adds a title line to the label.
+
+```html
+<div data-annotate-name=".card" data-annotate="padding-top:--space-4 font-size"></div>
+```
+
+Annotations show only when the URL has `?annotate`, so the plain page stays clean. For each entry, the label shows the computed value. When a token is given, the token is resolved on a hidden copy of the element, in the same place in the page, and compared with the computed value: ✓ when they match, a red label with the token's value when they don't.
+
+Use longhand properties (`padding-top`, `border-top-left-radius`), because computed values of shorthand properties can be empty.
+
+## Screenshots
+
+```bash
+scripts/shot.sh experiments/000-pipeline-check                      # 1280×800, full page
+scripts/shot.sh experiments/000-pipeline-check --annotate           # with value labels
+scripts/shot.sh experiments/000-pipeline-check --width 390 --height 844 --name mobile
+```
+
+Output goes to `screenshots/<experiment>-<width>w[-name][-annotated].png`. The script uses `agent-browser`.
+
+## Permissions
+
+The agent drives this repo: coding, screenshots, commits, pushes and GitHub settings. Every action inside this repo is allowed without asking first. The allow rules live in `.claude/settings.local.json`, which git ignores, so they stay on the owner's machine.
+
+## Git
+
+Work in this checkout and commit straight to `main`. Don't create worktrees or feature branches. Push after each commit.
+
+## Public repo
+
+This repo is public. Before each commit, check the staged changes and keep these out:
+
+- secrets: tokens, API keys, passwords, private URLs,
+- personal details: real names, email addresses, absolute paths with a home folder such as `/Users/<name>/`,
+- local-only files: screenshots, `.claude/settings.local.json`.
+
+Commits use the GitHub noreply email set in this repo's git config. Don't change it.

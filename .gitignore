@@ -1,0 +1,4 @@
+.DS_Store
+screenshots
+.playwright-cli
+.claude/settings.local.json
