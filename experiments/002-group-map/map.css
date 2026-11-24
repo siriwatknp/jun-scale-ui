@@ -133,3 +133,10 @@ body {
   border-radius: 50%;
   background: var(--green-9);
 }
+
+.tile-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}

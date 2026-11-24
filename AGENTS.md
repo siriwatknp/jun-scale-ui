@@ -22,6 +22,12 @@ Components are sorted into groups. A bigger group may contain a smaller group, n
 - The nearest ancestor that sets `--scale-group<N>` wins, through normal CSS inheritance. A group 2 component that sets `--scale-group1` hides the `--scale-group1` set by a group 3 component further out. Flat CSS rules with fallbacks are enough. No rule needs to know the nesting depth.
 - Text has no group. It follows the component that renders it.
 
+## Naming components
+
+- Refer to components by their PascalCase name: `Button`, `IconButton`, `DropdownMenu`, `StatusDot`.
+- A component's parts belong to it and are never listed as components. The Slider thumb is part of `Slider`, and the Switch thumb is part of `Switch`.
+- A glyph inside a component is the `Icon` component. The chevron in `Select` and the checkmark in `Checkbox` are each an `Icon` inside that component.
+
 The group list is still a proposal: see `experiments/002-group-map`. Only the global scale is built so far.
 
 ## Workflow
