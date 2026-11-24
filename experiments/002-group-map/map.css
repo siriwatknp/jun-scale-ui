@@ -128,8 +128,8 @@ body {
 }
 
 .status-dot {
-  width: calc(8px * var(--scale));
-  height: calc(8px * var(--scale));
+  width: calc(8px * var(--scale) * var(--scale-group1, 1));
+  height: calc(8px * var(--scale) * var(--scale-group1, 1));
   border-radius: 50%;
   background: var(--green-9);
 }

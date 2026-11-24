@@ -7,9 +7,9 @@ function parseSpec(spec) {
     .trim()
     .split(/\s+/)
     .map((entry) => {
-      const base = entry.match(/^([a-z-]+)=([\d.]+)$/);
+      const base = entry.match(/^([a-z-]+)=([\d.]+)(?:@(\d+))?$/);
       if (base) {
-        return { property: base[1], base: Number(base[2]) };
+        return { property: base[1], base: Number(base[2]), group: base[3] };
       }
       const [property, token] = entry.split(":");
       return { property, token };
@@ -47,15 +47,21 @@ function formatPixels(value) {
   return value.endsWith("px") ? `${Math.round(parseFloat(value) * 10) / 10}px` : value;
 }
 
-function describe(element, { property, token, base }) {
+function describe(element, { property, token, base, group }) {
   const style = getComputedStyle(element);
   const actual = style.getPropertyValue(property);
   if (base !== undefined) {
     const scale = style.getPropertyValue("--scale").trim();
-    const expected = resolveOnSibling(element, property, `calc(${base}px * var(--scale))`);
+    const groupVariable = `--scale-group${group}`;
+    const groupFactor = group ? style.getPropertyValue(groupVariable).trim() || "1" : null;
+    const formula = group
+      ? `calc(${base}px * var(--scale) * var(${groupVariable}, 1))`
+      : `calc(${base}px * var(--scale))`;
+    const expected = resolveOnSibling(element, property, formula);
     const matches = valuesMatch(actual, expected);
     const verdict = matches ? "✓" : `✗ expected ${formatPixels(expected)}`;
-    return { text: `${property}: ${formatPixels(actual)} = ${base} × ${scale} ${verdict}`, matches };
+    const factors = group ? `${scale} × g${group} ${groupFactor}` : scale;
+    return { text: `${property}: ${formatPixels(actual)} = ${base} × ${factors} ${verdict}`, matches };
   }
   if (!token) {
     return { text: `${property}: ${formatPixels(actual)}`, matches: true };

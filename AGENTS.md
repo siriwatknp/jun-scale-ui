@@ -6,7 +6,7 @@ jun-scale-ui is a minimal CSS framework built around a scaling system. UI scales
 
 - `experiments/NNN-name/index.html` holds one experiment per folder. Number them in order and add a link to `index.html` at the root.
 - `src/scale.css` is the framework. It defines `--scale`, a plain number that defaults to `1`.
-- `adapters/radix-themes.css` makes Radix Themes components follow `--scale`. It points Radix's `--scaling` at `--scale` and scales the icons that Radix sizes with HTML attributes.
+- `adapters/radix-themes.css` makes Radix Themes components follow `--scale` and the group factors. It assigns each Radix component root to a group, recomputes Radix's size tokens on that root, and scales the icons that Radix sizes with HTML attributes.
 - `vendor/radix-themes@3.3.0/` is the Radix Themes stylesheet, used only to render components in the playground. Its license is next to it.
 - `tools/annotate.js` draws value labels on a page for screenshots.
 - `tools/scale-control.js` sets `--scale` on the root from the `?scale=` URL parameter and from any `[data-scale-input]` slider.
@@ -28,7 +28,19 @@ Components are sorted into groups. A bigger group may contain a smaller group, n
 - A component's parts belong to it and are never listed as components. The Slider thumb is part of `Slider`, and the Switch thumb is part of `Switch`.
 - A glyph inside a component is the `Icon` component. The chevron in `Select` and the checkmark in `Checkbox` are each an `Icon` inside that component.
 
-The group list is still a proposal: see `experiments/002-group-map`. Only the global scale is built so far.
+Groups, smallest first. Each component has one default size, which is its base size:
+
+| N | Group | Base size | Components |
+| --- | --- | --- | --- |
+| 1 | Dot | 8px | StatusDot |
+| 2 | Icon | 15–16px | Icon, Spinner |
+| 3 | Inline | 16–21px | Badge, Kbd, Checkbox, Radio, Switch |
+| 4 | BigInline | 24–32px | Avatar |
+| 5 | Control | 32–64px | Button, IconButton, Input, Select, Combobox, TextArea, Slider, Progress |
+| 6 | Panel | fits its content | Callout, DropdownMenu |
+| 7 | Container | layout | Card, Dialog, Popover (not built yet) |
+
+Radix components need their tokens recomputed on their own root, because Radix declares `--space-*`, `--font-size-*`, `--line-height-*` and `--radius-*` once on `.radix-themes`. A custom property is resolved where it is declared, so a scale change lower in the tree would not reach those tokens otherwise. The adapter does this for every component root it assigns to a group.
 
 ## Workflow
 
@@ -52,6 +64,7 @@ Mark elements with `data-annotate`, a space-separated list of entries. `data-ann
 | `height` | `height: 32px` | none |
 | `height:--space-6` | `height: 32px ← --space-6 ✓` | the computed value equals the token |
 | `height=32` | `height: 35.2px = 32 × 1.1 ✓` | the computed value equals `32px × --scale` |
+| `height=32@5` | `height: 24px = 32 × 1 × g5 0.75 ✓` | the computed value equals `32px × --scale × --scale-group5` |
 
 ```html
 <button data-annotate="height=32 font-size=14"></button>

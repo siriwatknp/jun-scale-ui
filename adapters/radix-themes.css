@@ -2,12 +2,116 @@
   --scaling: var(--scale);
 }
 
+.rt-Spinner {
+  --scaling: calc(var(--scale) * var(--scale-group2, 1));
+}
+
+.rt-Badge,
+.rt-Kbd,
+.rt-BaseCheckboxRoot,
+.rt-BaseRadioRoot,
+.rt-SwitchRoot {
+  --scaling: calc(var(--scale) * var(--scale-group3, 1));
+}
+
+.rt-AvatarRoot {
+  --scaling: calc(var(--scale) * var(--scale-group4, 1));
+}
+
+.rt-Button,
+.rt-IconButton,
+.rt-TextFieldRoot,
+.rt-TextAreaRoot,
+.rt-SelectTrigger,
+.rt-SelectContent,
+.rt-SliderRoot,
+.rt-ProgressRoot {
+  --scaling: calc(var(--scale) * var(--scale-group5, 1));
+}
+
+.rt-CalloutRoot,
+.rt-BaseMenuContent {
+  --scaling: calc(var(--scale) * var(--scale-group6, 1));
+}
+
+:is(
+    .rt-Spinner,
+    .rt-Badge,
+    .rt-Kbd,
+    .rt-BaseCheckboxRoot,
+    .rt-BaseRadioRoot,
+    .rt-SwitchRoot,
+    .rt-AvatarRoot,
+    .rt-Button,
+    .rt-IconButton,
+    .rt-TextFieldRoot,
+    .rt-TextAreaRoot,
+    .rt-SelectTrigger,
+    .rt-SelectContent,
+    .rt-SliderRoot,
+    .rt-ProgressRoot,
+    .rt-CalloutRoot,
+    .rt-BaseMenuContent
+  ) {
+  --space-1: calc(4px * var(--scaling));
+  --space-2: calc(8px * var(--scaling));
+  --space-3: calc(12px * var(--scaling));
+  --space-4: calc(16px * var(--scaling));
+  --space-5: calc(24px * var(--scaling));
+  --space-6: calc(32px * var(--scaling));
+  --space-7: calc(40px * var(--scaling));
+  --space-8: calc(48px * var(--scaling));
+  --space-9: calc(64px * var(--scaling));
+  --font-size-1: calc(12px * var(--scaling));
+  --font-size-2: calc(14px * var(--scaling));
+  --font-size-3: calc(16px * var(--scaling));
+  --font-size-4: calc(18px * var(--scaling));
+  --font-size-5: calc(20px * var(--scaling));
+  --font-size-6: calc(24px * var(--scaling));
+  --font-size-7: calc(28px * var(--scaling));
+  --font-size-8: calc(35px * var(--scaling));
+  --font-size-9: calc(60px * var(--scaling));
+  --line-height-1: calc(16px * var(--scaling));
+  --line-height-2: calc(20px * var(--scaling));
+  --line-height-3: calc(24px * var(--scaling));
+  --line-height-4: calc(26px * var(--scaling));
+  --line-height-5: calc(28px * var(--scaling));
+  --line-height-6: calc(30px * var(--scaling));
+  --line-height-7: calc(36px * var(--scaling));
+  --line-height-8: calc(40px * var(--scaling));
+  --line-height-9: calc(60px * var(--scaling));
+  --heading-line-height-1: calc(16px * var(--scaling));
+  --heading-line-height-2: calc(18px * var(--scaling));
+  --heading-line-height-3: calc(22px * var(--scaling));
+  --heading-line-height-4: calc(24px * var(--scaling));
+  --heading-line-height-5: calc(26px * var(--scaling));
+  --heading-line-height-6: calc(30px * var(--scaling));
+  --heading-line-height-7: calc(36px * var(--scaling));
+  --heading-line-height-8: calc(40px * var(--scaling));
+  --heading-line-height-9: calc(60px * var(--scaling));
+  --radius-1: calc(3px * var(--scaling) * var(--radius-factor));
+  --radius-2: calc(4px * var(--scaling) * var(--radius-factor));
+  --radius-3: calc(6px * var(--scaling) * var(--radius-factor));
+  --radius-4: calc(8px * var(--scaling) * var(--radius-factor));
+  --radius-5: calc(12px * var(--scaling) * var(--radius-factor));
+  --radius-6: calc(16px * var(--scaling) * var(--radius-factor));
+}
+
+.rt-BaseCheckboxRoot.rt-r-size-2 {
+  --checkbox-indicator-size: calc(10px * var(--scale) * var(--scale-group2, 1));
+}
+
+.rt-SelectContent.rt-r-size-2 .rt-SelectItemIndicatorIcon {
+  width: calc(10px * var(--scale) * var(--scale-group2, 1));
+  height: calc(10px * var(--scale) * var(--scale-group2, 1));
+}
+
 :where(.radix-themes) :where(svg[width="15"][height="15"]) {
-  width: calc(15px * var(--scale));
-  height: calc(15px * var(--scale));
+  width: calc(15px * var(--scale) * var(--scale-group2, 1));
+  height: calc(15px * var(--scale) * var(--scale-group2, 1));
 }
 
 :where(.radix-themes) :where(svg[width="9"][height="9"]) {
-  width: calc(9px * var(--scale));
-  height: calc(9px * var(--scale));
+  width: calc(9px * var(--scale) * var(--scale-group2, 1));
+  height: calc(9px * var(--scale) * var(--scale-group2, 1));
 }
