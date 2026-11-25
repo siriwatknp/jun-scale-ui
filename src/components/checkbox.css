@@ -1,5 +1,5 @@
 .Checkbox {
-  --scale-group2: 0.5;
+  --scale-group2: calc(0.5 * var(--scale-group3));
   position: relative;
   display: inline-grid;
   place-items: center;

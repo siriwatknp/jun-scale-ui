@@ -4,7 +4,7 @@ A minimal CSS framework built around a scaling system. UI scales without fixed s
 
 Set `--scale` on the root, or on any container, to resize every component inside it. Each component has one default size and follows the scale for width, height, margin, padding, font size, line height and border radius.
 
-Components are sorted into seven groups, from `Dot` to `Container`. Set `--scale-group<N>` on a container to resize the components of group N inside it, along with everything those components contain. A component renders at `--scale` × its own group factor × the factor of each bigger component around it, with each group counted once. `PRINCIPLE.md` states the full rules.
+Components are sorted into seven groups, from `Dot` to `Container`. A component in group N renders at `--scale × --scale-group<N>`. Set `--scale-group<N>` on a container to resize the components of group N inside it. Each component passes its factor down to the smaller groups inside it, so a `Button` scaled with `--scale-group5` takes its `Icon` along. `PRINCIPLE.md` states the full rules.
 
 Use steps of 0.25 for `--scale` and every `--scale-group<N>`, such as 0.75, 1, 1.25 or 1.5. All base sizes are multiples of 4px, so these values keep every edge on a whole pixel. Other values work too, but a centered part such as a `Switch` thumb can end up 1px off.
 

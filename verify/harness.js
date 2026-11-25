@@ -227,7 +227,7 @@ function testFactorBehavior() {
   expectEqual("a group factor carries into the components inside", "Icon inside that Button", measure("Button", "--scale-group5: 0.75", ".Button .Icon", "width"), buttonIcon * 0.75);
   expectEqual("a group factor carries into the components inside", "Button with --scale-group5: 1.2 set on itself", measure("ButtonScaled", "", ".Button", "height"), buttonHeight * 1.2);
   expectEqual("a group factor carries into the components inside", "Icon inside that Button", measure("ButtonScaled", "", ".Button .Icon", "width"), buttonIcon * 1.2);
-  expectEqual("a group factor carries into the components inside", "Badge inside a Button that sets its factor, with --scale-group5: 0.75", measure("ButtonWithBadge", "--scale-group5: 0.75", ".Badge", "height"), badgeHeight * 0.5 * 0.75);
+  expectEqual("a user factor on the component is used as it is", "Badge factor 0.5 set on a Button, with --scale-group5: 0.75 around it", measure("ButtonWithBadge", "--scale-group5: 0.75", ".Badge", "height"), badgeHeight * 0.5);
   expectEqual("a group factor carries into the components inside", "Checkbox with --scale-group3: 0.5", measure("Checkbox", "--scale-group3: 0.5", ".Checkbox", "width"), checkboxWidth * 0.5);
   expectEqual("a group factor carries into the components inside", "checkmark Icon inside that Checkbox", measure("Checkbox", "--scale-group3: 0.5", ".Checkbox .Icon", "width"), checkboxIcon * 0.5);
   expectEqual("a group factor carries into the components inside", "Avatar inside Select with --scale-group5: 0.75", measure("Select", "--scale-group5: 0.75", ".Avatar", "width"), measure("Select", "", ".Avatar", "width") * 0.75);
@@ -239,7 +239,7 @@ function testFactorBehavior() {
   expectEqual("global scale times group factor", `Badge with ${both}`, measure("Badge", both, ".Badge", "height"), badgeHeight * 1.25);
 
   expectEqual("nearest value wins", "standalone Icon with --scale-group2: 1.5", measure("Icon", "--scale-group2: 1.5", ".Icon", "width"), icon * 1.5);
-  expectEqual("nearest value wins", "Icon in Button with --scale-group2: 1.5", measure("Button", "--scale-group2: 1.5", ".Button .Icon", "width"), buttonIcon * 1.5);
+  expectEqual("nearest value wins", "Icon in Button ignores a page --scale-group2: 1.5, because the Button passes its own", measure("Button", "--scale-group2: 1.5", ".Button .Icon", "width"), buttonIcon);
   expectEqual("nearest value wins", "Checkbox Icon keeps the factor Checkbox sets", measure("Checkbox", "--scale-group2: 1.5", ".Checkbox .Icon", "width"), checkboxIcon);
   expectEqual("nearest value wins", "Callout Icon keeps the factor Callout sets", measure("Callout", "--scale-group2: 1.5", ".Callout .Icon", "width"), calloutIcon);
   expectEqual("nearest value wins", "inner --scale-group5: 1.5 inside outer 0.5", measure("Button", "--scale-group5: 0.5", ".Button", "height", "--scale-group5: 1.5"), buttonHeight * 1.5);

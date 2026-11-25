@@ -1,5 +1,5 @@
 .Callout {
-  --scale-group2: 0.75;
+  --scale-group2: calc(0.75 * var(--scale-group6));
   --Callout-icon-offset: calc(var(--space-1) * var(--component-scale));
   display: flex;
   align-items: flex-start;

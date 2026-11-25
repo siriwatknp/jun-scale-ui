@@ -1,10 +1,11 @@
 .StatusDot {
-  --applied-group1: var(--scale-group1);
+  --component-scale: calc(var(--scale) * var(--scale-group1));
 }
 
 .Icon,
 .Spinner {
-  --applied-group2: var(--scale-group2);
+  --component-scale: calc(var(--scale) * var(--scale-group2));
+  --scale-group1: var(--scale-group2);
 }
 
 .Badge,
@@ -12,11 +13,16 @@
 .Checkbox,
 .Radio,
 .Switch {
-  --applied-group3: var(--scale-group3);
+  --component-scale: calc(var(--scale) * var(--scale-group3));
+  --scale-group1: var(--scale-group3);
+  --scale-group2: var(--scale-group3);
 }
 
 .Avatar {
-  --applied-group4: var(--scale-group4);
+  --component-scale: calc(var(--scale) * var(--scale-group4));
+  --scale-group1: var(--scale-group4);
+  --scale-group2: var(--scale-group4);
+  --scale-group3: var(--scale-group4);
 }
 
 .Button,
@@ -28,42 +34,19 @@
 .Slider,
 .Progress,
 .Field {
-  --applied-group5: var(--scale-group5);
+  --component-scale: calc(var(--scale) * var(--scale-group5));
+  --scale-group1: var(--scale-group5);
+  --scale-group2: var(--scale-group5);
+  --scale-group3: var(--scale-group5);
+  --scale-group4: var(--scale-group5);
 }
 
 .Callout,
 .DropdownMenu {
-  --applied-group6: var(--scale-group6);
-}
-
-.StatusDot,
-.Icon,
-.Spinner,
-.Badge,
-.Kbd,
-.Checkbox,
-.Radio,
-.Switch,
-.Avatar,
-.Button,
-.IconButton,
-.Input,
-.Select,
-.Combobox,
-.TextArea,
-.Slider,
-.Progress,
-.Field,
-.Callout,
-.DropdownMenu {
-  --component-scale: calc(
-    var(--scale) *
-    var(--applied-group1) *
-    var(--applied-group2) *
-    var(--applied-group3) *
-    var(--applied-group4) *
-    var(--applied-group5) *
-    var(--applied-group6) *
-    var(--applied-group7)
-  );
+  --component-scale: calc(var(--scale) * var(--scale-group6));
+  --scale-group1: var(--scale-group6);
+  --scale-group2: var(--scale-group6);
+  --scale-group3: var(--scale-group6);
+  --scale-group4: var(--scale-group6);
+  --scale-group5: var(--scale-group6);
 }

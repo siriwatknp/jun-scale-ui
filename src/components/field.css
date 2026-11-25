@@ -15,7 +15,7 @@
 }
 
 .Field-label {
-  --scale-group3: 0.8;
+  --scale-group3: calc(0.8 * var(--scale-group5));
   display: flex;
   align-items: center;
   gap: calc(var(--space-1) * var(--component-scale));
@@ -25,7 +25,7 @@
 
 .Field-help,
 .Field-error {
-  --scale-group3: 0.8;
+  --scale-group3: calc(0.8 * var(--scale-group5));
   margin: 0;
   font-size: calc(var(--font-size-1) * var(--component-scale));
   line-height: calc(var(--line-height-1) * var(--component-scale));

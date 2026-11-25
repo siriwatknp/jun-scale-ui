@@ -88,18 +88,14 @@ function specRows(columns) {
     const targetsPerColumn = columns.map((column) => column.querySelectorAll("[data-spec]")[targetIndex]);
 
     rows.push([
-      labelCell(name, `scale × outer × g${group}`),
+      labelCell(name, `scale × g${group}`),
       ...targetsPerColumn.map((element) => {
         const ownerElement = ownerOf(element);
         const scale = readNumber(ownerElement, "--scale");
-        const ownFactor = readNumber(ownerElement, `--scale-group${group}`);
-        const applied = Object.keys(GROUPS).map((number) => ({ number, value: readNumber(ownerElement, `--applied-group${number}`) }));
+        const groupFactor = readNumber(ownerElement, `--scale-group${group}`);
         const componentScale = readNumber(ownerElement, "--component-scale");
-        const expected = scale * applied.reduce((product, { value }) => product * value, 1);
-        const ownApplied = applied.find(({ number }) => Number(number) === group).value;
-        const passed = Math.abs(componentScale - expected) <= SCALE_TOLERANCE && Math.abs(ownApplied - ownFactor) <= SCALE_TOLERANCE;
-        const outer = applied.filter(({ number, value }) => Number(number) !== group && value !== 1).map(({ number, value }) => ` × g${number} ${round(value)}`).join("");
-        return resultCell(`${round(scale)}${outer} × ${round(ownFactor)}`, passed);
+        const passed = Math.abs(componentScale - scale * groupFactor) <= SCALE_TOLERANCE;
+        return resultCell(`${round(scale)} × ${round(groupFactor)}`, passed);
       }),
     ]);
 
