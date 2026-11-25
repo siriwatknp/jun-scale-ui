@@ -1,6 +1,6 @@
 # Scaling principle
 
-Version 4
+Version 5
 
 This document states how jun-scale-ui scales components. It says what must be true, not how to write it. An implementation is correct when every rule here holds.
 
@@ -54,12 +54,12 @@ A component renders at its effective scale: the global scale, times the factor o
 
 Each group counts once. For each group, the factor used is the one in force at the nearest component of that group that encloses this component, or at the component itself for its own group. A group with no such component counts as 1.
 
-Some examples, with a `Button` (group 5) whose default `Icon` factor is 0.8:
+Some examples, with a `Button` (group 5) that sets the factor of its `Icon` to 0.75:
 
-- Nothing set: the `Button` renders at 1 and its `Icon` at 0.8.
-- `--scale-group5: 1.2` on the `Button` or on a container around it: the `Button` renders at 1.2 and its `Icon` at 1.2 × 0.8 = 0.96. The `Icon` keeps its proportion to the `Button`.
-- `--scale: 1.5` on a container: the `Button` renders at 1.5 and its `Icon` at 1.5 × 0.8 = 1.2.
-- An `Input` (group 5) inside a `Field` (group 5) with `--scale-group5: 1.2` renders at 1.2, not 1.2 × 1.2, because group 5 counts once.
+- Nothing set: the `Button` renders at 1 and its `Icon` at 0.75.
+- `--scale-group5: 1.5` on the `Button` or on a container around it: the `Button` renders at 1.5 and its `Icon` at 1.5 × 0.75 = 1.125. The `Icon` keeps its proportion to the `Button`.
+- `--scale: 1.25` on a container: the `Button` renders at 1.25 and its `Icon` at 1.25 × 0.75 = 0.9375.
+- An `Input` (group 5) inside a `Field` (group 5) with `--scale-group5: 1.5` renders at 1.5, not 1.5 × 1.5, because group 5 counts once.
 - A standalone `Icon` next to the `Button` is not inside a group 5 component, so `--scale-group5` does not change it.
 
 A value that is not a valid number is ignored. The valid value set further out applies instead, or 1 when no element further out sets one. The same holds for `--scale`.
@@ -80,7 +80,7 @@ Any element may set `--scale-group<N>`: a page container, a component or a part.
 
 ### 8. Parts, glyphs and text
 
-- A part uses the effective scale of its component. Setting `--scale` or a group factor on a part does not change the part itself. It only changes components inside the part.
+- A part uses the effective scale of its component. Setting `--scale` or a group factor on a part does not change the part itself. It changes a component inside the part only where rule 5 reads that value there: `--scale`, and the factor of that component's own group. The factor of a bigger group is read at the component of that group, so setting `--scale-group5` on a part of a `Select` does not change the `Avatar` inside it.
 - A size that a component applies to a child component, such as a margin that places the child, uses the effective scale of the component that applies it, not the child's. The child's own sizes still use the child's effective scale.
 - When a child component must be centered inside a box of its parent, center it with layout alignment rather than a fixed offset. The child's size depends on its own group factor, which a user can change, so a fixed offset worked out for one size would be wrong for another.
 - A glyph inside a component, such as a chevron or a checkmark, is the `Icon` component, not a part. It follows group 2.
