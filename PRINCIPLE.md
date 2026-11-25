@@ -1,14 +1,14 @@
 # Scaling principle
 
-Version 1
+Version 2
 
 This document states how jun-scale-ui scales components. It says what must be true, not how to write it. An implementation is correct when every rule here holds.
 
 ## Terms
 
 - **Component**: a reusable piece of UI with a PascalCase name, such as `Button` or `Icon`.
-- **Part**: an element that belongs to one component and is never used on its own, such as the thumb of a `Switch`.
-- **Base size**: a size of a component when every scale is 1.
+- **Part**: a box that belongs to one component and is never used on its own, such as the thumb of a `Switch`. A part is a child element or a pseudo-element. It is never only painted, for example with a background gradient, because painted shapes don't snap to whole pixels the way boxes do.
+- **Base size**: a size of a component when every scale is 1. Sizes are outer sizes: a 32px box with a 1px border is 32px tall in total.
 - **Global scale**: the number in `--scale`.
 - **Group**: a numbered size class. Every component belongs to exactly one group.
 - **Group factor**: the number in `--scale-group<N>` for group N.
@@ -24,15 +24,19 @@ Each component has one default size, made of its base sizes. There are no size v
 
 These properties equal base size × effective scale: width, height, minimum and maximum width and height, margin, padding, gap, position offsets (top, right, bottom, left and translations), font size, line height and border radius.
 
-Border widths and outline widths do not scale.
+Border widths and outline widths do not scale. They are not part of the base size arithmetic: a 1px border on both sides of a box does not change where its centered content lands.
+
+Shadows and outline offsets are decoration. They may scale or not. An SVG drawing scales with the box it is drawn in, including its strokes.
 
 ### 3. The global scale
 
-`--scale` is a number. It is 1 unless set. It can be set on the root or on any element, and it applies to everything inside that element. When an element inside sets `--scale` again, that nearer value replaces the outer one for everything inside it.
+`--scale` is a number. It is 1 unless set. It can be set on the root or on any element, and it applies to every component inside that element. When an element inside sets `--scale` again, that nearer value replaces the outer one for everything inside it.
 
 ### 4. Groups
 
 Groups are numbered from 1, the smallest, upward. A component may contain components of a smaller group or of its own group. It never contains a component of a bigger group.
+
+The base size column gives the height of the component's main box. Widths, and the heights of components that stack several rows, can be larger.
 
 | N | Group | Base size | Components |
 | --- | --- | --- | --- |
@@ -46,7 +50,9 @@ Groups are numbered from 1, the smallest, upward. A component may contain compon
 
 ### 5. Effective scale
 
-A component in group N renders at `--scale × --scale-group<N>`. A group factor that is not set, or is not a valid number, counts as 1. The same holds for `--scale`. The global scale always applies, so a group factor of 0.8 under a global scale of 1.2 gives 0.96.
+A component in group N renders at `--scale × --scale-group<N>`. The global scale always applies, so a group factor of 0.8 under a global scale of 1.2 gives 0.96.
+
+A value that is not a valid number is ignored, as if it were not set. The value set further out then applies, or 1 when no element sets it. The same holds for `--scale`.
 
 ### 6. The nearest value wins
 
@@ -58,14 +64,15 @@ Factors do not multiply along the nesting. A factor for group 5 changes componen
 
 Any element may set `--scale-group<N>`: a page container, a component or a part.
 
-- A component may set the factor for a smaller group it contains, so that the child fits. For example, `Checkbox` sets the `Icon` factor so its checkmark is smaller than the box.
+- A component may set the factor for a smaller group it contains, so that the child fits. For example, `Checkbox` sets the `Icon` factor so its checkmark is smaller than the box. It sets the factor on its own root element, not on a part, so that a user can still override it on the component.
 - A component never sets the factor of its own group, because that would also change the component itself. Components of the same group inside one another share one factor.
 - A user who wants to change a factor that a component sets must set it on that component or nearer, because the component's own value is nearer to its children than any outer container.
 
 ### 8. Parts, glyphs and text
 
-- A part uses the effective scale of its component.
+- A part uses the effective scale of its component. Setting `--scale` or a group factor on a part does not change the part itself. It only changes components inside the part.
 - A size that a component applies to a child component, such as a margin that places the child, uses the effective scale of the component that applies it, not the child's. The child's own sizes still use the child's effective scale.
+- When a child component must be centered inside a box of its parent, center it with layout alignment rather than a fixed offset. The child's size depends on its own group factor, which a user can change, so a fixed offset worked out for one size would be wrong for another.
 - A glyph inside a component, such as a chevron or a checkmark, is the `Icon` component, not a part. It follows group 2.
 - Text has no group. It follows the component or part that renders it.
 - When a child of the same group would not fit inside a component, build it as a part instead. For example, a small button inside `Input` is a part of `Input`, not an `IconButton`.
@@ -78,11 +85,14 @@ Base sizes are constants. Multiply a base size by the effective scale in the pro
 
 Browsers snap box edges to whole CSS pixels. A size or gap that lands on half a pixel rounds up on one side and down on the other, so a centered part ends up 1px off. Three constraints keep every edge on a whole pixel:
 
-- Every base size and offset of a box is a multiple of 4px. This includes line heights. Font sizes and border radius are exempt, because they never shift an edge.
-- A part or child centered inside another box differs from it by a multiple of 8px, so the gap on each side is a multiple of 4px.
-- Every group factor that a component sets is a multiple of 0.25, and it keeps the child's sizes on multiples of 4px.
+- Every base size and offset of a box is a multiple of 4px. Line heights are multiples of 4px too, so stacked lines stay on whole pixels. Font sizes and border radius are exempt, because they never shift an edge.
+- A box centered inside another box, whether a part or a child component, differs from it by a multiple of 8px, so the gap on each side is a multiple of 4px. Text is exempt: a line of text centered in a box may land on half a pixel, which is not visible the way a shifted box edge is.
+- Every group factor that a component sets maps the child's box sizes to multiples of 4px. For example, 0.5 or 0.75 on a 16px `Icon`, or 0.75 on a 32px `Avatar`.
 
-The rule for users follows: keep the effective scale of every component, `--scale × --scale-group<N>`, in steps of 0.25, such as 0.75, 1, 1.25 or 1.5. Every size and every centered gap then lands on a whole pixel. Setting each value in steps of 0.25 is not enough on its own: 0.75 × 0.5 gives 0.375. Other values work, but a centered part can be 1px off.
+The rules for users follow:
+
+- Set `--scale` in steps of 0.25, such as 0.75, 1, 1.25 or 1.5. Every size the components define then lands on a whole pixel, including sizes changed by the factors components set themselves.
+- When you set a group factor yourself, pick one that maps that group's base sizes to multiples of 4px: for example 0.5 or 0.75 for a 16px or 32px component, but not 0.5 for a 20px `Badge`, which gives 10px. Other factors work, but a centered child can then be 1px off.
 
 ## What users write
 

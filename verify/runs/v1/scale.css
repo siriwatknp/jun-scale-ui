@@ -1,0 +1,377 @@
+@property --_scale-global {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
+
+@property --_scale-factor {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
+
+@property --_scale-effective {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+:root {
+  --_color-text: #18181b;
+  --_color-muted: #71717a;
+  --_color-border: #a1a1aa;
+  --_color-surface: #ffffff;
+  --_color-subtle: #f4f4f5;
+  --_color-accent: #2563eb;
+  --_color-on-accent: #ffffff;
+}
+
+.StatusDot,
+.Icon,
+.Badge,
+.Checkbox,
+.Radio,
+.Switch,
+.Avatar,
+.Button,
+.Input,
+.Select,
+.Field,
+.Callout {
+  --_scale-global: var(--scale);
+  --_scale-effective: calc(var(--_scale-global) * var(--_scale-factor));
+  box-sizing: border-box;
+}
+
+.StatusDot {
+  --_scale-factor: var(--scale-group1);
+}
+
+.Icon {
+  --_scale-factor: var(--scale-group2);
+}
+
+.Badge,
+.Checkbox,
+.Radio,
+.Switch {
+  --_scale-factor: var(--scale-group3);
+}
+
+.Avatar {
+  --_scale-factor: var(--scale-group4);
+}
+
+.Button,
+.Input,
+.Select,
+.Field {
+  --_scale-factor: var(--scale-group5);
+}
+
+.Callout {
+  --_scale-factor: var(--scale-group6);
+}
+
+.StatusDot {
+  display: inline-block;
+  vertical-align: middle;
+  width: calc(8px * var(--_scale-effective));
+  height: calc(8px * var(--_scale-effective));
+  border-radius: 50%;
+  background: #16a34a;
+}
+
+.Icon {
+  display: inline-block;
+  vertical-align: middle;
+  flex: none;
+  width: calc(16px * var(--_scale-effective));
+  height: calc(16px * var(--_scale-effective));
+}
+
+.Badge {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  vertical-align: middle;
+  height: calc(20px * var(--_scale-effective));
+  padding: 0 calc(8px * var(--_scale-effective));
+  border-radius: calc(3px * var(--_scale-effective));
+  background: var(--_color-subtle);
+  color: var(--_color-text);
+  font-family: system-ui, sans-serif;
+  font-size: calc(12px * var(--_scale-effective));
+  line-height: calc(16px * var(--_scale-effective));
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.Checkbox {
+  --scale-group2: 0.5;
+  display: inline-grid;
+  place-items: center;
+  vertical-align: middle;
+}
+
+.Checkbox > * {
+  grid-area: 1 / 1;
+}
+
+.Checkbox-input {
+  appearance: none;
+  box-sizing: border-box;
+  margin: 0;
+  width: calc(16px * var(--_scale-effective));
+  height: calc(16px * var(--_scale-effective));
+  border: 1px solid var(--_color-border);
+  border-radius: calc(3px * var(--_scale-effective));
+  background: var(--_color-surface);
+  cursor: pointer;
+}
+
+.Checkbox-input:checked {
+  border-color: var(--_color-accent);
+  background: var(--_color-accent);
+}
+
+.Checkbox-input:focus-visible {
+  outline: 2px solid var(--_color-accent);
+  outline-offset: 2px;
+}
+
+.Checkbox > .Icon {
+  color: var(--_color-on-accent);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.Checkbox-input:checked + .Icon {
+  visibility: visible;
+}
+
+.Radio {
+  appearance: none;
+  margin: 0;
+  vertical-align: middle;
+  width: calc(16px * var(--_scale-effective));
+  height: calc(16px * var(--_scale-effective));
+  border: 1px solid var(--_color-border);
+  border-radius: 50%;
+  background: var(--_color-surface);
+  cursor: pointer;
+}
+
+.Radio:checked {
+  border-color: var(--_color-accent);
+  background-image: radial-gradient(
+    circle closest-side,
+    var(--_color-accent) calc(100% - 0.75px),
+    transparent 100%
+  );
+  background-size: calc(8px * var(--_scale-effective)) calc(8px * var(--_scale-effective));
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.Radio:focus-visible {
+  outline: 2px solid var(--_color-accent);
+  outline-offset: 2px;
+}
+
+.Switch {
+  appearance: none;
+  margin: 0;
+  vertical-align: middle;
+  width: calc(40px * var(--_scale-effective));
+  height: calc(24px * var(--_scale-effective));
+  border: 0;
+  border-radius: calc(12px * var(--_scale-effective));
+  background-color: #d4d4d8;
+  background-image: radial-gradient(
+    circle closest-side,
+    var(--_color-surface) calc(100% - 0.75px),
+    transparent 100%
+  );
+  background-size: calc(16px * var(--_scale-effective)) calc(16px * var(--_scale-effective));
+  background-position: left calc(4px * var(--_scale-effective)) center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.Switch:checked {
+  background-color: var(--_color-accent);
+  background-position: right calc(4px * var(--_scale-effective)) center;
+}
+
+.Switch:focus-visible {
+  outline: 2px solid var(--_color-accent);
+  outline-offset: 2px;
+}
+
+.Avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  vertical-align: middle;
+  width: calc(32px * var(--_scale-effective));
+  height: calc(32px * var(--_scale-effective));
+  border-radius: 50%;
+  background: #e0e7ff;
+  color: #3730a3;
+  font-family: system-ui, sans-serif;
+  font-size: calc(14px * var(--_scale-effective));
+  line-height: calc(20px * var(--_scale-effective));
+  font-weight: 600;
+}
+
+.Button {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  margin: 0;
+  height: calc(32px * var(--_scale-effective));
+  padding: 0 calc(12px * var(--_scale-effective));
+  gap: calc(8px * var(--_scale-effective));
+  border: 0;
+  border-radius: calc(4px * var(--_scale-effective));
+  background: var(--_color-accent);
+  color: var(--_color-on-accent);
+  font-family: system-ui, sans-serif;
+  font-size: calc(14px * var(--_scale-effective));
+  line-height: calc(20px * var(--_scale-effective));
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.Button:focus-visible {
+  outline: 2px solid var(--_color-accent);
+  outline-offset: 2px;
+}
+
+.Input {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  width: calc(180px * var(--_scale-effective));
+  height: calc(32px * var(--_scale-effective));
+  padding: 0 calc(8px * var(--_scale-effective));
+  gap: calc(8px * var(--_scale-effective));
+  border: 1px solid var(--_color-border);
+  border-radius: calc(4px * var(--_scale-effective));
+  background: var(--_color-surface);
+  color: var(--_color-muted);
+  font-family: system-ui, sans-serif;
+  font-size: calc(14px * var(--_scale-effective));
+  line-height: calc(20px * var(--_scale-effective));
+  cursor: text;
+}
+
+.Input:focus-within {
+  outline: 2px solid var(--_color-accent);
+  outline-offset: -1px;
+}
+
+.Input-field {
+  flex: 1;
+  min-width: 0;
+  height: calc(20px * var(--_scale-effective));
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: none;
+  color: var(--_color-text);
+  font: inherit;
+}
+
+.Input-field::placeholder {
+  color: var(--_color-muted);
+}
+
+.Select {
+  --scale-group4: 0.75;
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.Select-trigger {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  margin: 0;
+  height: calc(32px * var(--_scale-effective));
+  padding: 0 calc(12px * var(--_scale-effective));
+  gap: calc(8px * var(--_scale-effective));
+  border: 1px solid var(--_color-border);
+  border-radius: calc(4px * var(--_scale-effective));
+  background: var(--_color-surface);
+  color: var(--_color-text);
+  font-family: system-ui, sans-serif;
+  font-size: calc(14px * var(--_scale-effective));
+  line-height: calc(20px * var(--_scale-effective));
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.Select-trigger:focus-visible {
+  outline: 2px solid var(--_color-accent);
+  outline-offset: 2px;
+}
+
+.Field {
+  display: flex;
+  flex-direction: column;
+  width: calc(240px * var(--_scale-effective));
+  gap: calc(8px * var(--_scale-effective));
+  font-family: system-ui, sans-serif;
+}
+
+.Field > .Input {
+  width: auto;
+}
+
+.Field-label {
+  color: var(--_color-text);
+  font-size: calc(14px * var(--_scale-effective));
+  line-height: calc(20px * var(--_scale-effective));
+  font-weight: 500;
+}
+
+.Field-help {
+  margin: 0;
+  color: var(--_color-muted);
+  font-size: calc(12px * var(--_scale-effective));
+  line-height: calc(16px * var(--_scale-effective));
+}
+
+.Callout {
+  --scale-group2: 0.75;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: calc(20px * var(--_scale-effective)) auto;
+  column-gap: calc(12px * var(--_scale-effective));
+  row-gap: 0;
+  max-width: calc(180px * var(--_scale-effective));
+  padding: calc(16px * var(--_scale-effective));
+  border-radius: calc(6px * var(--_scale-effective));
+  background: #eff6ff;
+  color: #1e3a8a;
+  font-family: system-ui, sans-serif;
+  font-size: calc(14px * var(--_scale-effective));
+  line-height: calc(20px * var(--_scale-effective));
+}
+
+.Callout > .Icon {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center;
+}
+
+.Callout-text {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  margin: 0;
+}
