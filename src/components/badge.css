@@ -4,7 +4,7 @@
   gap: calc(var(--space-1) * var(--component-scale));
   box-sizing: border-box;
   height: calc(20px * var(--component-scale));
-  padding-inline: calc(6px * var(--component-scale));
+  padding-inline: calc(var(--space-2) * var(--component-scale));
   border-radius: calc(var(--radius-1) * var(--component-scale));
   background: var(--color-accent-soft);
   color: var(--color-accent-text);

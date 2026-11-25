@@ -1,7 +1,7 @@
 const GROUPS = {
   1: { name: "Dot", base: "8px", contains: "nothing", components: ["StatusDot"] },
-  2: { name: "Icon", base: "15–16px", contains: "Dot", components: ["Icon", "Spinner"] },
-  3: { name: "Inline", base: "16–20px", contains: "Icon, Dot", components: ["Badge", "Kbd", "Checkbox", "Radio", "Switch"] },
+  2: { name: "Icon", base: "16px", contains: "Dot", components: ["Icon", "Spinner"] },
+  3: { name: "Inline", base: "16–24px", contains: "Icon, Dot", components: ["Badge", "Kbd", "Checkbox", "Radio", "Switch"] },
   4: { name: "BigInline", base: "24–32px", contains: "Inline, Icon, Dot", components: ["Avatar"] },
   5: {
     name: "Control",

@@ -26,7 +26,7 @@ Components are sorted into groups. A bigger group may contain a smaller group, n
 
 - A component in group N renders at `--scale × --scale-group<N>`. The global scale always applies, so a group at 0.8 under a global scale of 1.2 renders at 0.96.
 - The nearest ancestor that sets `--scale-group<N>` wins, through normal CSS inheritance. Flat CSS rules are enough. No rule needs to know the nesting depth.
-- A component, or one of its parts, may set the factor for a smaller group it contains. `Checkbox` sets `--scale-group2: 0.667`, so its checkmark `Icon` is 10px. `.Select-trigger` sets `--scale-group4: 0.625`, so an `Avatar` inside it is 20px. `.Field-label` and `.Field-help` set `--scale-group3: 0.8`, so a `Badge` or `Kbd` in label or help text is 16px, while a `Checkbox` next to the label stays 16px.
+- A component, or one of its parts, may set the factor for a smaller group it contains. `Checkbox` sets `--scale-group2: 0.5`, so its checkmark `Icon` is 8px. `Callout` sets `--scale-group2: 0.75`, so its `Icon` is 12px. `.Select-trigger` sets `--scale-group4: 0.75`, so an `Avatar` inside it is 24px. `.Field-label` and `.Field-help` set `--scale-group3: 0.8`, so a 20px `Badge` or `Kbd` in label or help text is 16px, while a `Checkbox` next to the label stays 16px.
 - A component may contain components of its own group, and they share one factor. It cannot set that factor for them, because the same variable also sets its own scale. `Field` holds `Input`, `Button` and `Select`, and they all follow `--scale-group5` together. When a same-group child would not fit, build it as a part instead: the button inside `Input` is the part `.Input-action` (24px), not an `IconButton` (32px).
 - Text has no group. It follows the component that renders it.
 
@@ -37,12 +37,26 @@ Groups, smallest first. Each component has one default size, which is its base s
 | N | Group | Base size | Components |
 | --- | --- | --- | --- |
 | 1 | Dot | 8px | StatusDot |
-| 2 | Icon | 15–16px | Icon, Spinner |
-| 3 | Inline | 16–20px | Badge, Kbd, Checkbox, Radio, Switch |
+| 2 | Icon | 16px | Icon, Spinner |
+| 3 | Inline | 16–24px | Badge, Kbd, Checkbox, Radio, Switch |
 | 4 | BigInline | 24–32px | Avatar |
 | 5 | Control | 32–64px | Button, IconButton, Input, Select, Combobox, TextArea, Slider, Progress, Field |
 | 6 | Panel | fits its content | Callout, DropdownMenu |
 | 7 | Container | layout | Card, Dialog, Popover (not built yet) |
+
+## Whole pixels
+
+The framework applies the scale exactly and never rounds. Browsers snap box edges to whole CSS pixels, so a size or gap that lands on half a pixel rounds up on one side and down on the other, and a centered part ends up 1px off. `experiments/004-pixel-snapping` measures this on the `Switch` thumb.
+
+The framework keeps three promises so that a simple rule works for users:
+
+- Every box size and offset has a base that is a multiple of 4px. Border radius is exempt, because a fractional radius only softens a curve.
+- A part centered inside another differs from it by a multiple of 8px, so the gap on each side is a multiple of 4px. The `Switch` track is 24px and its thumb 16px. A `Button` is 32px and its `Icon` 16px.
+- Every factor the framework sets is a step of 0.25, so it keeps those bases on whole pixels: 0.5 in `Checkbox`, 0.75 in `Callout` and `.Select-trigger`.
+
+One known exception: `.Field-label` and `.Field-help` set `--scale-group3: 0.8`, so a 20px `Badge` or `Kbd` fits their 20px text line at 16px. 0.75 would make it 15px, which is off center even at scale 1. With 0.8 the `Badge` padding becomes 6.4px, and its 2px gap above and below can be 1px off at quarter scales such as 0.75.
+
+The rule for users: set `--scale` and each `--scale-group<N>` in steps of 0.25, such as 0.75, 1, 1.25 or 1.5. Every size and every centered gap then lands on a whole pixel. Other values work, but some parts can be 1px off.
 
 ## Naming components
 

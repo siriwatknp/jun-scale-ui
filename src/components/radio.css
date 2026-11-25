@@ -19,8 +19,8 @@
 
 .Radio:checked::after {
   content: "";
-  width: calc(6px * var(--component-scale));
-  height: calc(6px * var(--component-scale));
+  width: calc(var(--space-2) * var(--component-scale));
+  height: calc(var(--space-2) * var(--component-scale));
   border-radius: var(--radius-full);
   background: var(--color-on-accent);
 }

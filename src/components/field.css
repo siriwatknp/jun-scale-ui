@@ -1,7 +1,7 @@
 .Field {
   display: flex;
   flex-direction: column;
-  gap: calc(6px * var(--component-scale));
+  gap: calc(var(--space-2) * var(--component-scale));
   box-sizing: border-box;
   width: calc(240px * var(--component-scale));
   font-size: calc(var(--font-size-2) * var(--component-scale));
@@ -99,7 +99,7 @@
   grid-template-columns: calc(80px * var(--component-scale)) minmax(0, 1fr);
   align-items: center;
   column-gap: calc(var(--space-3) * var(--component-scale));
-  row-gap: calc(6px * var(--component-scale));
+  row-gap: calc(var(--space-2) * var(--component-scale));
 }
 
 .Field[data-layout="horizontal"] > :not(.Field-label) {
@@ -111,7 +111,11 @@
   grid-template-columns: auto minmax(0, 1fr);
   align-items: start;
   column-gap: calc(var(--space-2) * var(--component-scale));
-  row-gap: calc(2px * var(--component-scale));
+  row-gap: 0;
+}
+
+.Field[data-layout="inline"] > .Field-label {
+  line-height: calc(var(--line-height-3) * var(--component-scale));
 }
 
 .Field[data-layout="inline"] > :first-child {
@@ -119,5 +123,5 @@
 }
 
 .Field[data-layout="inline"] > .Checkbox {
-  margin-top: calc(2px * var(--component-scale));
+  margin-top: calc(var(--space-1) * var(--component-scale));
 }

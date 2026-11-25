@@ -34,7 +34,7 @@
     </template>
 
     <template data-component="Icon">
-      <svg class="Icon" viewBox="0 0 15 15" data-spec="width=15 height=15"><use href="#icon-star" /></svg>
+      <svg class="Icon" viewBox="0 0 15 15" data-spec="width=16 height=16"><use href="#icon-star" /></svg>
     </template>
 
     <template data-component="Spinner">
@@ -42,15 +42,15 @@
     </template>
 
     <template data-component="Badge">
-      <span class="Badge" data-spec="height=20 padding-left=6 font-size=12 border-top-left-radius=3">New</span>
+      <span class="Badge" data-spec="height=20 padding-left=8 font-size=12 border-top-left-radius=3">New</span>
     </template>
 
     <template data-component="Kbd">
       <kbd class="Kbd" data-spec="height=20 padding-left=4 font-size=12">⌘K</kbd>
     </template>
 
-    <template data-component="Checkbox" data-note="sets --scale-group2: 0.667, so its Icon is 10px">
-      <label class="Row"><span class="Checkbox" data-spec="width=16 height=16"><input class="Checkbox-input" type="checkbox" checked /><svg class="Icon" viewBox="0 0 15 15" data-spec="width=15"><use href="#icon-check" /></svg></span>Agree to terms</label>
+    <template data-component="Checkbox" data-note="sets --scale-group2: 0.5, so its Icon is 8px">
+      <label class="Row"><span class="Checkbox" data-spec="width=16 height=16"><input class="Checkbox-input" type="checkbox" checked /><svg class="Icon" viewBox="0 0 15 15" data-spec="width=16"><use href="#icon-check" /></svg></span>Agree to terms</label>
     </template>
 
     <template data-component="Radio">
@@ -58,7 +58,7 @@
     </template>
 
     <template data-component="Switch">
-      <label class="Row"><input class="Switch" type="checkbox" role="switch" checked data-spec="width=36 height=20" />Sync</label>
+      <label class="Row"><input class="Switch" type="checkbox" role="switch" checked data-spec="width=40 height=24" />Sync</label>
     </template>
 
     <template data-component="Avatar">
@@ -66,7 +66,7 @@
     </template>
 
     <template data-component="Button" data-note="contains Icon">
-      <button class="Button" data-spec="height=32 padding-left=12 font-size=14 border-top-left-radius=4"><svg class="Icon" viewBox="0 0 15 15" data-spec="width=15"><use href="#icon-bookmark" /></svg>Bookmark</button>
+      <button class="Button" data-spec="height=32 padding-left=12 font-size=14 border-top-left-radius=4"><svg class="Icon" viewBox="0 0 15 15" data-spec="width=16"><use href="#icon-bookmark" /></svg>Bookmark</button>
     </template>
 
     <template data-component="IconButton" data-note="contains Icon">
@@ -107,11 +107,11 @@
     </template>
 
     <template data-component="Progress">
-      <progress class="Progress" value="60" max="100" data-spec="width=160 height=6"></progress>
+      <progress class="Progress" value="60" max="100" data-spec="width=160 height=8"></progress>
     </template>
 
     <template data-component="Field" data-title="Field · label, Input, help" data-note="contains Input">
-      <div class="Field" data-spec="width=240 row-gap=6">
+      <div class="Field" data-spec="width=240 row-gap=8">
         <label class="Field-label" data-spec="font-size=14">Email</label>
         <label class="Input" data-spec="height=32"><input class="Input-field" placeholder="you@example.com" /></label>
         <p class="Field-help" data-spec="font-size=12">We reply within a day.</p>
@@ -164,7 +164,7 @@
           <p class="Field-help" data-spec="font-size=12">A summary every Monday.</p>
         </div>
         <div class="Field" data-layout="inline">
-          <input class="Switch" type="checkbox" role="switch" checked data-spec="height=20" />
+          <input class="Switch" type="checkbox" role="switch" checked data-spec="height=24" />
           <label class="Field-label">Sync</label>
           <p class="Field-help">Keep settings on every device.</p>
         </div>
@@ -189,7 +189,7 @@
 
     <template data-component="Field" data-title="Field · every smaller group inside" data-note="Dot, Icon, Inline and BigInline inside one Field">
       <div class="Field">
-        <label class="Field-label">Assignee<span class="Badge" data-spec="height=20 font-size=12">Required</span><svg class="Icon" viewBox="0 0 15 15" data-spec="width=15"><use href="#icon-info" /></svg></label>
+        <label class="Field-label">Assignee<span class="Badge" data-spec="height=20 font-size=12">Required</span><svg class="Icon" viewBox="0 0 15 15" data-spec="width=16"><use href="#icon-info" /></svg></label>
         <div class="Select">
           <button class="Select-trigger" data-spec="height=32"><span class="Avatar" data-spec="width=32 font-size=14">AK</span>Alex Kim<span class="StatusDot" data-spec="width=8"></span><svg class="Icon" viewBox="0 0 15 15"><use href="#icon-chevron-down" /></svg></button>
         </div>
@@ -221,8 +221,8 @@
       </div>
     </template>
 
-    <template data-component="Callout" data-note="contains Icon">
-      <div class="Callout" data-spec="padding-top=16 font-size=14 border-top-left-radius=6"><svg class="Icon" viewBox="0 0 15 15" data-spec="width=15"><use href="#icon-info" /></svg><p class="Callout-text">You need admin access to install this app.</p></div>
+    <template data-component="Callout" data-note="contains Icon; sets --scale-group2: 0.75, so its Icon is 12px">
+      <div class="Callout" data-spec="padding-top=16 font-size=14 border-top-left-radius=6"><svg class="Icon" viewBox="0 0 15 15" data-spec="width=16"><use href="#icon-info" /></svg><p class="Callout-text">You need admin access to install this app.</p></div>
     </template>
 
     <template data-component="DropdownMenu" data-note="contains Button; its popup is a part">

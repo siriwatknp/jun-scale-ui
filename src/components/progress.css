@@ -1,7 +1,7 @@
 .Progress {
   display: block;
   width: calc(160px * var(--component-scale));
-  height: calc(6px * var(--component-scale));
+  height: calc(var(--space-2) * var(--component-scale));
   appearance: none;
   border: none;
   border-radius: var(--radius-full);

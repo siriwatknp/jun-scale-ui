@@ -30,21 +30,6 @@ th {
   box-shadow: none;
 }
 
-.Switch.is-snapped {
-  --Switch-height: round(calc(20px * var(--component-scale)), 1px);
-  --Switch-gap: round(calc(2px * var(--component-scale)), 1px);
-  --Switch-thumb: calc(var(--Switch-height) - 2 * var(--Switch-gap));
-  width: round(calc(36px * var(--component-scale)), 1px);
-  height: var(--Switch-height);
-}
-
-.Switch.is-snapped::before {
-  top: var(--Switch-gap);
-  left: var(--Switch-gap);
-  width: var(--Switch-thumb);
-  height: var(--Switch-thumb);
-}
-
 td[style] {
   background: #000000;
 }

@@ -2,8 +2,8 @@
   position: relative;
   flex-shrink: 0;
   box-sizing: border-box;
-  width: calc(36px * var(--component-scale));
-  height: calc(20px * var(--component-scale));
+  width: calc(40px * var(--component-scale));
+  height: calc(var(--space-5) * var(--component-scale));
   margin: 0;
   appearance: none;
   border-radius: var(--radius-full);
@@ -13,8 +13,8 @@
 .Switch::before {
   content: "";
   position: absolute;
-  top: calc(2px * var(--component-scale));
-  left: calc(2px * var(--component-scale));
+  top: calc(var(--space-1) * var(--component-scale));
+  left: calc(var(--space-1) * var(--component-scale));
   width: calc(var(--space-4) * var(--component-scale));
   height: calc(var(--space-4) * var(--component-scale));
   border-radius: var(--radius-full);
