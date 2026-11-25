@@ -13,6 +13,9 @@ playwright-cli -s="$session" run-code "async page => {
   await page.setViewportSize({ width: 1400, height: 900 });
   await page.goto('$url');
   await page.waitForSelector('[data-done]', { state: 'attached', timeout: 60000 });
-  const results = await page.evaluate(() => window.verifyResults ?? { error: document.querySelector('[data-summary]').textContent });
+  let results = await page.evaluate(() => window.verifyResults ?? { error: document.querySelector('[data-summary]').textContent });
+  if (!results.error) {
+    results = await ($(cat "$root/pixels.js"))(page, results);
+  }
   return JSON.stringify(results);
 }" | python3 "$root/report.py"

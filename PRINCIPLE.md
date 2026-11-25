@@ -1,6 +1,6 @@
 # Scaling principle
 
-Version 2
+Version 3
 
 This document states how jun-scale-ui scales components. It says what must be true, not how to write it. An implementation is correct when every rule here holds.
 
@@ -50,9 +50,9 @@ The base size column gives the height of the component's main box. Widths, and t
 
 ### 5. Effective scale
 
-A component in group N renders at `--scale × --scale-group<N>`. The global scale always applies, so a group factor of 0.8 under a global scale of 1.2 gives 0.96.
+A component in group N renders at `--scale × --scale-group<N>`. The global scale always applies, so a group factor of 0.5 under a global scale of 1.5 gives 0.75.
 
-A value that is not a valid number is ignored, as if it were not set. The value set further out then applies, or 1 when no element sets it. The same holds for `--scale`.
+A value that is not a valid number is ignored. The valid value set further out applies instead, or 1 when no element further out sets one. The same holds for `--scale`.
 
 ### 6. The nearest value wins
 
@@ -64,9 +64,9 @@ Factors do not multiply along the nesting. A factor for group 5 changes componen
 
 Any element may set `--scale-group<N>`: a page container, a component or a part.
 
-- A component may set the factor for a smaller group it contains, so that the child fits. For example, `Checkbox` sets the `Icon` factor so its checkmark is smaller than the box. It sets the factor on its own root element, not on a part, so that a user can still override it on the component.
+- A component may set the factor for a smaller group it contains, so that the child fits. For example, `Checkbox` sets the `Icon` factor so its checkmark is smaller than the box. It sets the factor on its own root element, not on a part.
+- A factor a user sets on the component element itself wins over the default the component sets. A factor a user sets on a container further out does not, because the component's default is nearer.
 - A component never sets the factor of its own group, because that would also change the component itself. Components of the same group inside one another share one factor.
-- A user who wants to change a factor that a component sets must set it on that component or nearer, because the component's own value is nearer to its children than any outer container.
 
 ### 8. Parts, glyphs and text
 
@@ -81,13 +81,16 @@ Any element may set `--scale-group<N>`: a page container, a component or a part.
 
 Base sizes are constants. Multiply a base size by the effective scale in the property that uses it. Never store an already scaled size in a shared value that is set high in the tree, such as on the root. A value is resolved where it is declared, so a scale set lower in the tree would not reach it.
 
+Working out a component's effective scale once, on the component's own root, and reusing that number for the component and its parts is fine. It is a scale, not a size, and it is declared on the component it belongs to.
+
 ### 10. Whole pixels
 
 Browsers snap box edges to whole CSS pixels. A size or gap that lands on half a pixel rounds up on one side and down on the other, so a centered part ends up 1px off. Three constraints keep every edge on a whole pixel:
 
-- Every base size and offset of a box is a multiple of 4px. Line heights are multiples of 4px too, so stacked lines stay on whole pixels. Font sizes and border radius are exempt, because they never shift an edge.
-- A box centered inside another box, whether a part or a child component, differs from it by a multiple of 8px, so the gap on each side is a multiple of 4px. Text is exempt: a line of text centered in a box may land on half a pixel, which is not visible the way a shifted box edge is.
-- Every group factor that a component sets maps the child's box sizes to multiples of 4px. For example, 0.5 or 0.75 on a 16px `Icon`, or 0.75 on a 32px `Avatar`.
+- Every base size and offset of a box is a multiple of 4px. Base line heights are multiples of 4px too, so stacked lines stay on whole pixels. Font sizes and border radius are exempt, because they never shift an edge.
+- A box centered inside another box, whether a part or a child component, differs from it by a multiple of 8px, so the gap on each side is a multiple of 4px.
+- Every group factor that a component sets keeps the child's box sizes on multiples of 4px, and keeps the child a multiple of 8px smaller than the box or text line it is centered in. Which factor works depends on that box. A 16px `Icon` centered in a 16px box needs 0.5, which gives 8px. A 16px `Icon` centered on a 20px text line needs 0.75, which gives 12px. A 32px `Avatar` centered in a 32px box can take 0.75, which gives 24px.
+- Text is exempt from all three. A line of text centered in a box, or a line height that a factor shrinks off the 4px grid, may land on half a pixel. Text does not shift by a whole pixel the way a box edge does.
 
 The rules for users follow:
 

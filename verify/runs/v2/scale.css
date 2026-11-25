@@ -1,0 +1,372 @@
+@property --scale { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --scale-group1 { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --scale-group2 { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --scale-group3 { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --scale-group4 { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --scale-group5 { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --scale-group6 { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --scale-group7 { syntax: "<number>"; inherits: true; initial-value: 1; }
+
+@property --_status-dot { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --_icon { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --_badge { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --_checkbox { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --_radio { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --_switch { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --_avatar { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --_button { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --_input { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --_select { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --_field { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --_callout { syntax: "<number>"; inherits: true; initial-value: 1; }
+
+:where(.Checkbox) { --scale-group2: 0.5; }
+:where(.Select) { --scale-group4: 0.75; }
+:where(.Callout) { --scale-group2: 0.75; }
+
+.StatusDot {
+  --_status-dot: calc(var(--scale) * var(--scale-group1));
+  display: inline-block;
+  vertical-align: middle;
+  width: calc(8px * var(--_status-dot));
+  height: calc(8px * var(--_status-dot));
+  border-radius: 50%;
+  background: #16a34a;
+}
+
+.Icon {
+  --_icon: calc(var(--scale) * var(--scale-group2));
+  display: inline-block;
+  flex-shrink: 0;
+  vertical-align: middle;
+  width: calc(16px * var(--_icon));
+  height: calc(16px * var(--_icon));
+}
+
+.Badge {
+  --_badge: calc(var(--scale) * var(--scale-group3));
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  vertical-align: middle;
+  box-sizing: border-box;
+  height: calc(20px * var(--_badge));
+  padding: 0 calc(8px * var(--_badge));
+  border-radius: calc(3px * var(--_badge));
+  background: #e0e7ff;
+  color: #3730a3;
+  font-family: system-ui, sans-serif;
+  font-weight: 600;
+  font-size: calc(12px * var(--_badge));
+  line-height: calc(16px * var(--_badge));
+  white-space: nowrap;
+}
+
+.Checkbox {
+  --_checkbox: calc(var(--scale) * var(--scale-group3));
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  vertical-align: middle;
+  width: calc(16px * var(--_checkbox));
+  height: calc(16px * var(--_checkbox));
+}
+
+.Checkbox-input {
+  grid-area: 1 / 1;
+  appearance: none;
+  box-sizing: border-box;
+  width: calc(16px * var(--_checkbox));
+  height: calc(16px * var(--_checkbox));
+  margin: 0;
+  border: 1px solid #9ca3af;
+  border-radius: calc(3px * var(--_checkbox));
+  background: #fff;
+  cursor: pointer;
+}
+
+.Checkbox-input:checked {
+  border-color: #2563eb;
+  background: #2563eb;
+}
+
+.Checkbox-input:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.Checkbox > .Icon {
+  grid-area: 1 / 1;
+  color: #fff;
+  pointer-events: none;
+}
+
+.Checkbox-input:not(:checked) + .Icon {
+  visibility: hidden;
+}
+
+.Radio {
+  --_radio: calc(var(--scale) * var(--scale-group3));
+  appearance: none;
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  vertical-align: middle;
+  box-sizing: border-box;
+  width: calc(16px * var(--_radio));
+  height: calc(16px * var(--_radio));
+  margin: 0;
+  border: 1px solid #9ca3af;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+}
+
+.Radio::before {
+  content: "";
+  width: calc(8px * var(--_radio));
+  height: calc(8px * var(--_radio));
+  border-radius: 50%;
+}
+
+.Radio:checked {
+  border-color: #2563eb;
+}
+
+.Radio:checked::before {
+  background: #2563eb;
+}
+
+.Radio:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.Switch {
+  --_switch: calc(var(--scale) * var(--scale-group3));
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  vertical-align: middle;
+  box-sizing: border-box;
+  width: calc(40px * var(--_switch));
+  height: calc(24px * var(--_switch));
+  margin: 0;
+  padding: 0 0 0 calc(4px * var(--_switch));
+  border: 0;
+  border-radius: calc(12px * var(--_switch));
+  background: #cbd5e1;
+  cursor: pointer;
+}
+
+.Switch::before {
+  content: "";
+  width: calc(16px * var(--_switch));
+  height: calc(16px * var(--_switch));
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.25);
+  transition: transform 120ms ease-out;
+}
+
+.Switch:checked {
+  background: #2563eb;
+}
+
+.Switch:checked::before {
+  transform: translateX(calc(16px * var(--_switch)));
+}
+
+.Switch:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.Avatar {
+  --_avatar: calc(var(--scale) * var(--scale-group4));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  vertical-align: middle;
+  box-sizing: border-box;
+  width: calc(32px * var(--_avatar));
+  height: calc(32px * var(--_avatar));
+  border-radius: 50%;
+  background: #e0e7ff;
+  color: #3730a3;
+  font-family: system-ui, sans-serif;
+  font-weight: 600;
+  font-size: calc(14px * var(--_avatar));
+  line-height: calc(20px * var(--_avatar));
+  user-select: none;
+}
+
+.Button {
+  --_button: calc(var(--scale) * var(--scale-group5));
+  display: inline-flex;
+  align-items: center;
+  gap: calc(8px * var(--_button));
+  vertical-align: middle;
+  box-sizing: border-box;
+  height: calc(32px * var(--_button));
+  margin: 0;
+  padding: 0 calc(12px * var(--_button));
+  border: 0;
+  border-radius: calc(4px * var(--_button));
+  background: #111827;
+  color: #fff;
+  font-family: system-ui, sans-serif;
+  font-weight: 500;
+  font-size: calc(14px * var(--_button));
+  line-height: calc(20px * var(--_button));
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.Button:hover {
+  background: #1f2937;
+}
+
+.Button:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.Input {
+  --_input: calc(var(--scale) * var(--scale-group5));
+  display: inline-flex;
+  align-items: center;
+  gap: calc(8px * var(--_input));
+  vertical-align: middle;
+  box-sizing: border-box;
+  width: calc(180px * var(--_input));
+  height: calc(32px * var(--_input));
+  padding: 0 calc(8px * var(--_input));
+  border: 1px solid #d1d5db;
+  border-radius: calc(4px * var(--_input));
+  background: #fff;
+  color: #6b7280;
+  font-family: system-ui, sans-serif;
+  font-size: calc(14px * var(--_input));
+  line-height: calc(20px * var(--_input));
+  cursor: text;
+}
+
+.Input:focus-within {
+  outline: 2px solid #2563eb;
+  outline-offset: -1px;
+}
+
+.Input-field {
+  flex: 1;
+  min-width: 0;
+  box-sizing: border-box;
+  height: calc(20px * var(--_input));
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #111827;
+  font-family: inherit;
+  font-size: calc(14px * var(--_input));
+  line-height: calc(20px * var(--_input));
+}
+
+.Input-field::placeholder {
+  color: #9ca3af;
+}
+
+.Select {
+  --_select: calc(var(--scale) * var(--scale-group5));
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.Select-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(8px * var(--_select));
+  box-sizing: border-box;
+  height: calc(32px * var(--_select));
+  margin: 0;
+  padding: 0 calc(12px * var(--_select));
+  border: 1px solid #d1d5db;
+  border-radius: calc(4px * var(--_select));
+  background: #fff;
+  color: #111827;
+  font-family: system-ui, sans-serif;
+  font-size: calc(14px * var(--_select));
+  line-height: calc(20px * var(--_select));
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.Select-trigger:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.Select-trigger > .Icon {
+  margin-inline-start: auto;
+  color: #6b7280;
+}
+
+.Field {
+  --_field: calc(var(--scale) * var(--scale-group5));
+  display: flex;
+  flex-direction: column;
+  gap: calc(8px * var(--_field));
+  box-sizing: border-box;
+  width: calc(240px * var(--_field));
+  font-family: system-ui, sans-serif;
+}
+
+.Field-label {
+  color: #111827;
+  font-weight: 500;
+  font-size: calc(14px * var(--_field));
+  line-height: calc(20px * var(--_field));
+}
+
+.Field-help {
+  margin: 0;
+  color: #6b7280;
+  font-size: calc(12px * var(--_field));
+  line-height: calc(16px * var(--_field));
+}
+
+.Callout {
+  --_callout: calc(var(--scale) * var(--scale-group6));
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: calc(20px * var(--_callout)) auto;
+  column-gap: calc(12px * var(--_callout));
+  row-gap: 0;
+  box-sizing: border-box;
+  max-width: calc(180px * var(--_callout));
+  padding: calc(16px * var(--_callout));
+  border: 1px solid #bfdbfe;
+  border-radius: calc(6px * var(--_callout));
+  background: #eff6ff;
+  color: #1e3a8a;
+  font-family: system-ui, sans-serif;
+  font-size: calc(14px * var(--_callout));
+  line-height: calc(20px * var(--_callout));
+}
+
+.Callout > .Icon {
+  grid-row: 1;
+  grid-column: 1;
+  align-self: center;
+}
+
+.Callout-text {
+  grid-row: 1 / span 2;
+  grid-column: 2;
+  margin: 0;
+  font-size: calc(14px * var(--_callout));
+  line-height: calc(20px * var(--_callout));
+}

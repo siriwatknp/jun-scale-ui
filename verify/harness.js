@@ -157,15 +157,6 @@ function testCentering() {
         } else {
           record("whole pixels at 0.25 steps", `${label} gap`, whole(gap), `${round(gap)}`);
         }
-        if (element.hasAttribute("data-pseudo-inset")) {
-          const style = getComputedStyle(element, pseudo);
-          const top = parseFloat(style.top);
-          const left = parseFloat(style.left);
-          const transform = new DOMMatrix(style.transform === "none" ? undefined : style.transform);
-          const insetTop = top + px(element, "border-top-width") + transform.m42;
-          const insetLeft = left + px(element, "border-left-width") + transform.m41;
-          record("centered with equal gaps", `${label} (top, bottom, left)`, near(insetTop, gap) && near(insetLeft, gap), `top ${round(insetTop)}, bottom ${round(outer - inner - insetTop)}, left ${round(insetLeft)}`);
-        }
       });
       root.querySelectorAll("[data-icon-on-first-line]").forEach((element) => {
         const icon = element.querySelector(".Icon");
@@ -248,6 +239,7 @@ function testFactorBehavior() {
 
   expectEqual("a component sets a smaller group's factor", "Badge inside a Button that sets --scale-group3: 0.5", measure("ButtonWithBadge", "", ".Badge", "height"), badgeHeight * 0.5);
   expectEqual("a component sets a smaller group's factor", "same, with --scale: 1.5", measure("ButtonWithBadge", "--scale: 1.5", ".Badge", "height"), badgeHeight * 0.5 * 1.5);
+  expectEqual("a user factor on the component wins over its default", "Checkbox Icon with --scale-group2: 1 on the Checkbox", measure("CheckboxOverride", "", ".Checkbox .Icon", "width"), icon);
 
   expectEqual("same group shares one factor", "Field width with --scale-group5: 0.75", measure("Field", "--scale-group5: 0.75", ".Field", "width"), fieldWidth * 0.75);
   expectEqual("same group shares one factor", "Input in Field with --scale-group5: 0.75", measure("Field", "--scale-group5: 0.75", ".Field .Input", "height"), fieldInput * 0.75);

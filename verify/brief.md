@@ -16,10 +16,10 @@ Colors and fonts are up to you. Keep the look minimal. Use `system-ui` for text.
 | Button | 5 | height 32, padding left and right 12, gap 8, font 14 on a 20 line, radius 4 | an `Icon` at full size, then text |
 | Input | 5 | width 180, height 32, padding left and right 8, gap 8, 1px border, font 14 on a 20 line, radius 4 | an `Icon` at full size, then a text field |
 | Select | 5 | trigger part: height 32, padding left and right 12, gap 8, 1px border, font 14 on a 20 line, radius 4 | in the trigger: an `Avatar` that fits inside the trigger with room above and below and is centered vertically, a name, and an `Icon` chevron at the end |
-| Field | 5 | width 240, a gap of 8 between label, control and help text; label font 14 on a 20 line; help font 12 on a 16 line | a label part, an `Input`, a help part |
-| Callout | 6 | padding 16, gap 12, font 14 on a 20 line, radius 6, maximum width 180 | an `Icon`, visibly smaller than full size and centered vertically on the first 20px text line, then text |
+| Field | 5 | width 240, a gap of 8 between label, control and help text; label font 14 on a 20 line; help font 12 on a 16 line | a label part, an `Input` that stretches to the Field's width, a help part |
+| Callout | 6 | padding 16, a gap of 12 between the icon and the text, font 14 on a 20 line, radius 6, maximum width 180 | an `Icon`, visibly smaller than full size and centered vertically on the first 20px text line, then text |
 
-A `Button` may also hold a `Badge`, as in the `ButtonWithBadge` fixture. The inline style on that `Button` is a user setting. Leave it in place.
+A `Button` may also hold a `Badge`, as in the `ButtonWithBadge` fixture. The inline styles in the `ButtonWithBadge` and `CheckboxOverride` fixtures are user settings. Leave them in place.
 
 ## Deliverable
 
