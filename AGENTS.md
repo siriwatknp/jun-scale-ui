@@ -26,8 +26,9 @@ Every component has one default size. To change size, change `--scale` on the ro
 
 Components are sorted into groups. A bigger group may contain a smaller group, never the other way round. A bigger group controls the scale of the smaller groups inside it with `--scale-group<N>`, which defaults to `1`.
 
-- A component in group N renders at `--scale × --scale-group<N>`. The global scale always applies, so a group at 0.8 under a global scale of 1.2 renders at 0.96.
-- The nearest ancestor that sets `--scale-group<N>` wins, through normal CSS inheritance. Flat CSS rules are enough. No rule needs to know the nesting depth.
+- A component renders at `--scale` × its own group factor × the factor of each bigger component around it, with each group counted once. A `Button` scaled with `--scale-group5: 1.2` takes its `Icon` along, so the `Icon` keeps its proportion to the `Button`. `PRINCIPLE.md` rules 5 and 6 state this exactly.
+- Each factor takes the value of the nearest element that sets it, through normal CSS inheritance.
+- In `src/`, each component root records the factor of its own group in `--applied-group<N>`, which its children inherit. `--component-scale` is `--scale` times all seven `--applied-group<N>` values, so a same-group child replaces its group's value instead of multiplying it again.
 - A component, or one of its parts, may set the factor for a smaller group it contains. `Checkbox` sets `--scale-group2: 0.5`, so its checkmark `Icon` is 8px. `Callout` sets `--scale-group2: 0.75`, so its `Icon` is 12px. `.Select-trigger` sets `--scale-group4: 0.75`, so an `Avatar` inside it is 24px. `.Field-label` and `.Field-help` set `--scale-group3: 0.8`, so a 20px `Badge` or `Kbd` in label or help text is 16px, while a `Checkbox` next to the label stays 16px.
 - A component may contain components of its own group, and they share one factor. It cannot set that factor for them, because the same variable also sets its own scale. `Field` holds `Input`, `Button` and `Select`, and they all follow `--scale-group5` together. When a same-group child would not fit, build it as a part instead: the button inside `Input` is the part `.Input-action` (24px), not an `IconButton` (32px).
 - Text has no group. It follows the component that renders it.
@@ -91,7 +92,7 @@ Each `<template data-component="Button">` becomes one block. The block's columns
 
 For each element with `data-spec`, the sheet shows:
 
-- a `scale × gN` row, which passes when the element's `--component-scale` equals `--scale × --scale-group<N>` for its group, so it also checks `src/groups.css`,
+- a `scale × outer × gN` row, which passes when the element's `--component-scale` equals `--scale` times every `--applied-group<N>` and its own group's applied factor equals `--scale-group<N>`, so it also checks `src/groups.css`,
 - one row per entry, which passes when the measured value equals `base × --component-scale`, within 0.05px.
 
 The group of each component is listed in `GROUPS` in `playground/sheet.js`. Keep it in step with `src/groups.css`.

@@ -1,6 +1,6 @@
 # Scaling principle
 
-Version 3
+Version 4
 
 This document states how jun-scale-ui scales components. It says what must be true, not how to write it. An implementation is correct when every rule here holds.
 
@@ -50,15 +50,25 @@ The base size column gives the height of the component's main box. Widths, and t
 
 ### 5. Effective scale
 
-A component in group N renders at `--scale × --scale-group<N>`. The global scale always applies, so a group factor of 0.5 under a global scale of 1.5 gives 0.75.
+A component renders at its effective scale: the global scale, times the factor of its own group, times the factor of the group of each bigger component it sits inside.
+
+Each group counts once. For each group, the factor used is the one in force at the nearest component of that group that encloses this component, or at the component itself for its own group. A group with no such component counts as 1.
+
+Some examples, with a `Button` (group 5) whose default `Icon` factor is 0.8:
+
+- Nothing set: the `Button` renders at 1 and its `Icon` at 0.8.
+- `--scale-group5: 1.2` on the `Button` or on a container around it: the `Button` renders at 1.2 and its `Icon` at 1.2 × 0.8 = 0.96. The `Icon` keeps its proportion to the `Button`.
+- `--scale: 1.5` on a container: the `Button` renders at 1.5 and its `Icon` at 1.5 × 0.8 = 1.2.
+- An `Input` (group 5) inside a `Field` (group 5) with `--scale-group5: 1.2` renders at 1.2, not 1.2 × 1.2, because group 5 counts once.
+- A standalone `Icon` next to the `Button` is not inside a group 5 component, so `--scale-group5` does not change it.
 
 A value that is not a valid number is ignored. The valid value set further out applies instead, or 1 when no element further out sets one. The same holds for `--scale`.
 
 ### 6. The nearest value wins
 
-A group factor applies to every component of that group inside the element that sets it, at any depth. When an element nearer to a component sets the same factor, the nearer value wins.
+Every factor, and `--scale`, takes the value set by the nearest element that sets it. A value set on an element applies inside that element, at any depth, until an element nearer sets the same variable.
 
-Factors do not multiply along the nesting. A factor for group 5 changes components of group 5 only. An `Icon` inside a `Button` keeps its own group factor when the `Button` shrinks.
+A factor reaches the components of its own group directly. It reaches smaller components only through a component of that group around them: setting `--scale-group5` on a container scales every `Button` inside it, and each `Button` takes its `Icon` along. A factor for a smaller group that a component sets for its children is nearer to them than any value set further out, so `--scale-group2: 1.5` on a page container does not change the `Icon` inside a `Button` that sets its own `Icon` factor.
 
 ### 7. Who sets group factors
 
@@ -66,7 +76,7 @@ Any element may set `--scale-group<N>`: a page container, a component or a part.
 
 - A component may set the factor for a smaller group it contains, so that the child fits. For example, `Checkbox` sets the `Icon` factor so its checkmark is smaller than the box. It sets the factor on its own root element, not on a part.
 - A factor a user sets on the component element itself wins over the default the component sets. A factor a user sets on a container further out does not, because the component's default is nearer.
-- A component never sets the factor of its own group, because that would also change the component itself. Components of the same group inside one another share one factor.
+- A component never sets the factor of its own group, because that would also change the component itself. Components of the same group inside one another use that group's factor once, so they scale together.
 
 ### 8. Parts, glyphs and text
 
@@ -95,7 +105,8 @@ Browsers snap box edges to whole CSS pixels. A size or gap that lands on half a 
 The rules for users follow:
 
 - Set `--scale` in steps of 0.25, such as 0.75, 1, 1.25 or 1.5. Every size the components define then lands on a whole pixel, including sizes changed by the factors components set themselves.
-- When you set a group factor yourself, pick one that maps that group's base sizes to multiples of 4px: for example 0.5 or 0.75 for a 16px or 32px component, but not 0.5 for a 20px `Badge`, which gives 10px. Other factors work, but a centered child can then be 1px off.
+- The values you set multiply along the nesting, so keep their product in steps of 0.25. `--scale: 1.25` with `--scale-group5: 1.2` around a `Button` gives 1.5, which is fine. `--scale: 1.25` with `--scale-group5: 1.25` gives 1.5625, which can leave a centered child 1px off.
+- When you set a factor for a small group directly, such as the factor for a 20px `Badge`, pick one that keeps that group's base sizes on multiples of 4px: 0.8 gives 16px, but 0.5 gives 10px.
 
 ## What users write
 

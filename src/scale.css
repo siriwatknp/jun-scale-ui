@@ -51,3 +51,45 @@
   inherits: true;
   initial-value: 1;
 }
+
+@property --applied-group1 {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --applied-group2 {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --applied-group3 {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --applied-group4 {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --applied-group5 {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --applied-group6 {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --applied-group7 {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}

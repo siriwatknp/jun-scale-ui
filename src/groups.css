@@ -1,10 +1,10 @@
 .StatusDot {
-  --component-scale: calc(var(--scale) * var(--scale-group1));
+  --applied-group1: var(--scale-group1);
 }
 
 .Icon,
 .Spinner {
-  --component-scale: calc(var(--scale) * var(--scale-group2));
+  --applied-group2: var(--scale-group2);
 }
 
 .Badge,
@@ -12,11 +12,11 @@
 .Checkbox,
 .Radio,
 .Switch {
-  --component-scale: calc(var(--scale) * var(--scale-group3));
+  --applied-group3: var(--scale-group3);
 }
 
 .Avatar {
-  --component-scale: calc(var(--scale) * var(--scale-group4));
+  --applied-group4: var(--scale-group4);
 }
 
 .Button,
@@ -28,10 +28,42 @@
 .Slider,
 .Progress,
 .Field {
-  --component-scale: calc(var(--scale) * var(--scale-group5));
+  --applied-group5: var(--scale-group5);
 }
 
 .Callout,
 .DropdownMenu {
-  --component-scale: calc(var(--scale) * var(--scale-group6));
+  --applied-group6: var(--scale-group6);
+}
+
+.StatusDot,
+.Icon,
+.Spinner,
+.Badge,
+.Kbd,
+.Checkbox,
+.Radio,
+.Switch,
+.Avatar,
+.Button,
+.IconButton,
+.Input,
+.Select,
+.Combobox,
+.TextArea,
+.Slider,
+.Progress,
+.Field,
+.Callout,
+.DropdownMenu {
+  --component-scale: calc(
+    var(--scale) *
+    var(--applied-group1) *
+    var(--applied-group2) *
+    var(--applied-group3) *
+    var(--applied-group4) *
+    var(--applied-group5) *
+    var(--applied-group6) *
+    var(--applied-group7)
+  );
 }

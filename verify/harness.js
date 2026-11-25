@@ -85,7 +85,7 @@ function testBrief() {
 
 function testProportionalAndWhole() {
   fixtureNames()
-    .filter((name) => name !== "ButtonWithBadge")
+    .filter((name) => !["ButtonWithBadge", "ButtonScaled"].includes(name))
     .forEach((name) => {
     const base = checkedElements(mount(name, "--scale: 1"));
     QUARTER_STEPS.forEach((scale) => {
@@ -191,7 +191,7 @@ function firstMeasure(root) {
 function testGroupMembership() {
   for (let group = 1; group <= 7; group++) {
     fixtureNames().forEach((name) => {
-      if (name === "ButtonWithBadge") {
+      if (["ButtonWithBadge", "ButtonScaled"].includes(name)) {
         return;
       }
       const base = firstMeasure(mount(name)).value;
@@ -222,12 +222,20 @@ function testFactorBehavior() {
   const fieldInput = measure("Field", "", ".Field .Input", "height");
   const fieldLabel = measure("Field", "", ".Field-label", "font-size");
 
-  expectEqual("factors don't multiply along nesting", "Button with --scale-group5: 0.75", measure("Button", "--scale-group5: 0.75", ".Button", "height"), buttonHeight * 0.75);
-  expectEqual("factors don't multiply along nesting", "Icon inside that Button keeps its size", measure("Button", "--scale-group5: 0.75", ".Button .Icon", "width"), buttonIcon);
+  const checkboxWidth = measure("Checkbox", "", ".Checkbox", "width");
+  expectEqual("a group factor carries into the components inside", "Button with --scale-group5: 0.75", measure("Button", "--scale-group5: 0.75", ".Button", "height"), buttonHeight * 0.75);
+  expectEqual("a group factor carries into the components inside", "Icon inside that Button", measure("Button", "--scale-group5: 0.75", ".Button .Icon", "width"), buttonIcon * 0.75);
+  expectEqual("a group factor carries into the components inside", "Button with --scale-group5: 1.2 set on itself", measure("ButtonScaled", "", ".Button", "height"), buttonHeight * 1.2);
+  expectEqual("a group factor carries into the components inside", "Icon inside that Button", measure("ButtonScaled", "", ".Button .Icon", "width"), buttonIcon * 1.2);
+  expectEqual("a group factor carries into the components inside", "Badge inside a Button that sets its factor, with --scale-group5: 0.75", measure("ButtonWithBadge", "--scale-group5: 0.75", ".Badge", "height"), badgeHeight * 0.5 * 0.75);
+  expectEqual("a group factor carries into the components inside", "Checkbox with --scale-group3: 0.5", measure("Checkbox", "--scale-group3: 0.5", ".Checkbox", "width"), checkboxWidth * 0.5);
+  expectEqual("a group factor carries into the components inside", "checkmark Icon inside that Checkbox", measure("Checkbox", "--scale-group3: 0.5", ".Checkbox .Icon", "width"), checkboxIcon * 0.5);
+  expectEqual("a group factor carries into the components inside", "Avatar inside Select with --scale-group5: 0.75", measure("Select", "--scale-group5: 0.75", ".Avatar", "width"), measure("Select", "", ".Avatar", "width") * 0.75);
+  expectEqual("a group factor carries into the components inside", "standalone Icon with --scale-group5: 0.75 is unchanged", measure("Icon", "--scale-group5: 0.75", ".Icon", "width"), icon);
 
   const both = "--scale: 1.25; --scale-group5: 0.75";
   expectEqual("global scale times group factor", `Button with ${both}`, measure("Button", both, ".Button", "height"), buttonHeight * 1.25 * 0.75);
-  expectEqual("global scale times group factor", `Icon in that Button`, measure("Button", both, ".Button .Icon", "width"), buttonIcon * 1.25);
+  expectEqual("global scale times group factor", `Icon in that Button`, measure("Button", both, ".Button .Icon", "width"), buttonIcon * 1.25 * 0.75);
   expectEqual("global scale times group factor", `Badge with ${both}`, measure("Badge", both, ".Badge", "height"), badgeHeight * 1.25);
 
   expectEqual("nearest value wins", "standalone Icon with --scale-group2: 1.5", measure("Icon", "--scale-group2: 1.5", ".Icon", "width"), icon * 1.5);

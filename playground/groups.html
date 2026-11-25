@@ -23,7 +23,7 @@
     </svg>
     <header class="Sheet-toolbar">
       <h1>Group scale</h1>
-      <p>A component in group N renders at <code>--scale × --scale-groupN</code>. Each column sets the CSS shown above it.</p>
+      <p>A component renders at <code>--scale</code> × its own group factor × the factor of each bigger component around it. Each column sets the CSS shown above it.</p>
       <span class="Sheet-summary" data-summary></span>
     </header>
     <main class="Sheet" data-sheet="flat"></main>
@@ -31,7 +31,7 @@
     <template
       data-component="Button"
       data-title="1 · A container sets the Control factor"
-      data-note="The Control shrinks with --scale-group5. The Icon inside keeps its own factor. The global scale applies to every group."
+      data-note="The Control shrinks with --scale-group5, and the Icon inside the Button shrinks with it. The Badge outside any Control only follows --scale."
       data-contexts='[{"label":"nothing set","style":""},{"label":"--scale-group5: 0.75","style":"--scale-group5: 0.75"},{"label":"--scale: 1.2; --scale-group5: 0.75","style":"--scale: 1.2; --scale-group5: 0.75"}]'
     >
       <button class="Button" data-spec="height=32"><svg class="Icon" viewBox="0 0 15 15" data-spec="width=16"><use href="#icon-bookmark" /></svg>Bookmark</button>
@@ -51,11 +51,19 @@
     <template
       data-component="Button"
       data-title="3 · A component sets a smaller group"
-      data-note="This Button sets --scale-group3: 0.8, so the Badge inside it renders at 0.8. The Badge outside stays at 1."
+      data-note="This Button sets --scale-group3: 0.8, so the Badge inside it renders at 0.8 of the Button's scale. The Badge outside stays at 1."
       data-contexts='[{"label":"--scale: 1","style":"--scale: 1"},{"label":"--scale: 1.5","style":"--scale: 1.5"}]'
     >
       <button class="Button" style="--scale-group3: 0.8">Inbox<span class="Badge" data-spec="height=20">12</span></button>
       <span class="Badge" data-spec="height=20">12</span>
+    </template>
+    <template
+      data-component="Button"
+      data-title="4 · A Button with its Icon at 0.8, scaled four ways"
+      data-note="The Button sets --scale-group2: 0.8 for its Icon. Whatever scales the Button scales the Icon too, so the Icon stays 0.4 of the Button height. A page-wide Icon factor does not reach it, because the Button's value is nearer."
+      data-contexts='[{"label":"nothing set","style":""},{"label":"--scale: 1.2","style":"--scale: 1.2"},{"label":"--scale-group5: 1.2","style":"--scale-group5: 1.2"},{"label":"--scale-group2: 1.5","style":"--scale-group2: 1.5"}]'
+    >
+      <button class="Button" style="--scale-group2: 0.8" data-spec="height=32"><svg class="Icon" viewBox="0 0 15 15" data-spec="width=16"><use href="#icon-bookmark" /></svg>Save</button>
     </template>
   </body>
 </html>

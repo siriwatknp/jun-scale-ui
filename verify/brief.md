@@ -19,7 +19,7 @@ Colors and fonts are up to you. Keep the look minimal. Use `system-ui` for text.
 | Field | 5 | width 240, a gap of 8 between label, control and help text; label font 14 on a 20 line; help font 12 on a 16 line | a label part, an `Input` that stretches to the Field's width, a help part |
 | Callout | 6 | padding 16, a gap of 12 between the icon and the text, font 14 on a 20 line, radius 6, maximum width 180 | an `Icon`, visibly smaller than full size and centered vertically on the first 20px text line, then text |
 
-A `Button` may also hold a `Badge`, as in the `ButtonWithBadge` fixture. The inline styles in the `ButtonWithBadge` and `CheckboxOverride` fixtures are user settings. Leave them in place.
+A `Button` may also hold a `Badge`, as in the `ButtonWithBadge` fixture. The inline styles in the `ButtonWithBadge`, `ButtonScaled` and `CheckboxOverride` fixtures are user settings. Leave them in place.
 
 ## Deliverable
 
