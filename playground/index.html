@@ -18,6 +18,7 @@
         <g id="icon-info" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><circle cx="7.5" cy="7.5" r="6" /><path d="M7.5 6.5v4" /><circle cx="7.5" cy="4.5" r="0.4" /></g>
         <g id="icon-chevron-down" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l3.5 3.5L11 6" /></g>
         <g id="icon-check" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5l3 3 6-6" /></g>
+        <g id="icon-copy" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"><rect x="5" y="5" width="8" height="8" rx="1.5" /><path d="M10 3.5V3a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h.5" /></g>
         <g id="icon-sort" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5.5L7.5 3 10 5.5M5 9.5L7.5 12 10 9.5" /></g>
       </defs>
     </svg>
@@ -107,6 +108,83 @@
 
     <template data-component="Progress">
       <progress class="Progress" value="60" max="100" data-spec="width=160 height=6"></progress>
+    </template>
+
+    <template data-component="Field" data-title="Field · label, Input, help" data-note="contains Input">
+      <div class="Field" data-spec="width=240 row-gap=6">
+        <label class="Field-label" data-spec="font-size=14">Email</label>
+        <label class="Input" data-spec="height=32"><input class="Input-field" placeholder="you@example.com" /></label>
+        <p class="Field-help" data-spec="font-size=12">We reply within a day.</p>
+      </div>
+    </template>
+
+    <template data-component="Field" data-title="Field · Input + Button, joined" data-note="contains Input, Button">
+      <div class="Field">
+        <label class="Field-label">Newsletter</label>
+        <div class="Field-group">
+          <label class="Input" data-spec="height=32"><input class="Input-field" placeholder="you@example.com" /></label>
+          <button class="Button" data-spec="height=32 padding-left=12">Subscribe</button>
+        </div>
+      </div>
+    </template>
+
+    <template data-component="Field" data-title="Field · Select + Input, joined" data-note="contains Select, Input">
+      <div class="Field">
+        <label class="Field-label">Amount</label>
+        <div class="Field-group">
+          <div class="Select"><button class="Select-trigger" data-spec="height=32">USD<svg class="Icon" viewBox="0 0 15 15"><use href="#icon-chevron-down" /></svg></button></div>
+          <label class="Input" data-spec="height=32"><input class="Input-field" value="120.00" /></label>
+        </div>
+      </div>
+    </template>
+
+    <template data-component="Field" data-title="Field · prefix and suffix" data-note="Field-addon is a part">
+      <div class="Field">
+        <label class="Field-label">Website</label>
+        <div class="Field-group">
+          <span class="Field-addon" data-spec="height=32 padding-left=12">https://</span>
+          <label class="Input"><input class="Input-field" value="example" /></label>
+          <span class="Field-addon">.com</span>
+        </div>
+      </div>
+    </template>
+
+    <template data-component="Field" data-title="Field · Input with an action" data-note="Input-action is a part of Input, 24px, so it fits inside">
+      <div class="Field">
+        <label class="Field-label">API key</label>
+        <label class="Input" data-spec="height=32"><input class="Input-field" value="sk-live-4f9a2c" /><button class="Input-action" aria-label="Copy" data-spec="width=24 height=24"><svg class="Icon" viewBox="0 0 15 15"><use href="#icon-copy" /></svg></button></label>
+      </div>
+    </template>
+
+    <template data-component="Field" data-title="Field · Checkbox and Switch, inline" data-note="contains Checkbox, Switch">
+      <div class="Stack">
+        <div class="Field" data-layout="inline">
+          <span class="Checkbox" data-spec="width=16"><input class="Checkbox-input" type="checkbox" checked /><svg class="Icon" viewBox="0 0 15 15"><use href="#icon-check" /></svg></span>
+          <label class="Field-label" data-spec="font-size=14">Email updates</label>
+          <p class="Field-help" data-spec="font-size=12">A summary every Monday.</p>
+        </div>
+        <div class="Field" data-layout="inline">
+          <input class="Switch" type="checkbox" role="switch" checked data-spec="height=20" />
+          <label class="Field-label">Sync</label>
+          <p class="Field-help">Keep settings on every device.</p>
+        </div>
+      </div>
+    </template>
+
+    <template data-component="Field" data-title="Field · error" data-note="data-invalid on Field">
+      <div class="Field" data-invalid>
+        <label class="Field-label">Username</label>
+        <label class="Input" data-spec="height=32"><input class="Input-field" value="jun!" /></label>
+        <p class="Field-error" data-spec="font-size=12 line-height=16">Use letters and numbers only.</p>
+      </div>
+    </template>
+
+    <template data-component="Field" data-title="Field · horizontal" data-note='data-layout="horizontal"'>
+      <div class="Field" data-layout="horizontal">
+        <label class="Field-label" data-spec="width=80">Name</label>
+        <label class="Input" data-spec="height=32"><input class="Input-field" value="Jun" /></label>
+        <p class="Field-help">Shown on your profile.</p>
+      </div>
     </template>
 
     <template data-component="Callout" data-note="contains Icon">

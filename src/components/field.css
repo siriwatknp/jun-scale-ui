@@ -1,0 +1,107 @@
+.Field {
+  display: flex;
+  flex-direction: column;
+  gap: calc(6px * var(--component-scale));
+  box-sizing: border-box;
+  width: calc(240px * var(--component-scale));
+  font-size: calc(var(--font-size-2) * var(--component-scale));
+  line-height: calc(var(--line-height-2) * var(--component-scale));
+}
+
+.Field > .Input,
+.Field > .TextArea {
+  width: auto;
+}
+
+.Field-label {
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.Field-help,
+.Field-error {
+  margin: 0;
+  font-size: calc(var(--font-size-1) * var(--component-scale));
+  line-height: calc(var(--line-height-1) * var(--component-scale));
+}
+
+.Field-help {
+  color: var(--color-text-muted);
+}
+
+.Field-error {
+  color: var(--color-danger);
+}
+
+.Field[data-invalid] .Input {
+  border-color: var(--color-danger);
+}
+
+.Field-group {
+  display: flex;
+  align-items: stretch;
+}
+
+.Field-group > .Input {
+  flex: 1;
+  width: auto;
+  min-width: 0;
+}
+
+.Field-group > * + * {
+  margin-left: -1px;
+}
+
+.Field-group > :not(:first-child),
+.Field-group > :not(:first-child) .Select-trigger {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.Field-group > :not(:last-child),
+.Field-group > :not(:last-child) .Select-trigger {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.Field-addon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  height: calc(var(--space-6) * var(--component-scale));
+  padding-inline: calc(var(--space-3) * var(--component-scale));
+  border: 1px solid var(--color-border);
+  border-radius: calc(var(--radius-2) * var(--component-scale));
+  background: var(--color-surface-muted);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.Field[data-layout="horizontal"] {
+  display: grid;
+  grid-template-columns: calc(80px * var(--component-scale)) minmax(0, 1fr);
+  align-items: center;
+  column-gap: calc(var(--space-3) * var(--component-scale));
+  row-gap: calc(6px * var(--component-scale));
+}
+
+.Field[data-layout="horizontal"] > :not(.Field-label) {
+  grid-column: 2;
+}
+
+.Field[data-layout="inline"] {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  column-gap: calc(var(--space-2) * var(--component-scale));
+  row-gap: calc(2px * var(--component-scale));
+}
+
+.Field[data-layout="inline"] > :first-child {
+  grid-row: 1 / span 2;
+}
+
+.Field[data-layout="inline"] > .Checkbox {
+  margin-top: calc(2px * var(--component-scale));
+}

@@ -10,7 +10,7 @@ jun-scale-ui is a minimal CSS framework built around a scaling system. UI scales
   - `src/groups.css` is the group map. It sets `--component-scale` on each component root from its group.
   - `src/components/<name>.css` is one file per component. Every size is `calc(<base> * var(--component-scale))`. Borders stay 1px.
 - `playground/` shows the components to the owner.
-  - `playground/index.html` is the component sheet, sorted by group. `?group=5` shows one group, and `?scales=0.5,1,2` changes the columns.
+  - `playground/index.html` is the component sheet, sorted by group. `?group=5` shows one group, `?component=Field` shows one component, and `?scales=0.5,1,2` changes the columns.
   - `playground/groups.html` shows how group factors combine.
   - `playground/sheet.js` builds each sheet from `<template data-component>` elements and checks every `data-spec` value.
 - `experiments/NNN-name/index.html` holds one-off experiments. Number them in order and add a link to `index.html` at the root.
@@ -27,6 +27,7 @@ Components are sorted into groups. A bigger group may contain a smaller group, n
 - A component in group N renders at `--scale × --scale-group<N>`. The global scale always applies, so a group at 0.8 under a global scale of 1.2 renders at 0.96.
 - The nearest ancestor that sets `--scale-group<N>` wins, through normal CSS inheritance. Flat CSS rules are enough. No rule needs to know the nesting depth.
 - A component may set the factor for a smaller group it contains. `Checkbox` sets `--scale-group2: 0.667`, so its checkmark `Icon` is 10px instead of 15px.
+- A component may contain components of its own group, and they share one factor. It cannot set that factor for them, because the same variable also sets its own scale. `Field` holds `Input`, `Button` and `Select`, and they all follow `--scale-group5` together. When a same-group child would not fit, build it as a part instead: the button inside `Input` is the part `.Input-action` (24px), not an `IconButton` (32px).
 - Text has no group. It follows the component that renders it.
 
 Components multiply base tokens where they use them, never inside the tokens. A custom property is resolved on the element that declares it, so a scaled token declared on the root would ignore every scale set lower in the tree.
@@ -39,7 +40,7 @@ Groups, smallest first. Each component has one default size, which is its base s
 | 2 | Icon | 15–16px | Icon, Spinner |
 | 3 | Inline | 16–20px | Badge, Kbd, Checkbox, Radio, Switch |
 | 4 | BigInline | 24–32px | Avatar |
-| 5 | Control | 32–64px | Button, IconButton, Input, Select, Combobox, TextArea, Slider, Progress |
+| 5 | Control | 32–64px | Button, IconButton, Input, Select, Combobox, TextArea, Slider, Progress, Field |
 | 6 | Panel | fits its content | Callout, DropdownMenu |
 | 7 | Container | layout | Card, Dialog, Popover (not built yet) |
 
@@ -47,6 +48,7 @@ Groups, smallest first. Each component has one default size, which is its base s
 
 - Refer to components by their PascalCase name: `Button`, `IconButton`, `DropdownMenu`, `StatusDot`. CSS classes use the same name: `.Button`.
 - A part's class is the component name, a hyphen and the part name: `.Select-trigger`, `.Checkbox-input`. `.Popup`, `.Popup-item` and `.Popup-separator` are parts shared by `Select`, `Combobox` and `DropdownMenu`.
+- `Field` parts: `.Field-label`, `.Field-help`, `.Field-error`, `.Field-group` (controls joined on a shared edge) and `.Field-addon` (prefix or suffix text in a group). Its layout is set with `data-layout`: stacked by default, `horizontal`, or `inline` for a `Checkbox` or `Switch` beside its label. `data-invalid` on `Field` shows the error state.
 - A component's parts belong to it and are never listed as components. The Slider thumb is part of `Slider`, and the Switch thumb is part of `Switch`.
 - A glyph inside a component is the `Icon` component. The chevron in `Select` and the checkmark in `Checkbox` are each an `Icon` inside that component.
 
@@ -97,6 +99,7 @@ Annotations show only when the URL has `?annotate`. The expected value is resolv
 
 ```bash
 scripts/shot.sh playground --width 1440 --wait '[data-measured]' --param group=5
+scripts/shot.sh playground --width 1800 --wait '[data-measured]' --param component=Field
 scripts/shot.sh playground/groups.html --width 1440 --wait '[data-measured]'
 scripts/shot.sh experiments/000-pipeline-check --annotate
 scripts/shot.sh experiments/000-pipeline-check --width 390 --height 844 --name mobile

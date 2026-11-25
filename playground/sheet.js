@@ -7,7 +7,7 @@ const GROUPS = {
     name: "Control",
     base: "32–64px",
     contains: "BigInline, Inline, Icon, Dot",
-    components: ["Button", "IconButton", "Input", "Select", "Combobox", "TextArea", "Slider", "Progress"],
+    components: ["Button", "IconButton", "Input", "Select", "Combobox", "TextArea", "Slider", "Progress", "Field"],
   },
   6: { name: "Panel", base: "fits its content", contains: "Control and below", components: ["Callout", "DropdownMenu"] },
   7: { name: "Container", base: "layout", contains: "everything", components: [] },
@@ -161,8 +161,12 @@ function buildGroupSection(number, blocks) {
 function render() {
   const root = document.querySelector("[data-sheet]");
   const templates = [...document.querySelectorAll("template[data-component]")];
-  const onlyGroup = new URLSearchParams(location.search).get("group");
-  const built = templates.map((template) => ({ template, ...buildBlock(template) }));
+  const params = new URLSearchParams(location.search);
+  const onlyGroup = params.get("group");
+  const onlyComponent = params.get("component");
+  const built = templates
+    .filter((template) => !onlyComponent || template.dataset.component === onlyComponent)
+    .map((template) => ({ template, ...buildBlock(template) }));
 
   if (root.dataset.sheet === "by-group") {
     Object.keys(GROUPS)

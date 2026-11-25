@@ -24,3 +24,22 @@
   color: var(--color-text);
   font: inherit;
 }
+
+.Input-action {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: calc(var(--space-5) * var(--component-scale));
+  height: calc(var(--space-5) * var(--component-scale));
+  margin-right: calc(-4px * var(--component-scale));
+  padding: 0;
+  border: none;
+  border-radius: calc(var(--radius-1) * var(--component-scale));
+  background: transparent;
+  color: var(--color-text-muted);
+}
+
+.Input-action:hover {
+  background: var(--color-surface-muted);
+}

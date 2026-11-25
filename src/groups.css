@@ -26,7 +26,8 @@
 .Combobox,
 .TextArea,
 .Slider,
-.Progress {
+.Progress,
+.Field {
   --component-scale: calc(var(--scale) * var(--scale-group5));
 }
 
