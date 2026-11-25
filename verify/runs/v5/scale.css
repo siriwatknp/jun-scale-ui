@@ -1,0 +1,358 @@
+@property --scale { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --scale-group1 { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --scale-group2 { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --scale-group3 { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --scale-group4 { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --scale-group5 { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --scale-group6 { syntax: "<number>"; inherits: true; initial-value: 1; }
+
+@property --_group3-factor { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --_group4-factor { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --_group5-factor { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --_group6-factor { syntax: "<number>"; inherits: true; initial-value: 1; }
+
+@property --_group1-scale { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --_group2-scale { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --_group3-scale { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --_group4-scale { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --_group5-scale { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --_group6-scale { syntax: "<number>"; inherits: true; initial-value: 1; }
+
+.StatusDot {
+  --_group1-scale: calc(var(--scale) * var(--scale-group1) * var(--_group3-factor) * var(--_group4-factor) * var(--_group5-factor) * var(--_group6-factor));
+}
+
+.Icon {
+  --_group2-scale: calc(var(--scale) * var(--scale-group2) * var(--_group3-factor) * var(--_group4-factor) * var(--_group5-factor) * var(--_group6-factor));
+}
+
+.Badge,
+.Checkbox,
+.Radio,
+.Switch {
+  --_group3-factor: var(--scale-group3);
+  --_group3-scale: calc(var(--scale) * var(--_group3-factor) * var(--_group4-factor) * var(--_group5-factor) * var(--_group6-factor));
+}
+
+.Avatar {
+  --_group4-factor: var(--scale-group4);
+  --_group4-scale: calc(var(--scale) * var(--_group4-factor) * var(--_group5-factor) * var(--_group6-factor));
+}
+
+.Button,
+.Input,
+.Select,
+.Field {
+  --_group5-factor: var(--scale-group5);
+  --_group5-scale: calc(var(--scale) * var(--_group5-factor) * var(--_group6-factor));
+}
+
+.Callout {
+  --_group6-factor: var(--scale-group6);
+  --_group6-scale: calc(var(--scale) * var(--_group6-factor));
+}
+
+:where(.Checkbox) {
+  --scale-group2: 0.5;
+}
+
+:where(.Select) {
+  --scale-group4: 0.75;
+}
+
+:where(.Callout) {
+  --scale-group2: 0.75;
+}
+
+:where(
+  .StatusDot, .Icon, .Badge, .Checkbox, .Checkbox-input, .Radio, .Switch, .Avatar, .Button, .Input, .Input-field, .Select,
+  .Select-trigger, .Field, .Field-label, .Field-help, .Callout, .Callout-text
+) {
+  box-sizing: border-box;
+}
+
+.StatusDot {
+  display: inline-block;
+  vertical-align: middle;
+  flex: none;
+  width: calc(8px * var(--_group1-scale));
+  height: calc(8px * var(--_group1-scale));
+  border-radius: calc(4px * var(--_group1-scale));
+  background: #22c55e;
+}
+
+.Icon {
+  display: inline-block;
+  vertical-align: middle;
+  flex: none;
+  width: calc(16px * var(--_group2-scale));
+  height: calc(16px * var(--_group2-scale));
+}
+
+.Badge {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  flex: none;
+  height: calc(20px * var(--_group3-scale));
+  padding: 0 calc(8px * var(--_group3-scale));
+  border-radius: calc(3px * var(--_group3-scale));
+  font-family: system-ui, sans-serif;
+  font-size: calc(12px * var(--_group3-scale));
+  line-height: calc(16px * var(--_group3-scale));
+  font-weight: 500;
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
+.Checkbox {
+  display: inline-grid;
+  place-items: center;
+  vertical-align: middle;
+  flex: none;
+  width: calc(16px * var(--_group3-scale));
+  height: calc(16px * var(--_group3-scale));
+}
+
+.Checkbox-input {
+  grid-area: 1 / 1;
+  appearance: none;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #a1a1aa;
+  border-radius: calc(3px * var(--_group3-scale));
+  background: #fff;
+  cursor: pointer;
+}
+
+.Checkbox-input:checked {
+  border-color: #18181b;
+  background: #18181b;
+}
+
+.Checkbox > .Icon {
+  grid-area: 1 / 1;
+  color: #fff;
+  pointer-events: none;
+}
+
+.Checkbox-input:not(:checked) + .Icon {
+  visibility: hidden;
+}
+
+.Radio {
+  appearance: none;
+  display: inline-grid;
+  place-items: center;
+  vertical-align: middle;
+  flex: none;
+  margin: 0;
+  width: calc(16px * var(--_group3-scale));
+  height: calc(16px * var(--_group3-scale));
+  border: 1px solid #a1a1aa;
+  border-radius: calc(8px * var(--_group3-scale));
+  background: #fff;
+  cursor: pointer;
+}
+
+.Radio::before {
+  content: "";
+  width: calc(8px * var(--_group3-scale));
+  height: calc(8px * var(--_group3-scale));
+  border-radius: calc(4px * var(--_group3-scale));
+  background: #18181b;
+  visibility: hidden;
+}
+
+.Radio:checked {
+  border-color: #18181b;
+}
+
+.Radio:checked::before {
+  visibility: visible;
+}
+
+.Switch {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  flex: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  width: calc(40px * var(--_group3-scale));
+  height: calc(24px * var(--_group3-scale));
+  border-radius: calc(12px * var(--_group3-scale));
+  background: #d4d4d8;
+  cursor: pointer;
+}
+
+.Switch::before {
+  content: "";
+  flex: none;
+  width: calc(16px * var(--_group3-scale));
+  height: calc(16px * var(--_group3-scale));
+  margin-left: calc(4px * var(--_group3-scale));
+  border-radius: calc(8px * var(--_group3-scale));
+  background: #fff;
+}
+
+.Switch:checked {
+  background: #18181b;
+}
+
+.Switch:checked::before {
+  translate: calc(16px * var(--_group3-scale)) 0;
+}
+
+.Avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  flex: none;
+  width: calc(32px * var(--_group4-scale));
+  height: calc(32px * var(--_group4-scale));
+  border-radius: calc(16px * var(--_group4-scale));
+  font-family: system-ui, sans-serif;
+  font-size: calc(14px * var(--_group4-scale));
+  line-height: calc(20px * var(--_group4-scale));
+  font-weight: 600;
+  background: #e4e4e7;
+  color: #3f3f46;
+}
+
+.Button {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  margin: 0;
+  border: 0;
+  height: calc(32px * var(--_group5-scale));
+  padding: 0 calc(12px * var(--_group5-scale));
+  gap: calc(8px * var(--_group5-scale));
+  border-radius: calc(4px * var(--_group5-scale));
+  font-family: system-ui, sans-serif;
+  font-size: calc(14px * var(--_group5-scale));
+  line-height: calc(20px * var(--_group5-scale));
+  font-weight: 500;
+  background: #18181b;
+  color: #fff;
+  cursor: pointer;
+}
+
+.Input {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  width: calc(180px * var(--_group5-scale));
+  height: calc(32px * var(--_group5-scale));
+  padding: 0 calc(8px * var(--_group5-scale));
+  gap: calc(8px * var(--_group5-scale));
+  border: 1px solid #d4d4d8;
+  border-radius: calc(4px * var(--_group5-scale));
+  font-family: system-ui, sans-serif;
+  font-size: calc(14px * var(--_group5-scale));
+  line-height: calc(20px * var(--_group5-scale));
+  background: #fff;
+  color: #71717a;
+}
+
+.Input:focus-within {
+  outline: 2px solid #2563eb;
+  outline-offset: -1px;
+}
+
+.Input-field {
+  flex: 1 1 0;
+  align-self: stretch;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font: inherit;
+  color: #18181b;
+}
+
+.Select {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.Select-trigger {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  height: calc(32px * var(--_group5-scale));
+  padding: 0 calc(12px * var(--_group5-scale));
+  gap: calc(8px * var(--_group5-scale));
+  border: 1px solid #d4d4d8;
+  border-radius: calc(4px * var(--_group5-scale));
+  font-family: system-ui, sans-serif;
+  font-size: calc(14px * var(--_group5-scale));
+  line-height: calc(20px * var(--_group5-scale));
+  background: #fff;
+  color: #18181b;
+  cursor: pointer;
+}
+
+.Select-trigger > .Icon {
+  margin-left: auto;
+}
+
+.Field {
+  display: flex;
+  flex-direction: column;
+  width: calc(240px * var(--_group5-scale));
+  gap: calc(8px * var(--_group5-scale));
+  font-family: system-ui, sans-serif;
+}
+
+.Field > .Input {
+  width: auto;
+}
+
+.Field-label {
+  font-size: calc(14px * var(--_group5-scale));
+  line-height: calc(20px * var(--_group5-scale));
+  font-weight: 500;
+  color: #18181b;
+}
+
+.Field-help {
+  margin: 0;
+  font-size: calc(12px * var(--_group5-scale));
+  line-height: calc(16px * var(--_group5-scale));
+  color: #71717a;
+}
+
+.Callout {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-rows: calc(20px * var(--_group6-scale)) auto;
+  column-gap: calc(12px * var(--_group6-scale));
+  max-width: calc(180px * var(--_group6-scale));
+  padding: calc(16px * var(--_group6-scale));
+  border-radius: calc(6px * var(--_group6-scale));
+  font-family: system-ui, sans-serif;
+  font-size: calc(14px * var(--_group6-scale));
+  line-height: calc(20px * var(--_group6-scale));
+  background: #eff6ff;
+  color: #1e3a8a;
+}
+
+.Callout > .Icon {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center;
+}
+
+.Callout-text {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  margin: 0;
+}
