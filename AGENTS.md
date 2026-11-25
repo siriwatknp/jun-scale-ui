@@ -26,7 +26,7 @@ Components are sorted into groups. A bigger group may contain a smaller group, n
 
 - A component in group N renders at `--scale × --scale-group<N>`. The global scale always applies, so a group at 0.8 under a global scale of 1.2 renders at 0.96.
 - The nearest ancestor that sets `--scale-group<N>` wins, through normal CSS inheritance. Flat CSS rules are enough. No rule needs to know the nesting depth.
-- A component may set the factor for a smaller group it contains. `Checkbox` sets `--scale-group2: 0.667`, so its checkmark `Icon` is 10px instead of 15px.
+- A component, or one of its parts, may set the factor for a smaller group it contains. `Checkbox` sets `--scale-group2: 0.667`, so its checkmark `Icon` is 10px. `.Select-trigger` sets `--scale-group4: 0.625`, so an `Avatar` inside it is 20px. `.Field-label` and `.Field-help` set `--scale-group3: 0.8`, so a `Badge` or `Kbd` in label or help text is 16px, while a `Checkbox` next to the label stays 16px.
 - A component may contain components of its own group, and they share one factor. It cannot set that factor for them, because the same variable also sets its own scale. `Field` holds `Input`, `Button` and `Select`, and they all follow `--scale-group5` together. When a same-group child would not fit, build it as a part instead: the button inside `Input` is the part `.Input-action` (24px), not an `IconButton` (32px).
 - Text has no group. It follows the component that renders it.
 
@@ -48,7 +48,7 @@ Groups, smallest first. Each component has one default size, which is its base s
 
 - Refer to components by their PascalCase name: `Button`, `IconButton`, `DropdownMenu`, `StatusDot`. CSS classes use the same name: `.Button`.
 - A part's class is the component name, a hyphen and the part name: `.Select-trigger`, `.Checkbox-input`. `.Popup`, `.Popup-item` and `.Popup-separator` are parts shared by `Select`, `Combobox` and `DropdownMenu`.
-- `Field` parts: `.Field-label`, `.Field-help`, `.Field-error`, `.Field-group` (controls joined on a shared edge) and `.Field-addon` (prefix or suffix text in a group). Its layout is set with `data-layout`: stacked by default, `horizontal`, or `inline` for a `Checkbox` or `Switch` beside its label. `data-invalid` on `Field` shows the error state.
+- `Field` parts: `.Field-label`, `.Field-help`, `.Field-error`, `.Field-group` (controls joined on a shared edge), `.Field-addon` (prefix or suffix text in a group) and `.Field-option` (one row in a list of `Radio` or `Checkbox` options). Its layout is set with `data-layout`: stacked by default, `horizontal`, or `inline` for a `Checkbox` or `Switch` beside its label. `data-invalid` on `Field` shows the error state.
 - A component's parts belong to it and are never listed as components. The Slider thumb is part of `Slider`, and the Switch thumb is part of `Switch`.
 - A glyph inside a component is the `Icon` component. The chevron in `Select` and the checkmark in `Checkbox` are each an `Icon` inside that component.
 
@@ -56,7 +56,7 @@ Groups, smallest first. Each component has one default size, which is its base s
 
 1. Change the components in `src/`, or write an experiment.
 2. Add or update the component's `<template>` in `playground/index.html`, with a `data-spec` of base values on each element to check.
-3. Screenshot only what changed or was added, never whole pages. Capture each new or changed block on its own with `--selector '.Sheet-block'`, filtered to the component with `?component=<Name>`: `scripts/shot.sh playground --width 1800 --wait '[data-measured]' --param component=Field --selector '.Sheet-block'   # one image per block --selector '.Sheet-block'`. For `playground/groups.html`, pass the file path instead of the folder.
+3. Screenshot only what changed or was added, never whole pages. Each rendered block has a `data-block` attribute with its title, so `--selector` can pick the new or changed blocks and save one image each: `scripts/shot.sh playground --width 1800 --wait '[data-measured]' --param component=Field --selector '[data-block*="Kbd shortcut"], [data-block*="Spinner"]'`. For `playground/groups.html`, pass the file path instead of the folder.
 4. Look at every screenshot before sending it. Every value must show ✓, unless a failure is the point. Check the page summary (`N checks, 0 failed`) for the whole sheet as well, since a change can break other components.
 5. Send only the screenshots of the changes to the user with SendUserFile.
 
@@ -99,7 +99,7 @@ Annotations show only when the URL has `?annotate`. The expected value is resolv
 
 ```bash
 scripts/shot.sh playground --width 1440 --wait '[data-measured]' --param group=5
-scripts/shot.sh playground --width 1800 --wait '[data-measured]' --param component=Field --selector '.Sheet-block'   # one image per block
+scripts/shot.sh playground --width 1800 --wait '[data-measured]' --param component=Field --selector '[data-block*="Kbd"]'   # one image per matching block
 scripts/shot.sh playground/groups.html --width 1440 --wait '[data-measured]'
 scripts/shot.sh experiments/000-pipeline-check --annotate
 scripts/shot.sh experiments/000-pipeline-check --width 390 --height 844 --name mobile

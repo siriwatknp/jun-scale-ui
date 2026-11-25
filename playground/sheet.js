@@ -120,6 +120,7 @@ function buildBlock(template) {
   const contexts = contextsFor(template);
   const block = document.createElement("section");
   block.className = "Sheet-block";
+  block.dataset.block = template.dataset.title ?? component;
 
   const header = document.createElement("header");
   header.className = "Sheet-header";

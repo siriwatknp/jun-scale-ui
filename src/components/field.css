@@ -14,12 +14,17 @@
 }
 
 .Field-label {
+  --scale-group3: 0.8;
+  display: flex;
+  align-items: center;
+  gap: calc(var(--space-1) * var(--component-scale));
   color: var(--color-text);
   font-weight: 500;
 }
 
 .Field-help,
 .Field-error {
+  --scale-group3: 0.8;
   margin: 0;
   font-size: calc(var(--font-size-1) * var(--component-scale));
   line-height: calc(var(--line-height-1) * var(--component-scale));
@@ -62,6 +67,17 @@
 .Field-group > :not(:last-child) .Select-trigger {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+}
+
+.Field > .Select .Select-trigger {
+  width: 100%;
+}
+
+.Field-option {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--space-2) * var(--component-scale));
+  color: var(--color-text);
 }
 
 .Field-addon {
