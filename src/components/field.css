@@ -1,4 +1,5 @@
 .Field {
+  --Field-control-offset: calc(var(--space-1) * var(--component-scale));
   display: flex;
   flex-direction: column;
   gap: calc(var(--space-2) * var(--component-scale));
@@ -123,5 +124,5 @@
 }
 
 .Field[data-layout="inline"] > .Checkbox {
-  margin-top: calc(var(--space-1) * var(--component-scale));
+  margin-top: var(--Field-control-offset);
 }

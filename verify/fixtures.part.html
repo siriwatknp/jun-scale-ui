@@ -1,0 +1,51 @@
+    <template data-fixture="StatusDot" data-group="1">
+      <span class="StatusDot" data-check="width height"></span>
+    </template>
+
+    <template data-fixture="Icon" data-group="2">
+      <svg class="Icon" viewBox="0 0 16 16" data-check="width height"><path d="M8 2l1.8 4 4.2.5-3.1 2.9.8 4.1L8 11.5l-3.7 2 .8-4.1L2 6.5l4.2-.5z" fill="none" stroke="currentColor" stroke-linejoin="round" /></svg>
+    </template>
+
+    <template data-fixture="Badge" data-group="3">
+      <span class="Badge" data-check="height padding-left font-size">New</span>
+    </template>
+
+    <template data-fixture="Checkbox" data-group="3">
+      <span class="Checkbox" data-check="width height" data-center-both=".Icon"><input class="Checkbox-input" type="checkbox" checked aria-label="Agree" /><svg class="Icon" viewBox="0 0 16 16" data-check="width height"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
+    </template>
+
+    <template data-fixture="Radio" data-group="3">
+      <input class="Radio" type="radio" checked aria-label="Default" data-check="width height" data-pseudo-center />
+    </template>
+
+    <template data-fixture="Switch" data-group="3">
+      <input class="Switch" type="checkbox" role="switch" aria-label="Sync" data-check="width height" data-pseudo-center data-pseudo-inset />
+    </template>
+
+    <template data-fixture="Avatar" data-group="4">
+      <span class="Avatar" data-check="width height font-size">AK</span>
+    </template>
+
+    <template data-fixture="Button" data-group="5">
+      <button class="Button" data-check="height padding-left font-size" data-center-y=".Icon"><svg class="Icon" viewBox="0 0 16 16" data-check="width height"><path d="M4 2.5h8v11l-4-3-4 3z" fill="none" stroke="currentColor" stroke-linejoin="round" /></svg>Save</button>
+    </template>
+
+    <template data-fixture="Input" data-group="5">
+      <label class="Input" data-check="width height padding-left font-size" data-center-y=".Icon"><svg class="Icon" viewBox="0 0 16 16" data-check="width"><circle cx="7" cy="7" r="4.5" fill="none" stroke="currentColor" /><path d="M10.5 10.5L14 14" stroke="currentColor" /></svg><input class="Input-field" placeholder="Search" /></label>
+    </template>
+
+    <template data-fixture="Select" data-group="5">
+      <div class="Select"><button class="Select-trigger" data-check="height padding-left font-size" data-center-y=".Avatar"><span class="Avatar" data-check="width height">AK</span>Alex Kim<svg class="Icon" viewBox="0 0 16 16" data-check="width"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" /></svg></button></div>
+    </template>
+
+    <template data-fixture="Field" data-group="5">
+      <div class="Field" data-check="width"><label class="Field-label" data-check="font-size line-height">Email</label><label class="Input" data-check="height" data-space-before><input class="Input-field" placeholder="you@example.com" /></label><p class="Field-help" data-check="font-size">We reply within a day.</p></div>
+    </template>
+
+    <template data-fixture="Callout" data-group="6">
+      <div class="Callout" data-check="padding-top font-size line-height" data-icon-on-first-line><svg class="Icon" viewBox="0 0 16 16" data-check="width height"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" /><path d="M8 7v4.5M8 4.5v.5" stroke="currentColor" stroke-linecap="round" /></svg><p class="Callout-text">You need admin access to install this app.</p></div>
+    </template>
+
+    <template data-fixture="ButtonWithBadge" data-group="5">
+      <button class="Button" style="--scale-group3: 0.5" data-check="height">Inbox<span class="Badge" data-check="height">12</span></button>
+    </template>

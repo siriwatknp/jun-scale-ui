@@ -4,6 +4,8 @@ jun-scale-ui is a minimal CSS framework built around a scaling system. UI scales
 
 ## Layout
 
+- `PRINCIPLE.md` states the scaling rules without saying how to code them. `src/` is one implementation of it. When the two disagree, fix the implementation or raise the question with the owner.
+- `verify/` checks that the principle is complete. `verify/make-kit.py <folder>` copies the principle, `verify/brief.md` and the fixture markup into a folder for a fresh agent, which writes `scale.css` from them alone. `verify/run.sh <folder>` runs black-box checks on that `scale.css`. `verify/runs/` keeps what each principle version produced. `verify/run.sh runs/v0-src` checks `src/` itself.
 - `src/` is the framework, plain CSS. `src/index.css` imports everything.
   - `src/scale.css` registers `--scale`, `--scale-group1` to `--scale-group7` and `--component-scale` as numbers with `@property`, so DevTools shows their computed values.
   - `src/tokens.css` holds base sizes (`--space-*`, `--font-size-*`, `--line-height-*`, `--radius-*`) and colors. Base sizes are constants, never scaled.

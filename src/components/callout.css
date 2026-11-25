@@ -1,5 +1,6 @@
 .Callout {
   --scale-group2: 0.75;
+  --Callout-icon-offset: calc(var(--space-1) * var(--component-scale));
   display: flex;
   align-items: flex-start;
   gap: calc(var(--space-3) * var(--component-scale));
@@ -14,7 +15,7 @@
 }
 
 .Callout > .Icon {
-  margin-top: calc(var(--space-1) * var(--component-scale));
+  margin-top: var(--Callout-icon-offset);
 }
 
 .Callout-text {
