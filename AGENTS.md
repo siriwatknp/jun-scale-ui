@@ -56,9 +56,9 @@ Groups, smallest first. Each component has one default size, which is its base s
 
 1. Change the components in `src/`, or write an experiment.
 2. Add or update the component's `<template>` in `playground/index.html`, with a `data-spec` of base values on each element to check.
-3. Take one screenshot per group: `scripts/shot.sh playground --width 1440 --wait '[data-measured]' --param group=<N>`. For `playground/groups.html`, pass the file path instead of the folder.
-4. Look at every screenshot before sending it. The summary at the top right must read `0 failed`, unless a failure is the point.
-5. Send the screenshots to the user with SendUserFile.
+3. Screenshot only what changed or was added, never whole pages. Capture each new or changed block on its own with `--selector '.Sheet-block'`, filtered to the component with `?component=<Name>`: `scripts/shot.sh playground --width 1800 --wait '[data-measured]' --param component=Field --selector '.Sheet-block'   # one image per block --selector '.Sheet-block'`. For `playground/groups.html`, pass the file path instead of the folder.
+4. Look at every screenshot before sending it. Every value must show ✓, unless a failure is the point. Check the page summary (`N checks, 0 failed`) for the whole sheet as well, since a change can break other components.
+5. Send only the screenshots of the changes to the user with SendUserFile.
 
 ## Playground sheet
 
@@ -99,13 +99,13 @@ Annotations show only when the URL has `?annotate`. The expected value is resolv
 
 ```bash
 scripts/shot.sh playground --width 1440 --wait '[data-measured]' --param group=5
-scripts/shot.sh playground --width 1800 --wait '[data-measured]' --param component=Field
+scripts/shot.sh playground --width 1800 --wait '[data-measured]' --param component=Field --selector '.Sheet-block'   # one image per block
 scripts/shot.sh playground/groups.html --width 1440 --wait '[data-measured]'
 scripts/shot.sh experiments/000-pipeline-check --annotate
 scripts/shot.sh experiments/000-pipeline-check --width 390 --height 844 --name mobile
 ```
 
-The first argument is a folder with an `index.html`, or an HTML file. Output goes to `screenshots/<page>-<width>w[-name][-key-value]...[-annotated].png`. The script uses `playwright-cli`.
+The first argument is a folder with an `index.html`, or an HTML file. With `--selector`, the script saves one image per matching element, numbered `-1`, `-2` and so on, instead of the full page. Output goes to `screenshots/<page>-<width>w[-name][-key-value]...[-annotated].png`. The script uses `playwright-cli`.
 
 ## Permissions
 
