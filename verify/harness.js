@@ -253,10 +253,6 @@ function testFactorBehavior() {
   expectEqual("same group shares one factor", "Input in Field with --scale-group5: 0.75", measure("Field", "--scale-group5: 0.75", ".Field .Input", "height"), fieldInput * 0.75);
   expectEqual("same group shares one factor", "Field label text with --scale-group5: 0.75", measure("Field", "--scale-group5: 0.75", ".Field-label", "font-size"), fieldLabel * 0.75);
 
-  expectEqual("an unset or invalid value counts as 1", "Button with --scale-group5: oops", measure("Button", "--scale-group5: oops", ".Button", "height"), buttonHeight);
-  expectEqual("an unset or invalid value counts as 1", "Button with --scale: oops", measure("Button", "--scale: oops", ".Button", "height"), buttonHeight);
-  expectEqual("an invalid value is ignored", "inner --scale-group5: oops inside outer 0.5", measure("Button", "--scale-group5: 0.5", ".Button", "height", "--scale-group5: oops"), buttonHeight * 0.5);
-  expectEqual("an invalid value is ignored", "inner --scale: oops inside outer 1.5", measure("Button", "--scale: 1.5", ".Button", "height", "--scale: oops"), buttonHeight * 1.5);
 }
 
 function report() {

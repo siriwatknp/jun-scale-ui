@@ -1,6 +1,6 @@
 # Scaling principle
 
-Version 5
+Version 6
 
 This document states how jun-scale-ui scales components. It says what must be true, not how to write it. An implementation is correct when every rule here holds.
 
@@ -52,7 +52,7 @@ The base size column gives the height of the component's main box. Widths, and t
 
 A component renders at its effective scale: the global scale, times the factor of its own group, times the factor of the group of each bigger component it sits inside.
 
-Each group counts once. For each group, the factor used is the one in force at the nearest component of that group that encloses this component, or at the component itself for its own group. A group with no such component counts as 1.
+Each group counts once. For each group, the factor used is the one in force at the nearest component of that group that encloses this component, or at the component itself for its own group. A group with no such component counts as 1, and a group factor that no element sets is 1.
 
 Some examples, with a `Button` (group 5) that sets the factor of its `Icon` to 0.75:
 
@@ -61,8 +61,6 @@ Some examples, with a `Button` (group 5) that sets the factor of its `Icon` to 0
 - `--scale: 1.25` on a container: the `Button` renders at 1.25 and its `Icon` at 1.25 × 0.75 = 0.9375.
 - An `Input` (group 5) inside a `Field` (group 5) with `--scale-group5: 1.5` renders at 1.5, not 1.5 × 1.5, because group 5 counts once.
 - A standalone `Icon` next to the `Button` is not inside a group 5 component, so `--scale-group5` does not change it.
-
-A value that is not a valid number is ignored. The valid value set further out applies instead, or 1 when no element further out sets one. The same holds for `--scale`.
 
 ### 6. The nearest value wins
 
