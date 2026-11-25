@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>jun-scale-ui · Components</title>
+    <link rel="stylesheet" href="../src/index.css" />
+    <link rel="stylesheet" href="./sheet.css" />
+    <script src="./sheet.js" defer></script>
+  </head>
+  <body>
+    <svg class="Sheet-sprite" aria-hidden="true">
+      <defs>
+        <g id="icon-star" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"><path d="M7.5 1.5l1.8 3.9 4.2.5-3.1 2.9.8 4.2-3.7-2.1-3.7 2.1.8-4.2-3.1-2.9 4.2-.5z" /></g>
+        <g id="icon-bookmark" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"><path d="M4 2h7v11l-3.5-2.5L4 13z" /></g>
+        <g id="icon-search" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><circle cx="6.5" cy="6.5" r="4" /><path d="M9.5 9.5L13 13" /></g>
+        <g id="icon-plus" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M7.5 3v9M3 7.5h9" /></g>
+        <g id="icon-info" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><circle cx="7.5" cy="7.5" r="6" /><path d="M7.5 6.5v4" /><circle cx="7.5" cy="4.5" r="0.4" /></g>
+        <g id="icon-chevron-down" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l3.5 3.5L11 6" /></g>
+        <g id="icon-check" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5l3 3 6-6" /></g>
+        <g id="icon-sort" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5.5L7.5 3 10 5.5M5 9.5L7.5 12 10 9.5" /></g>
+      </defs>
+    </svg>
+    <header class="Sheet-toolbar">
+      <h1>Components</h1>
+      <p>Each column sets <code>--scale</code>. Each row is a measured value in px, checked against base × <code>--component-scale</code>.</p>
+      <span class="Sheet-summary" data-summary></span>
+    </header>
+    <main class="Sheet" data-sheet="by-group"></main>
+
+    <template data-component="StatusDot">
+      <span class="Row"><span class="StatusDot" data-spec="width=8 height=8"></span>Online</span>
+    </template>
+
+    <template data-component="Icon">
+      <svg class="Icon" viewBox="0 0 15 15" data-spec="width=15 height=15"><use href="#icon-star" /></svg>
+    </template>
+
+    <template data-component="Spinner">
+      <span class="Spinner" data-spec="width=16 height=16"></span>
+    </template>
+
+    <template data-component="Badge">
+      <span class="Badge" data-spec="height=20 padding-left=6 font-size=12 border-top-left-radius=3">New</span>
+    </template>
+
+    <template data-component="Kbd">
+      <kbd class="Kbd" data-spec="height=20 padding-left=4 font-size=12">⌘K</kbd>
+    </template>
+
+    <template data-component="Checkbox" data-note="sets --scale-group2: 0.667, so its Icon is 10px">
+      <label class="Row"><span class="Checkbox" data-spec="width=16 height=16"><input class="Checkbox-input" type="checkbox" checked /><svg class="Icon" viewBox="0 0 15 15" data-spec="width=15"><use href="#icon-check" /></svg></span>Agree to terms</label>
+    </template>
+
+    <template data-component="Radio">
+      <label class="Row"><input class="Radio" type="radio" checked data-spec="width=16 height=16" />Default</label>
+    </template>
+
+    <template data-component="Switch">
+      <label class="Row"><input class="Switch" type="checkbox" role="switch" checked data-spec="width=36 height=20" />Sync</label>
+    </template>
+
+    <template data-component="Avatar">
+      <span class="Avatar" data-spec="width=32 height=32 font-size=14">A</span>
+    </template>
+
+    <template data-component="Button" data-note="contains Icon">
+      <button class="Button" data-spec="height=32 padding-left=12 font-size=14 border-top-left-radius=4"><svg class="Icon" viewBox="0 0 15 15" data-spec="width=15"><use href="#icon-bookmark" /></svg>Bookmark</button>
+    </template>
+
+    <template data-component="IconButton" data-note="contains Icon">
+      <button class="IconButton" aria-label="Add" data-spec="width=32 height=32 border-top-left-radius=4"><svg class="Icon" viewBox="0 0 15 15"><use href="#icon-plus" /></svg></button>
+    </template>
+
+    <template data-component="Input" data-note="contains Icon">
+      <label class="Input" data-spec="width=180 height=32 padding-left=8 font-size=14"><svg class="Icon" viewBox="0 0 15 15"><use href="#icon-search" /></svg><input class="Input-field" placeholder="Search the docs…" /></label>
+    </template>
+
+    <template data-component="Select" data-note="contains Icon; its popup is a part">
+      <div class="Select">
+        <button class="Select-trigger" data-spec="height=32 padding-left=12 font-size=14">Apple<svg class="Icon" viewBox="0 0 15 15"><use href="#icon-chevron-down" /></svg></button>
+        <div class="Popup" role="listbox">
+          <div class="Popup-item" role="option">Orange</div>
+          <div class="Popup-item" role="option" aria-selected="true" data-highlighted data-spec="height=32 padding-left=12">Apple<svg class="Icon" viewBox="0 0 15 15"><use href="#icon-check" /></svg></div>
+          <div class="Popup-item" role="option">Grape</div>
+        </div>
+      </div>
+    </template>
+
+    <template data-component="Combobox" data-note="contains Icon; its popup is a part">
+      <div class="Combobox">
+        <label class="Combobox-field" data-spec="width=180 height=32 font-size=14"><input class="Combobox-input" role="combobox" value="Ap" /><svg class="Icon" viewBox="0 0 15 15"><use href="#icon-sort" /></svg></label>
+        <div class="Popup" role="listbox">
+          <div class="Popup-item" role="option" data-highlighted>Apple</div>
+          <div class="Popup-item" role="option">Apricot</div>
+        </div>
+      </div>
+    </template>
+
+    <template data-component="TextArea">
+      <textarea class="TextArea" placeholder="Reply to comment…" data-spec="width=180 min-height=64 font-size=14"></textarea>
+    </template>
+
+    <template data-component="Slider">
+      <input class="Slider" type="range" value="50" aria-label="Volume" data-spec="width=160 height=20" />
+    </template>
+
+    <template data-component="Progress">
+      <progress class="Progress" value="60" max="100" data-spec="width=160 height=6"></progress>
+    </template>
+
+    <template data-component="Callout" data-note="contains Icon">
+      <div class="Callout" data-spec="padding-top=16 font-size=14 border-top-left-radius=6"><svg class="Icon" viewBox="0 0 15 15" data-spec="width=15"><use href="#icon-info" /></svg><p class="Callout-text">You need admin access to install this app.</p></div>
+    </template>
+
+    <template data-component="DropdownMenu" data-note="contains Button; its popup is a part">
+      <div class="DropdownMenu">
+        <button class="Button" data-variant="soft">Options<svg class="Icon" viewBox="0 0 15 15"><use href="#icon-chevron-down" /></svg></button>
+        <div class="Popup" role="menu">
+          <div class="Popup-item" role="menuitem" data-spec="height=32 padding-left=12 font-size=14">Edit<span class="Popup-shortcut">⌘E</span></div>
+          <div class="Popup-item" role="menuitem">Duplicate<span class="Popup-shortcut">⌘D</span></div>
+          <div class="Popup-separator" role="separator"></div>
+          <div class="Popup-item" role="menuitem" data-tone="danger">Delete<span class="Popup-shortcut">⌘⌫</span></div>
+        </div>
+      </div>
+    </template>
+  </body>
+</html>

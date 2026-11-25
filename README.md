@@ -4,6 +4,8 @@ A minimal CSS framework built around a scaling system. UI scales without fixed s
 
 Set `--scale` on the root, or on any container, to resize every component inside it. Each component has one default size and follows the scale for width, height, margin, padding, font size, line height and border radius.
 
-The project is plain HTML and CSS. Open any `experiments/*/index.html` file in a browser, or start from `index.html` at the root. Add `?annotate` to the URL to show value labels, and `?scale=1.1` to set the scale. The playground renders components with the [Radix Themes](https://www.radix-ui.com/themes) stylesheet.
+The project is plain HTML and CSS, with no build step and no dependencies. Use it with `src/index.css`.
 
-See `AGENTS.md` for the experiment workflow, annotations, and the screenshot script.
+Open `playground/index.html` to see every component at several scales, with each measured size checked against its base value. `playground/groups.html` shows how group factors combine.
+
+See `AGENTS.md` for the scaling model, the group list, the workflow and the screenshot script.

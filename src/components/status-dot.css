@@ -1,0 +1,8 @@
+.StatusDot {
+  display: inline-block;
+  flex-shrink: 0;
+  width: calc(var(--space-2) * var(--component-scale));
+  height: calc(var(--space-2) * var(--component-scale));
+  border-radius: var(--radius-full);
+  background: var(--color-success);
+}

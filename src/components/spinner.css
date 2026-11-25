@@ -1,0 +1,17 @@
+.Spinner {
+  display: inline-block;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: calc(var(--space-4) * var(--component-scale));
+  height: calc(var(--space-4) * var(--component-scale));
+  border: 2px solid var(--color-surface-muted);
+  border-top-color: var(--color-accent);
+  border-radius: var(--radius-full);
+  animation: Spinner-rotate 0.8s linear infinite;
+}
+
+@keyframes Spinner-rotate {
+  to {
+    transform: rotate(1turn);
+  }
+}

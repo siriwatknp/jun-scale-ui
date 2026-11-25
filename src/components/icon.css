@@ -1,0 +1,7 @@
+.Icon {
+  display: inline-block;
+  flex-shrink: 0;
+  width: calc(15px * var(--component-scale));
+  height: calc(15px * var(--component-scale));
+  vertical-align: middle;
+}

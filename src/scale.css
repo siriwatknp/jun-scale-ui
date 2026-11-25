@@ -1,3 +1,53 @@
-:root {
-  --scale: 1;
+@property --scale {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --component-scale {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --scale-group1 {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --scale-group2 {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --scale-group3 {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --scale-group4 {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --scale-group5 {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --scale-group6 {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --scale-group7 {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
 }

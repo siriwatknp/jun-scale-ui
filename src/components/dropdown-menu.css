@@ -1,0 +1,6 @@
+.DropdownMenu {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(var(--space-1) * var(--component-scale));
+}

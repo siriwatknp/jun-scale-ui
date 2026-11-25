@@ -2,12 +2,12 @@
 set -euo pipefail
 
 usage() {
-  echo "Usage: scripts/shot.sh <experiment-dir> [--width <px>] [--height <px>] [--annotate] [--param <key=value>]... [--name <suffix>]" >&2
+  echo "Usage: scripts/shot.sh <page-dir-or-html-file> [--width <px>] [--height <px>] [--annotate] [--wait <selector>] [--param <key=value>]... [--name <suffix>]" >&2
   exit 1
 }
 
 [[ $# -ge 1 ]] || usage
-experiment="${1%/}"
+target="${1%/}"
 shift
 
 width=1280
@@ -15,6 +15,7 @@ height=800
 annotate=false
 suffix=""
 params=()
+wait_selector=""
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -23,15 +24,21 @@ while [[ $# -gt 0 ]]; do
     --annotate) annotate=true; shift ;;
     --name) suffix="-$2"; shift 2 ;;
     --param) params+=("$2"); shift 2 ;;
+    --wait) wait_selector="$2"; shift 2 ;;
     *) usage ;;
   esac
 done
 
 root="$(cd "$(dirname "$0")/.." && pwd)"
-page="$root/$experiment/index.html"
+if [[ "$target" == *.html ]]; then
+  page="$root/$target"
+  slug="$(basename "$(dirname "$target")")-$(basename "$target" .html)"
+else
+  page="$root/$target/index.html"
+  slug="$(basename "$target")"
+fi
 [[ -f "$page" ]] || { echo "Not found: $page" >&2; exit 1; }
 
-slug="$(basename "$experiment")"
 out="$root/screenshots/$slug-${width}w$suffix"
 query=()
 for param in ${params[@]+"${params[@]}"}; do
@@ -49,13 +56,23 @@ if [[ ${#query[@]} -gt 0 ]]; then
 fi
 mkdir -p "$root/screenshots"
 
-session="jun-scale-ui-$$"
-agent-browser --session "$session" set viewport "$width" "$height" >/dev/null
-agent-browser --session "$session" open "$url" >/dev/null
-if $annotate; then
-  agent-browser --session "$session" wait '[data-annotated]' >/dev/null
+if $annotate && [[ -z "$wait_selector" ]]; then
+  wait_selector="[data-annotated]"
 fi
-agent-browser --session "$session" screenshot "$out" --full >/dev/null
-agent-browser --session "$session" close >/dev/null
+wait_step=""
+if [[ -n "$wait_selector" ]]; then
+  wait_step="await page.waitForSelector('$wait_selector', { state: 'attached' });"
+fi
+
+session="jun-scale-ui-$$"
+playwright-cli -s="$session" open >/dev/null
+trap 'playwright-cli -s="$session" close >/dev/null 2>&1' EXIT
+playwright-cli -s="$session" run-code "async page => {
+  await page.setViewportSize({ width: $width, height: $height });
+  await page.goto('$url');
+  $wait_step
+  await page.screenshot({ path: '$out', fullPage: true });
+}" >/dev/null
+[[ -f "$out" ]] || { echo "Screenshot failed: $out" >&2; exit 1; }
 
 echo "$out"

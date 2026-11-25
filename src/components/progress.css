@@ -1,0 +1,22 @@
+.Progress {
+  display: block;
+  width: calc(160px * var(--component-scale));
+  height: calc(6px * var(--component-scale));
+  appearance: none;
+  border: none;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-muted);
+  overflow: hidden;
+}
+
+.Progress::-webkit-progress-bar {
+  background: var(--color-surface-muted);
+}
+
+.Progress::-webkit-progress-value {
+  background: var(--color-accent);
+}
+
+.Progress::-moz-progress-bar {
+  background: var(--color-accent);
+}

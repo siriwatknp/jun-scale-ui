@@ -1,0 +1,36 @@
+.StatusDot {
+  --component-scale: calc(var(--scale) * var(--scale-group1));
+}
+
+.Icon,
+.Spinner {
+  --component-scale: calc(var(--scale) * var(--scale-group2));
+}
+
+.Badge,
+.Kbd,
+.Checkbox,
+.Radio,
+.Switch {
+  --component-scale: calc(var(--scale) * var(--scale-group3));
+}
+
+.Avatar {
+  --component-scale: calc(var(--scale) * var(--scale-group4));
+}
+
+.Button,
+.IconButton,
+.Input,
+.Select,
+.Combobox,
+.TextArea,
+.Slider,
+.Progress {
+  --component-scale: calc(var(--scale) * var(--scale-group5));
+}
+
+.Callout,
+.DropdownMenu {
+  --component-scale: calc(var(--scale) * var(--scale-group6));
+}

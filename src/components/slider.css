@@ -1,0 +1,40 @@
+.Slider {
+  --Slider-fill: 50%;
+  display: block;
+  width: calc(160px * var(--component-scale));
+  height: calc(20px * var(--component-scale));
+  margin: 0;
+  appearance: none;
+  background: transparent;
+}
+
+.Slider::-webkit-slider-runnable-track {
+  height: calc(6px * var(--component-scale));
+  border-radius: var(--radius-full);
+  background: linear-gradient(to right, var(--color-accent) var(--Slider-fill), var(--color-surface-muted) var(--Slider-fill));
+}
+
+.Slider::-moz-range-track {
+  height: calc(6px * var(--component-scale));
+  border-radius: var(--radius-full);
+  background: linear-gradient(to right, var(--color-accent) var(--Slider-fill), var(--color-surface-muted) var(--Slider-fill));
+}
+
+.Slider::-webkit-slider-thumb {
+  width: calc(var(--space-4) * var(--component-scale));
+  height: calc(var(--space-4) * var(--component-scale));
+  margin-top: calc(-5px * var(--component-scale));
+  appearance: none;
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+}
+
+.Slider::-moz-range-thumb {
+  box-sizing: border-box;
+  width: calc(var(--space-4) * var(--component-scale));
+  height: calc(var(--space-4) * var(--component-scale));
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+}

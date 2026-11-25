@@ -1,0 +1,50 @@
+.Popup {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-width: calc(128px * var(--component-scale));
+  padding: calc(var(--space-1) * var(--component-scale));
+  border: 1px solid var(--color-border);
+  border-radius: calc(var(--radius-3) * var(--component-scale));
+  background: var(--color-surface);
+  box-shadow: 0 calc(4px * var(--component-scale)) calc(16px * var(--component-scale)) var(--color-shadow);
+  font-size: calc(var(--font-size-2) * var(--component-scale));
+  line-height: calc(var(--line-height-2) * var(--component-scale));
+}
+
+.Popup-item {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--space-2) * var(--component-scale));
+  box-sizing: border-box;
+  height: calc(var(--space-6) * var(--component-scale));
+  padding-inline: calc(var(--space-3) * var(--component-scale));
+  border-radius: calc(var(--radius-2) * var(--component-scale));
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.Popup-item[data-highlighted] {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.Popup-item[data-tone="danger"] {
+  color: var(--color-danger);
+}
+
+.Popup-item > .Icon {
+  margin-left: auto;
+}
+
+.Popup-shortcut {
+  margin-left: auto;
+  padding-left: calc(var(--space-4) * var(--component-scale));
+  color: var(--color-text-muted);
+}
+
+.Popup-separator {
+  height: 1px;
+  margin: calc(var(--space-1) * var(--component-scale)) calc(var(--space-3) * var(--component-scale));
+  background: var(--color-border);
+}

@@ -1,0 +1,21 @@
+.Callout {
+  display: flex;
+  align-items: flex-start;
+  gap: calc(var(--space-3) * var(--component-scale));
+  box-sizing: border-box;
+  max-width: calc(180px * var(--component-scale));
+  padding: calc(var(--space-4) * var(--component-scale));
+  border-radius: calc(var(--radius-3) * var(--component-scale));
+  background: var(--color-accent-soft);
+  color: var(--color-accent-text);
+  font-size: calc(var(--font-size-2) * var(--component-scale));
+  line-height: calc(var(--line-height-2) * var(--component-scale));
+}
+
+.Callout > .Icon {
+  margin-top: calc(2.5px * var(--component-scale));
+}
+
+.Callout-text {
+  margin: 0;
+}

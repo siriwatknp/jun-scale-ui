@@ -1,0 +1,22 @@
+.Button {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--space-2) * var(--component-scale));
+  box-sizing: border-box;
+  height: calc(var(--space-6) * var(--component-scale));
+  padding-inline: calc(var(--space-3) * var(--component-scale));
+  border: none;
+  border-radius: calc(var(--radius-2) * var(--component-scale));
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font: inherit;
+  font-size: calc(var(--font-size-2) * var(--component-scale));
+  line-height: calc(var(--line-height-2) * var(--component-scale));
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.Button[data-variant="soft"] {
+  background: var(--color-accent-soft);
+  color: var(--color-accent-text);
+}

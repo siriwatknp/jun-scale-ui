@@ -1,0 +1,166 @@
+body {
+  margin: 0;
+  background: #f7f7f8;
+  color: #1c2024;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.Sheet-toolbar {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 16px 24px;
+  background: white;
+  border-bottom: 1px solid #e4e4e9;
+}
+
+.Sheet-toolbar h1 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.Sheet-toolbar p {
+  margin: 0;
+  font-size: 13px;
+  color: #60646c;
+}
+
+.Sheet-summary {
+  margin-left: auto;
+  font: 600 13px ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.Sheet {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+}
+
+.Sheet-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.Sheet-group h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0 0;
+  font-size: 18px;
+}
+
+.Sheet-group-number {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  background: #1c2024;
+  color: white;
+  font-size: 13px;
+}
+
+.Sheet-group-facts {
+  font-size: 13px;
+  color: #60646c;
+}
+
+.Sheet-block {
+  padding: 12px 16px;
+  background: white;
+  border: 1px solid #e4e4e9;
+  border-radius: 8px;
+}
+
+.Sheet-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.Sheet-header h3 {
+  margin: 0;
+  font-size: 15px;
+}
+
+.Sheet-note {
+  font-size: 12px;
+  color: #80838d;
+}
+
+.Sheet-grid {
+  display: grid;
+  grid-template-columns: 170px repeat(var(--Sheet-columns), minmax(0, 1fr));
+  column-gap: 16px;
+}
+
+.Sheet-context {
+  padding-bottom: 6px;
+  border-bottom: 1px solid #e4e4e9;
+  font: 12px ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: #60646c;
+}
+
+.Sheet-corner {
+  border-bottom: 1px solid #e4e4e9;
+}
+
+.Sheet-render {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: calc(12px * var(--scale));
+  padding: 12px 0 16px;
+  font-size: calc(var(--font-size-2) * var(--scale));
+  line-height: calc(var(--line-height-2) * var(--scale));
+}
+
+.Sheet-render > * {
+  flex-shrink: 0;
+}
+
+.Sheet-label,
+.Sheet-value {
+  padding: 3px 0;
+  border-top: 1px solid #f0f0f3;
+  font: 12px/18px ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.Sheet-label {
+  color: #80838d;
+}
+
+.Sheet-label strong {
+  color: #1c2024;
+  font-weight: 600;
+}
+
+.Sheet-render-label {
+  padding-top: 12px;
+  border-top: none;
+}
+
+.Sheet-value.is-pass {
+  color: #1c2024;
+}
+
+.Sheet-value.is-fail {
+  color: #ce2c31;
+  font-weight: 600;
+}
+
+.Row {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--space-2) * var(--scale));
+}
+
+.Sheet-sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}

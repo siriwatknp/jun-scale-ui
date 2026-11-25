@@ -1,0 +1,15 @@
+.Badge {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--space-1) * var(--component-scale));
+  box-sizing: border-box;
+  height: calc(20px * var(--component-scale));
+  padding-inline: calc(6px * var(--component-scale));
+  border-radius: calc(var(--radius-1) * var(--component-scale));
+  background: var(--color-accent-soft);
+  color: var(--color-accent-text);
+  font-size: calc(var(--font-size-1) * var(--component-scale));
+  line-height: calc(var(--line-height-1) * var(--component-scale));
+  font-weight: 500;
+  white-space: nowrap;
+}

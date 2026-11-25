@@ -1,0 +1,18 @@
+.IconButton {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: calc(var(--space-6) * var(--component-scale));
+  height: calc(var(--space-6) * var(--component-scale));
+  padding: 0;
+  border: none;
+  border-radius: calc(var(--radius-2) * var(--component-scale));
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.IconButton[data-variant="soft"] {
+  background: var(--color-accent-soft);
+  color: var(--color-accent-text);
+}

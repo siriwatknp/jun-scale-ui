@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>jun-scale-ui · Group scale</title>
+    <link rel="stylesheet" href="../src/index.css" />
+    <link rel="stylesheet" href="./sheet.css" />
+    <script src="./sheet.js" defer></script>
+  </head>
+  <body>
+    <svg class="Sheet-sprite" aria-hidden="true">
+      <defs>
+        <g id="icon-star" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"><path d="M7.5 1.5l1.8 3.9 4.2.5-3.1 2.9.8 4.2-3.7-2.1-3.7 2.1.8-4.2-3.1-2.9 4.2-.5z" /></g>
+        <g id="icon-bookmark" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"><path d="M4 2h7v11l-3.5-2.5L4 13z" /></g>
+        <g id="icon-search" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><circle cx="6.5" cy="6.5" r="4" /><path d="M9.5 9.5L13 13" /></g>
+        <g id="icon-plus" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M7.5 3v9M3 7.5h9" /></g>
+        <g id="icon-info" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><circle cx="7.5" cy="7.5" r="6" /><path d="M7.5 6.5v4" /><circle cx="7.5" cy="4.5" r="0.4" /></g>
+        <g id="icon-chevron-down" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l3.5 3.5L11 6" /></g>
+        <g id="icon-check" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5l3 3 6-6" /></g>
+        <g id="icon-sort" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5.5L7.5 3 10 5.5M5 9.5L7.5 12 10 9.5" /></g>
+      </defs>
+    </svg>
+    <header class="Sheet-toolbar">
+      <h1>Group scale</h1>
+      <p>A component in group N renders at <code>--scale × --scale-groupN</code>. Each column sets the CSS shown above it.</p>
+      <span class="Sheet-summary" data-summary></span>
+    </header>
+    <main class="Sheet" data-sheet="flat"></main>
+
+    <template
+      data-component="Button"
+      data-title="1 · A container sets the Control factor"
+      data-note="The Control shrinks with --scale-group5. The Icon inside keeps its own factor. The global scale applies to every group."
+      data-contexts='[{"label":"nothing set","style":""},{"label":"--scale-group5: 0.75","style":"--scale-group5: 0.75"},{"label":"--scale: 1.2; --scale-group5: 0.75","style":"--scale: 1.2; --scale-group5: 0.75"}]'
+    >
+      <button class="Button" data-spec="height=32"><svg class="Icon" viewBox="0 0 15 15" data-spec="width=15"><use href="#icon-bookmark" /></svg>Bookmark</button>
+      <span class="Badge" data-spec="height=20">New</span>
+    </template>
+
+    <template
+      data-component="Checkbox"
+      data-title="2 · The nearest value wins"
+      data-note="The container sets --scale-group2: 1.5. The standalone Icon takes it. Checkbox sets its own --scale-group2: 0.667, which is nearer to its Icon."
+      data-contexts='[{"label":"nothing set","style":""},{"label":"--scale-group2: 1.5","style":"--scale-group2: 1.5"}]'
+    >
+      <svg class="Icon" viewBox="0 0 15 15" data-spec="width=15"><use href="#icon-star" /></svg>
+      <label class="Row"><span class="Checkbox"><input class="Checkbox-input" type="checkbox" checked /><svg class="Icon" viewBox="0 0 15 15" data-spec="width=15"><use href="#icon-check" /></svg></span>Agree to terms</label>
+    </template>
+
+    <template
+      data-component="Button"
+      data-title="3 · A component sets a smaller group"
+      data-note="This Button sets --scale-group3: 0.8, so the Badge inside it renders at 0.8. The Badge outside stays at 1."
+      data-contexts='[{"label":"--scale: 1","style":"--scale: 1"},{"label":"--scale: 1.5","style":"--scale: 1.5"}]'
+    >
+      <button class="Button" style="--scale-group3: 0.8">Inbox<span class="Badge" data-spec="height=20">12</span></button>
+      <span class="Badge" data-spec="height=20">12</span>
+    </template>
+  </body>
+</html>

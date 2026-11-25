@@ -1,0 +1,17 @@
+.Kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: calc(20px * var(--component-scale));
+  min-width: calc(20px * var(--component-scale));
+  padding-inline: calc(var(--space-1) * var(--component-scale));
+  border: 1px solid var(--color-border);
+  border-radius: calc(var(--radius-1) * var(--component-scale));
+  background: var(--color-surface-muted);
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: calc(var(--font-size-1) * var(--component-scale));
+  line-height: calc(var(--line-height-1) * var(--component-scale));
+  white-space: nowrap;
+}
