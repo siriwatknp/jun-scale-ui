@@ -1,9 +1,9 @@
 .Callout {
   --scale-group2: calc(0.75 * var(--scale-group6));
-  --Callout-icon-offset: calc(var(--space-1) * var(--component-scale));
-  display: flex;
-  align-items: flex-start;
-  gap: calc(var(--space-3) * var(--component-scale));
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-rows: calc(var(--line-height-2) * var(--component-scale)) auto;
+  column-gap: calc(var(--space-3) * var(--component-scale));
   box-sizing: border-box;
   max-width: calc(180px * var(--component-scale));
   padding: calc(var(--space-4) * var(--component-scale));
@@ -15,9 +15,11 @@
 }
 
 .Callout > .Icon {
-  margin-top: var(--Callout-icon-offset);
+  grid-row: 1;
+  align-self: center;
 }
 
 .Callout-text {
+  grid-row: 1 / span 2;
   margin: 0;
 }

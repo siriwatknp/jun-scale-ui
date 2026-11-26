@@ -27,7 +27,7 @@ jun-scale-ui is a minimal CSS framework built around a scaling system. UI scales
 - Notes on how `src/` implements them:
   - `src/groups.css` sets `--component-scale` to `--scale × --scale-group<N>` on every component root, and passes the component's factor down to every smaller group.
   - Component files override the defaults the spec lists, multiplied by their own factor, for example `.Checkbox { --scale-group2: calc(0.5 * var(--scale-group3)); }`.
-  - A size a component applies to a child component goes through a custom property declared on the component, so it uses the component's scale: `.Callout > .Icon { margin-top: var(--Callout-icon-offset); }`.
+  - A child component that must be centered on a text line sits in a grid row one line tall, with `align-self: center`, as in `Callout` and the inline `Field`. A fixed offset would be wrong once the child's factor changes.
   - `experiments/004-pixel-snapping` measures why sizes must land on whole pixels.
 - In conversation, refer to components by their PascalCase names, as `SPEC.md` does. A component's parts are never listed as components, and a glyph inside a component is the `Icon` component.
 

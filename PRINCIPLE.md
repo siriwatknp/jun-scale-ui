@@ -1,6 +1,6 @@
 # Scaling principle
 
-Version 9
+Version 10
 
 This document states the rules of the jun-scale-ui scaling system. It says what must be true, not how to write it. `SPEC.md` describes the components themselves: their groups, base sizes, parts and default factors. An implementation is correct when it follows both.
 
@@ -22,7 +22,7 @@ Each component has one default size, made of its base sizes. There are no size v
 
 ### 2. What scales
 
-These properties equal base size × effective scale: width, height, minimum and maximum width and height, margin, padding, gap, position offsets (top, right, bottom, left and translations), font size, line height and border radius.
+These properties equal base size × effective scale: width, height, minimum and maximum width and height, margin, padding, gap, position offsets (top, right, bottom, left and translations), font size, line height and border radius. Line heights are lengths, so they scale like any other size.
 
 Border widths and outline widths do not scale. They are not part of the base size arithmetic: a 1px border on both sides of a box does not change where its centered content lands.
 
@@ -30,13 +30,13 @@ Shadows and outline offsets are decoration. They may scale or not. An SVG drawin
 
 ### 3. The global scale
 
-`--scale` is a number. It is 1 unless set. It can be set on the root or on any element, and it applies to every component inside that element. When an element inside sets `--scale` again, that nearer value replaces the outer one for everything inside it.
+`--scale` is a number. It is 1 unless set. It can be set on the root or on any element, and it applies to that element and every component inside it. When an element inside sets `--scale` again, that nearer value replaces the outer one for that element and everything inside it.
 
 ### 4. Groups
 
-Groups are numbered from 1 upward. A bigger number holds bigger components. `SPEC.md` lists the groups and assigns each component to one.
+Groups are numbered from 1 upward. `SPEC.md` lists the groups and assigns each component to one.
 
-A component may contain components of a smaller group or of its own group. It never contains a component of a bigger group.
+A component may contain components of a smaller group or of its own group. It never contains a component of a bigger group. A group is defined by what its components can hold, not by their height alone: components of a bigger group are usually bigger, but a thin control such as a progress bar still belongs with the other controls.
 
 ### 5. Effective scale
 
@@ -44,14 +44,14 @@ A component in group N renders at `--scale × --scale-group<N>`, using the value
 
 ### 6. The nearest value wins
 
-Every factor, and `--scale`, takes the value set by the nearest element that sets it. A value set on an element applies inside that element, at any depth, until an element nearer sets the same variable.
+Every factor, and `--scale`, takes the value set by the nearest element that sets it, counting the element itself. A value set on an element applies to that element and everything inside it, at any depth, until an element nearer sets the same variable.
 
 ### 7. Components pass their scale down
 
 Any element may set `--scale-group<N>`: a page container, a component or a part.
 
 - A component of group N sets the factor of every smaller group, so that the components inside it scale with it. Each of those factors is the component's own group factor times a default for that group. The default is 1, unless a child must be smaller to fit. `SPEC.md` lists the defaults that are not 1. A component of group 5 with no such defaults sets `--scale-group1` to `--scale-group4` to its own `--scale-group5`. A checkbox whose checkmark should be half its usual size sets the icon group's factor to 0.5 × its own factor.
-- A component sets these factors on its own root element. When only the children inside one part need a different default, that part sets it, still multiplied by the component's own group factor. For example, a label part can make the badges inside it smaller without changing a checkbox next to the label.
+- A component sets these factors on its own root element. When only the children inside one part need a different default, that part sets it, still multiplied by the component's own group factor, which the part inherits from the component. For example, a label part can make the badges inside it smaller without changing a checkbox next to the label.
 - A component never sets the factor of its own group, because that would also change the component itself. Components of the same group inside one another share one factor, so they render at the same scale.
 - A factor a user sets on the component element itself replaces the factor the component sets, and is used as it is. To keep the child following the component, the user multiplies by the component's factor as well, for example `--scale-group2` set to 0.8 × `--scale-group5` on a group 5 component.
 
@@ -68,7 +68,7 @@ This has one limitation. A factor for a smaller group set further out, such as `
 
 - A part uses the effective scale of its component. Setting `--scale` or a group factor on a part does not change the part itself. A component inside the part reads `--scale` and its own group factor at the nearest element that sets them, as everywhere else.
 - A size that a component applies to a child component, such as a margin that places the child, uses the effective scale of the component that applies it, not the child's. The child's own sizes still use the child's effective scale.
-- When a child component must be centered inside a box of its parent, center it with layout alignment rather than a fixed offset. The child's size depends on its own group factor, which a user can change, so a fixed offset worked out for one size would be wrong for another.
+- When a child component must be centered inside a box of its parent, or on a line of its text, center it with layout alignment rather than a fixed offset. The child's size depends on its own group factor, which a user can change, so a fixed offset worked out for one size would be wrong for another. To center a child on a line of text, give it a row exactly one line tall and center it in that row.
 - A glyph inside a component, such as a chevron or a checkmark, is the icon component, not a part. It follows the icon's group.
 - Text has no group. It follows the component or part that renders it.
 - When a child of the same group would not fit inside a component, build it as a part instead. For example, a small button inside an input is a part of the input, not a separate button component.
@@ -77,7 +77,7 @@ This has one limitation. A factor for a smaller group set further out, such as `
 
 Base sizes are constants. Multiply a base size by the effective scale in the property that uses it. Never store an already scaled size in a shared value that is set high in the tree, such as on the root. A value is resolved where it is declared, so a scale set lower in the tree would not reach it.
 
-Working out a component's effective scale once, on the component's own root, and reusing that number for the component and its parts is fine. It is a scale, not a size, and it is declared on the component it belongs to.
+Work out a component's effective scale once, on the component's own root, and reuse that number for the component and its parts. It is a scale, not a size, and it is declared on the component it belongs to. This is also what keeps a part from following a `--scale` or group factor set on the part itself, as rule 8 requires.
 
 ### 10. Whole pixels
 
@@ -89,7 +89,7 @@ Browsers snap box edges to whole CSS pixels. A size or gap that lands on half a 
 
 Text is exempt. A line of text centered in a box, or a line height that a factor shrinks off the 4px grid, may land on half a pixel. Text does not shift by a whole pixel the way a box edge does.
 
-A spec may not be able to meet the centering constraint for every child in every box, for example when one group holds components of different heights. `SPEC.md` lists each such case. Those children can sit 1px off center at some scales. Every size still scales correctly.
+A spec may not be able to meet these constraints everywhere, for example when one group holds components of different heights. `SPEC.md` lists each such case. Those sizes or gaps can land on part of a pixel, and a centered child can sit 1px off center at some scales. Every size still scales correctly.
 
 The rules for users follow:
 

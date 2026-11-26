@@ -1,5 +1,4 @@
 .Field {
-  --Field-control-offset: calc(var(--space-1) * var(--component-scale));
   display: flex;
   flex-direction: column;
   gap: calc(var(--space-2) * var(--component-scale));
@@ -110,7 +109,8 @@
 .Field[data-layout="inline"] {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
-  align-items: start;
+  grid-template-rows: calc(var(--line-height-3) * var(--component-scale)) auto;
+  align-items: center;
   column-gap: calc(var(--space-2) * var(--component-scale));
   row-gap: 0;
 }
@@ -120,9 +120,10 @@
 }
 
 .Field[data-layout="inline"] > :first-child {
-  grid-row: 1 / span 2;
+  grid-row: 1;
 }
 
-.Field[data-layout="inline"] > .Checkbox {
-  margin-top: var(--Field-control-offset);
+.Field[data-layout="inline"] > .Field-help {
+  grid-column: 2;
+  align-self: start;
 }
