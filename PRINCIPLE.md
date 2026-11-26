@@ -1,6 +1,6 @@
 # Scaling principle
 
-Version 10
+Version 11
 
 This document states the rules of the jun-scale-ui scaling system. It says what must be true, not how to write it. `SPEC.md` describes the components themselves: their groups, base sizes, parts and default factors. An implementation is correct when it follows both.
 
@@ -67,7 +67,7 @@ This has one limitation. A factor for a smaller group set further out, such as `
 ### 8. Parts, glyphs and text
 
 - A part uses the effective scale of its component. Setting `--scale` or a group factor on a part does not change the part itself. A component inside the part reads `--scale` and its own group factor at the nearest element that sets them, as everywhere else.
-- A size that a component applies to a child component, such as a margin that places the child, uses the effective scale of the component that applies it, not the child's. The child's own sizes still use the child's effective scale.
+- A size a component applies to a child component uses the component's scale. A component may size or place a child component, for example with a negative margin on an icon. That size is base × the component's effective scale, not the child's. The child declares its own effective scale, so read the component's scale from a value the child never sets, such as the scale under a name only that component declares. When gap, padding or grid tracks on the component can do the job, use those, because they need no extra name.
 - When a child component must be centered inside a box of its parent, or on a line of its text, center it with layout alignment rather than a fixed offset. The child's size depends on its own group factor, which a user can change, so a fixed offset worked out for one size would be wrong for another. To center a child on a line of text, give it a row exactly one line tall and center it in that row.
 - A glyph inside a component, such as a chevron or a checkmark, is the icon component, not a part. It follows the icon's group.
 - Text has no group. It follows the component or part that renders it.
