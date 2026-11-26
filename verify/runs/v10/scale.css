@@ -1,0 +1,394 @@
+:where(.StatusDot, .Icon, .Badge, .Checkbox, .Radio, .Switch, .Avatar, .Button, .Input, .Select, .Field, .Callout),
+:where(.Checkbox-input, .Input-field, .Select-trigger, .Field-label, .Field-help, .Field-error, .Callout-text) {
+  box-sizing: border-box;
+  font-family: system-ui, sans-serif;
+}
+
+:where(.Checkbox-input, .Radio, .Switch, .Button, .Select-trigger, .Input):focus-visible,
+:where(.Input):focus-within {
+  outline: 1px solid #2f6feb;
+  outline-offset: 1px;
+}
+
+.StatusDot {
+  --_scale: calc(var(--scale, 1) * var(--scale-group1, 1));
+}
+
+.Icon {
+  --_scale: calc(var(--scale, 1) * var(--scale-group2, 1));
+}
+
+.Badge,
+.Checkbox,
+.Radio,
+.Switch {
+  --_scale: calc(var(--scale, 1) * var(--scale-group3, 1));
+}
+
+.Avatar {
+  --_scale: calc(var(--scale, 1) * var(--scale-group4, 1));
+}
+
+.Button,
+.Input,
+.Select,
+.Field {
+  --_scale: calc(var(--scale, 1) * var(--scale-group5, 1));
+}
+
+.Callout {
+  --_scale: calc(var(--scale, 1) * var(--scale-group6, 1));
+}
+
+:where(.Badge, .Checkbox, .Radio, .Switch) {
+  --scale-group1: var(--scale-group3, 1);
+  --scale-group2: var(--scale-group3, 1);
+}
+
+:where(.Checkbox) {
+  --scale-group2: calc(var(--scale-group3, 1) * 0.5);
+}
+
+:where(.Avatar) {
+  --scale-group1: var(--scale-group4, 1);
+  --scale-group2: var(--scale-group4, 1);
+  --scale-group3: var(--scale-group4, 1);
+}
+
+:where(.Button, .Input, .Select, .Field) {
+  --scale-group1: var(--scale-group5, 1);
+  --scale-group2: var(--scale-group5, 1);
+  --scale-group3: var(--scale-group5, 1);
+  --scale-group4: var(--scale-group5, 1);
+}
+
+:where(.Select-trigger) {
+  --scale-group4: calc(var(--scale-group5, 1) * 0.75);
+}
+
+:where(.Field-label, .Field-help, .Field-error) {
+  --scale-group3: calc(var(--scale-group5, 1) * 0.8);
+}
+
+:where(.Callout) {
+  --scale-group1: var(--scale-group6, 1);
+  --scale-group2: calc(var(--scale-group6, 1) * 0.75);
+  --scale-group3: var(--scale-group6, 1);
+  --scale-group4: var(--scale-group6, 1);
+  --scale-group5: var(--scale-group6, 1);
+}
+
+.StatusDot {
+  display: inline-block;
+  flex-shrink: 0;
+  width: calc(8px * var(--_scale));
+  height: calc(8px * var(--_scale));
+  border-radius: 9999px;
+  background: #1f9d55;
+  vertical-align: middle;
+}
+
+.Icon {
+  display: inline-block;
+  flex-shrink: 0;
+  width: calc(16px * var(--_scale));
+  height: calc(16px * var(--_scale));
+  vertical-align: middle;
+}
+
+.Badge {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: calc(4px * var(--_scale));
+  height: calc(20px * var(--_scale));
+  padding: 0 calc(8px * var(--_scale));
+  border-radius: calc(3px * var(--_scale));
+  font-size: calc(12px * var(--_scale));
+  line-height: calc(16px * var(--_scale));
+  font-weight: 500;
+  white-space: nowrap;
+  color: #1d4ed8;
+  background: #e0e9ff;
+  vertical-align: middle;
+}
+
+.Checkbox {
+  display: inline-grid;
+  flex-shrink: 0;
+  grid-template: 100% / 100%;
+  place-items: center;
+  width: calc(16px * var(--_scale));
+  height: calc(16px * var(--_scale));
+  vertical-align: middle;
+}
+
+.Checkbox-input {
+  appearance: none;
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border: 1px solid #8a8f98;
+  border-radius: calc(3px * var(--_scale));
+  background: #fff;
+  cursor: pointer;
+}
+
+.Checkbox-input:checked {
+  border-color: #111;
+  background: #111;
+}
+
+.Checkbox > .Icon {
+  grid-area: 1 / 1;
+  color: #fff;
+  pointer-events: none;
+}
+
+.Checkbox-input:not(:checked) + .Icon {
+  visibility: hidden;
+}
+
+.Radio {
+  appearance: none;
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+  width: calc(16px * var(--_scale));
+  height: calc(16px * var(--_scale));
+  margin: 0;
+  border: 1px solid #8a8f98;
+  border-radius: 9999px;
+  background: #fff;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.Radio::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: calc(8px * var(--_scale));
+  height: calc(8px * var(--_scale));
+  margin: auto;
+  border-radius: 9999px;
+  background: #111;
+  visibility: hidden;
+}
+
+.Radio:checked {
+  border-color: #111;
+}
+
+.Radio:checked::before {
+  visibility: visible;
+}
+
+.Switch {
+  appearance: none;
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+  width: calc(40px * var(--_scale));
+  height: calc(24px * var(--_scale));
+  margin: 0;
+  border-radius: 9999px;
+  background: #c9ccd1;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.Switch::before {
+  content: "";
+  position: absolute;
+  top: calc(4px * var(--_scale));
+  left: calc(4px * var(--_scale));
+  width: calc(16px * var(--_scale));
+  height: calc(16px * var(--_scale));
+  border-radius: 9999px;
+  background: #fff;
+  transition: transform 0.15s;
+}
+
+.Switch:checked {
+  background: #111;
+}
+
+.Switch:checked::before {
+  transform: translateX(calc(16px * var(--_scale)));
+}
+
+.Avatar {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: calc(32px * var(--_scale));
+  height: calc(32px * var(--_scale));
+  border-radius: 9999px;
+  font-size: calc(14px * var(--_scale));
+  line-height: calc(20px * var(--_scale));
+  font-weight: 600;
+  color: #5b21b6;
+  background: #ede4ff;
+  vertical-align: middle;
+}
+
+.Button {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(8px * var(--_scale));
+  height: calc(32px * var(--_scale));
+  margin: 0;
+  padding: 0 calc(12px * var(--_scale));
+  border: 1px solid #111;
+  border-radius: calc(4px * var(--_scale));
+  font-size: calc(14px * var(--_scale));
+  line-height: calc(20px * var(--_scale));
+  font-weight: 500;
+  white-space: nowrap;
+  color: #fff;
+  background: #111;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.Input {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(8px * var(--_scale));
+  width: calc(180px * var(--_scale));
+  height: calc(32px * var(--_scale));
+  padding: 0 calc(8px * var(--_scale));
+  border: 1px solid #8a8f98;
+  border-radius: calc(4px * var(--_scale));
+  font-size: calc(14px * var(--_scale));
+  line-height: calc(20px * var(--_scale));
+  color: #111;
+  background: #fff;
+  cursor: text;
+  vertical-align: middle;
+}
+
+.Input > .Icon {
+  color: #6b7079;
+}
+
+.Input-field {
+  flex: 1;
+  align-self: stretch;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  outline: none;
+}
+
+.Select {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.Select-trigger {
+  display: flex;
+  align-items: center;
+  gap: calc(8px * var(--_scale));
+  width: 100%;
+  height: calc(32px * var(--_scale));
+  margin: 0;
+  padding: 0 calc(12px * var(--_scale));
+  border: 1px solid #8a8f98;
+  border-radius: calc(4px * var(--_scale));
+  font-size: calc(14px * var(--_scale));
+  line-height: calc(20px * var(--_scale));
+  white-space: nowrap;
+  text-align: start;
+  color: #111;
+  background: #fff;
+  cursor: pointer;
+}
+
+.Select-trigger > .Icon:last-child {
+  margin-inline-start: auto;
+}
+
+.Field {
+  display: flex;
+  flex-direction: column;
+  gap: calc(8px * var(--_scale));
+  width: calc(240px * var(--_scale));
+  font-size: calc(14px * var(--_scale));
+  line-height: calc(20px * var(--_scale));
+  color: #111;
+}
+
+.Field > .Input,
+.Field > .Select {
+  width: auto;
+}
+
+.Field-label {
+  display: flex;
+  align-items: center;
+  gap: calc(4px * var(--_scale));
+  min-height: calc(20px * var(--_scale));
+  font-size: calc(14px * var(--_scale));
+  line-height: calc(20px * var(--_scale));
+  font-weight: 500;
+}
+
+.Field-help,
+.Field-error {
+  margin: 0;
+  font-size: calc(12px * var(--_scale));
+  line-height: calc(16px * var(--_scale));
+  color: #6b7079;
+}
+
+.Field-error {
+  display: none;
+  color: #c62828;
+}
+
+.Field[data-invalid] > .Field-error {
+  display: block;
+}
+
+.Field[data-invalid] > .Field-help {
+  display: none;
+}
+
+.Field[data-invalid] > .Input {
+  border-color: #c62828;
+}
+
+.Callout {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-rows: calc(20px * var(--_scale)) auto;
+  column-gap: calc(12px * var(--_scale));
+  max-width: calc(180px * var(--_scale));
+  padding: calc(16px * var(--_scale));
+  border-radius: calc(6px * var(--_scale));
+  font-size: calc(14px * var(--_scale));
+  line-height: calc(20px * var(--_scale));
+  color: #7a4b00;
+  background: #fff4dc;
+}
+
+.Callout > .Icon {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center;
+}
+
+.Callout-text {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  margin: 0;
+}
