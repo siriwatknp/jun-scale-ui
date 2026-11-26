@@ -1,6 +1,6 @@
 # Scaling principle
 
-Version 7
+Version 8
 
 This document states how jun-scale-ui scales components. It says what must be true, not how to write it. An implementation is correct when every rule here holds.
 
@@ -91,16 +91,24 @@ Working out a component's effective scale once, on the component's own root, and
 
 ### 10. Whole pixels
 
-Browsers snap box edges to whole CSS pixels. A size or gap that lands on half a pixel rounds up on one side and down on the other, so a centered part ends up 1px off. Three constraints keep every edge on a whole pixel:
+Browsers snap box edges to whole CSS pixels. A size or gap that lands on half a pixel rounds up on one side and down on the other, so a centered part ends up 1px off. These constraints keep box edges on whole pixels:
 
 - Every base size and offset of a box is a multiple of 4px. Base line heights are multiples of 4px too, so stacked lines stay on whole pixels. Font sizes and border radius are exempt, because they never shift an edge.
 - A box centered inside another box, whether a part or a child component, differs from it by a multiple of 8px, so the gap on each side is a multiple of 4px.
-- Every group factor that a component sets keeps the child's box sizes on multiples of 4px, and keeps the child a multiple of 8px smaller than the box or text line it is centered in. Which factor works depends on that box. A 16px `Icon` centered in a 16px box needs 0.5, which gives 8px. A 16px `Icon` centered on a 20px text line needs 0.75, which gives 12px. A 32px `Avatar` centered in a 32px box can take 0.75, which gives 24px.
-- Text is exempt from all three. A line of text centered in a box, or a line height that a factor shrinks off the 4px grid, may land on half a pixel. Text does not shift by a whole pixel the way a box edge does.
+- Every default factor that a component sets is chosen for the child it is designed around: it keeps that child's box sizes on multiples of 4px, and keeps the child a multiple of 8px smaller than the box or text line it is centered in. Which factor works depends on that box. A 16px `Icon` centered in a 16px box needs 0.5, which gives 8px. A 16px `Icon` centered on a 20px text line needs 0.75, which gives 12px. A 32px `Avatar` centered in a 32px box can take 0.75, which gives 24px.
+
+Text is exempt. A line of text centered in a box, or a line height that a factor shrinks off the 4px grid, may land on half a pixel. Text does not shift by a whole pixel the way a box edge does.
+
+These constraints cannot hold for every child in every box, and the remaining cases are accepted:
+
+- Components of one group can have different heights. Group 3 holds the 16px `Checkbox`, the 20px `Badge` and `Kbd`, and the 24px `Switch`, but a bigger component passes one factor to the whole group. Centered in a 32px box, the 16px and 24px members differ by a multiple of 8px, but a 20px `Badge` or `Kbd` differs by 12px. At a scale such as 0.75 or 1.25 its gap lands on half a pixel, so it can sit 1px off center.
+- Text lines are 20px tall, which is not a multiple of 8px away from 16px or 32px boxes. A box centered on a 20px line, such as a `Badge` in a `Field` label at 0.8, which gives 16px, differs from the line by 4px. It can also sit 1px off center at those scales.
+
+In both cases every size still scales correctly. Only the centering of that one child can be off by 1px.
 
 The rules for users follow:
 
-- Set `--scale` in steps of 0.25, such as 0.75, 1, 1.25 or 1.5. Every size the components define then lands on a whole pixel, including sizes changed by the factors components set themselves.
+- Set `--scale` in steps of 0.25, such as 0.75, 1, 1.25 or 1.5. Every size the components define then lands on a whole pixel, including sizes changed by the factors components set themselves. Centered children land on whole pixels too, apart from the accepted cases above.
 - The values you set multiply with each other and with the factors components pass down, so keep the product of the values you set in steps of 0.25. `--scale: 1.25` with `--scale-group5: 1.2` around a `Button` gives 1.5 for the `Button` and everything in it, which is fine. `--scale: 1.25` with `--scale-group5: 1.25` gives 1.5625, which can leave a centered child 1px off.
 - When you set a factor for a small group directly, such as the factor for a 20px `Badge`, pick one that keeps that group's base sizes on multiples of 4px: 0.8 gives 16px, but 0.5 gives 10px.
 

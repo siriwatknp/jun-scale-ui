@@ -57,7 +57,7 @@ The framework keeps three promises so that a simple rule works for users:
 - A part centered inside another differs from it by a multiple of 8px, so the gap on each side is a multiple of 4px. The `Switch` track is 24px and its thumb 16px. A `Button` is 32px and its `Icon` 16px.
 - Every factor the framework sets is a step of 0.25, so it keeps those bases on whole pixels: 0.5 in `Checkbox`, 0.75 in `Callout` and `.Select-trigger`.
 
-One known exception: `.Field-label` and `.Field-help` set `--scale-group3: 0.8`, so a 20px `Badge` or `Kbd` fits their 20px text line at 16px. 0.75 would make it 15px, which is off center even at scale 1. With 0.8 the `Badge` padding becomes 6.4px, and its 2px gap above and below can be 1px off at quarter scales such as 0.75.
+Known exceptions, accepted in `PRINCIPLE.md` rule 10: a 20px `Badge` or `Kbd` centered in a 32px box, and a box centered on a 20px text line, such as a `Badge` in `.Field-label` at 0.8, can sit 1px off center at quarter scales such as 0.75 or 1.25.
 
 The rule for users: set `--scale` and each `--scale-group<N>` in steps of 0.25, such as 0.75, 1, 1.25 or 1.5. Every size and every centered gap then lands on a whole pixel. Other values work, but some parts can be 1px off.
 
