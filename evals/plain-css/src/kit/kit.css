@@ -9,3 +9,4 @@
 .kit-results .is-fail { color: #ce2c31; }
 .kit-results .detail { white-space: pre; }
 .kit-stage { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 16px; margin-top: 24px; }
+.kit-table tr[data-block="Select open"] td { padding-bottom: calc(88px * var(--scale)); }

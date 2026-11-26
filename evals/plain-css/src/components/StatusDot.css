@@ -1,0 +1,11 @@
+.StatusDot {
+  --_factor: var(--scale-group1, 1);
+  --_scale: calc(var(--scale, 1) * var(--_factor));
+  display: inline-block;
+  flex-shrink: 0;
+  vertical-align: middle;
+  width: calc(8px * var(--_scale));
+  height: calc(8px * var(--_scale));
+  border-radius: 9999px;
+  background: #30a46c;
+}

@@ -1,0 +1,123 @@
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities) source("../");
+
+@theme inline {
+  --spacing: calc(4px * var(--effective-scale, var(--scale, 1)));
+
+  --text-*: initial;
+  --text-xs: calc(12px * var(--effective-scale, var(--scale, 1)));
+  --text-xs--line-height: calc(16px * var(--effective-scale, var(--scale, 1)));
+  --text-sm: calc(14px * var(--effective-scale, var(--scale, 1)));
+  --text-sm--line-height: calc(20px * var(--effective-scale, var(--scale, 1)));
+  --text-base: calc(16px * var(--effective-scale, var(--scale, 1)));
+  --text-base--line-height: calc(24px * var(--effective-scale, var(--scale, 1)));
+
+  --radius-*: initial;
+  --radius-xs: calc(3px * var(--effective-scale, var(--scale, 1)));
+  --radius-sm: calc(4px * var(--effective-scale, var(--scale, 1)));
+  --radius-md: calc(6px * var(--effective-scale, var(--scale, 1)));
+  --radius-lg: calc(8px * var(--effective-scale, var(--scale, 1)));
+}
+
+@custom-variant in-field ([data-slot="Field"] > &);
+
+@property --default-group1 {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
+@property --default-group2 {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
+@property --default-group3 {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
+@property --default-group4 {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
+@property --default-group5 {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
+
+@utility component-group-1 {
+  --effective-scale: calc(var(--scale, 1) * var(--scale-group1, 1));
+}
+
+@utility component-group-2 {
+  --effective-scale: calc(var(--scale, 1) * var(--scale-group2, 1));
+  :where(&) {
+    --scale-group1: calc(var(--scale-group2, 1) * var(--default-group1));
+  }
+}
+
+@utility component-group-3 {
+  --effective-scale: calc(var(--scale, 1) * var(--scale-group3, 1));
+  :where(&) {
+    --scale-group1: calc(var(--scale-group3, 1) * var(--default-group1));
+    --scale-group2: calc(var(--scale-group3, 1) * var(--default-group2));
+  }
+}
+
+@utility component-group-4 {
+  --effective-scale: calc(var(--scale, 1) * var(--scale-group4, 1));
+  :where(&) {
+    --scale-group1: calc(var(--scale-group4, 1) * var(--default-group1));
+    --scale-group2: calc(var(--scale-group4, 1) * var(--default-group2));
+    --scale-group3: calc(var(--scale-group4, 1) * var(--default-group3));
+  }
+}
+
+@utility component-group-5 {
+  --effective-scale: calc(var(--scale, 1) * var(--scale-group5, 1));
+  :where(&) {
+    --scale-group1: calc(var(--scale-group5, 1) * var(--default-group1));
+    --scale-group2: calc(var(--scale-group5, 1) * var(--default-group2));
+    --scale-group3: calc(var(--scale-group5, 1) * var(--default-group3));
+    --scale-group4: calc(var(--scale-group5, 1) * var(--default-group4));
+  }
+}
+
+@utility component-group-6 {
+  --effective-scale: calc(var(--scale, 1) * var(--scale-group6, 1));
+  :where(&) {
+    --scale-group1: calc(var(--scale-group6, 1) * var(--default-group1));
+    --scale-group2: calc(var(--scale-group6, 1) * var(--default-group2));
+    --scale-group3: calc(var(--scale-group6, 1) * var(--default-group3));
+    --scale-group4: calc(var(--scale-group6, 1) * var(--default-group4));
+    --scale-group5: calc(var(--scale-group6, 1) * var(--default-group5));
+  }
+}
+
+@utility scaling-* {
+  --scale: --value(number, [number]);
+}
+@utility scaling-group1-* {
+  --scale-group1: --value(number, [number]);
+}
+@utility scaling-group2-* {
+  --scale-group2: --value(number, [number]);
+}
+@utility scaling-group3-* {
+  --scale-group3: --value(number, [number]);
+}
+@utility scaling-group4-* {
+  --scale-group4: --value(number, [number]);
+}
+@utility scaling-group5-* {
+  --scale-group5: --value(number, [number]);
+}
+@utility scaling-group6-* {
+  --scale-group6: --value(number, [number]);
+}
+@utility scaling-group7-* {
+  --scale-group7: --value(number, [number]);
+}

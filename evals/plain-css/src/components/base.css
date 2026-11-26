@@ -1,0 +1,8 @@
+:where(
+  .StatusDot, .Icon, .Spinner, .Badge, .Kbd, .Checkbox, .Checkbox-input, .Switch, .Switch-input, .Switch-thumb,
+  .Avatar, .Button, .IconButton, .Input, .Input-field, .Select, .Select-trigger, .Popup, .Popup-item,
+  .Field, .Field-label, .Field-help, .Field-error, .Callout, .Callout-text
+) {
+  box-sizing: border-box;
+  margin: 0;
+}

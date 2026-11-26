@@ -1,0 +1,47 @@
+.Input {
+  --_factor: var(--scale-group5, 1);
+  --_scale: calc(var(--scale, 1) * var(--_factor));
+  --scale-group1: var(--_factor);
+  --scale-group2: var(--_factor);
+  --scale-group3: var(--_factor);
+  --scale-group4: var(--_factor);
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  width: calc(180px * var(--_scale));
+  height: calc(32px * var(--_scale));
+  padding: 0 calc(8px * var(--_scale));
+  gap: calc(8px * var(--_scale));
+  border: 1px solid #cdced6;
+  border-radius: calc(4px * var(--_scale));
+  font-size: calc(14px * var(--_scale));
+  line-height: calc(20px * var(--_scale));
+  color: #60646c;
+  background: #fff;
+  cursor: text;
+}
+
+.Input:focus-within {
+  outline: 2px solid #3e63dd;
+  outline-offset: -1px;
+}
+
+.Input:has(.Input-field[aria-invalid="true"]) {
+  border-color: #ce2c31;
+}
+
+.Input-field {
+  flex: 1;
+  min-width: 0;
+  height: calc(20px * var(--_scale));
+  padding: 0;
+  border: none;
+  outline: none;
+  font: inherit;
+  color: #1c2024;
+  background: transparent;
+}
+
+.Input-field::placeholder {
+  color: #8b8d98;
+}

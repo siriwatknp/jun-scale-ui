@@ -1,0 +1,34 @@
+.IconButton {
+  --_factor: var(--scale-group5, 1);
+  --_scale: calc(var(--scale, 1) * var(--_factor));
+  --scale-group1: var(--_factor);
+  --scale-group2: var(--_factor);
+  --scale-group3: var(--_factor);
+  --scale-group4: var(--_factor);
+  display: inline-grid;
+  flex-shrink: 0;
+  place-items: center;
+  vertical-align: middle;
+  width: calc(32px * var(--_scale));
+  height: calc(32px * var(--_scale));
+  padding: 0;
+  border: none;
+  border-radius: calc(4px * var(--_scale));
+  color: #1c2024;
+  background: #f0f0f3;
+  cursor: pointer;
+}
+
+.IconButton:hover {
+  background: #e8e8ec;
+}
+
+.IconButton:focus-visible {
+  outline: 2px solid #3e63dd;
+  outline-offset: 2px;
+}
+
+.IconButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}

@@ -1,0 +1,48 @@
+.Checkbox {
+  --_factor: var(--scale-group3, 1);
+  --_scale: calc(var(--scale, 1) * var(--_factor));
+  --scale-group1: var(--_factor);
+  --scale-group2: calc(0.5 * var(--_factor));
+  display: inline-grid;
+  flex-shrink: 0;
+  place-items: center;
+  vertical-align: middle;
+  width: calc(16px * var(--_scale));
+  height: calc(16px * var(--_scale));
+  color: #fff;
+}
+
+.Checkbox-input {
+  grid-area: 1 / 1;
+  appearance: none;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #b9bbc6;
+  border-radius: calc(3px * var(--_scale));
+  background: #fff;
+  cursor: pointer;
+}
+
+.Checkbox-input:checked {
+  border-color: #3e63dd;
+  background: #3e63dd;
+}
+
+.Checkbox-input:focus-visible {
+  outline: 2px solid #3e63dd;
+  outline-offset: 2px;
+}
+
+.Checkbox-input:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.Checkbox > .Icon {
+  grid-area: 1 / 1;
+  pointer-events: none;
+}
+
+.Checkbox-input:not(:checked) + .Icon {
+  visibility: hidden;
+}

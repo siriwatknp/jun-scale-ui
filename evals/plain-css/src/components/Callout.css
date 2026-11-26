@@ -1,0 +1,35 @@
+.Callout {
+  --_factor: var(--scale-group6, 1);
+  --_scale: calc(var(--scale, 1) * var(--_factor));
+  --scale-group1: var(--_factor);
+  --scale-group2: calc(0.75 * var(--_factor));
+  --scale-group3: var(--_factor);
+  --scale-group4: var(--_factor);
+  --scale-group5: var(--_factor);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-rows: calc(20px * var(--_scale)) auto;
+  column-gap: calc(12px * var(--_scale));
+  max-width: calc(180px * var(--_scale));
+  padding: calc(16px * var(--_scale));
+  border-radius: calc(6px * var(--_scale));
+  font-size: calc(14px * var(--_scale));
+  line-height: calc(20px * var(--_scale));
+  color: #1c2024;
+  background: #edf2fe;
+}
+
+.Callout > .Icon {
+  grid-area: 1 / 1;
+  align-self: center;
+  color: #3a5bc7;
+}
+
+.Callout-text {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+
+.Callout-text:first-child {
+  grid-column: 1 / -1;
+}

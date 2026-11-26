@@ -1,0 +1,32 @@
+.root {
+  --_scale: calc(var(--scale, 1) * var(--scale-group6, 1));
+  --scale-group1: var(--scale-group6, 1);
+  --scale-group2: calc(var(--scale-group6, 1) * 0.75);
+  --scale-group3: var(--scale-group6, 1);
+  --scale-group4: var(--scale-group6, 1);
+  --scale-group5: var(--scale-group6, 1);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-rows: calc(20px * var(--_scale)) auto;
+  column-gap: calc(12px * var(--_scale));
+  box-sizing: border-box;
+  max-width: calc(180px * var(--_scale));
+  padding: calc(16px * var(--_scale));
+  border-radius: calc(6px * var(--_scale));
+  font-size: calc(14px * var(--_scale));
+  line-height: calc(20px * var(--_scale));
+  background: #e6f4fe;
+  color: #113264;
+}
+
+.root > :not(.text) {
+  grid-row: 1;
+  grid-column: 1;
+  align-self: center;
+  color: #0d74ce;
+}
+
+.text {
+  grid-row: 1 / span 2;
+  grid-column: 2;
+}

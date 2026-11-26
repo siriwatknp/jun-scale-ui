@@ -1,0 +1,20 @@
+.Badge {
+  --_factor: var(--scale-group3, 1);
+  --_scale: calc(var(--scale, 1) * var(--_factor));
+  --scale-group1: var(--_factor);
+  --scale-group2: var(--_factor);
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  vertical-align: middle;
+  height: calc(20px * var(--_scale));
+  padding-inline: calc(8px * var(--_scale));
+  gap: calc(4px * var(--_scale));
+  border-radius: calc(3px * var(--_scale));
+  font-size: calc(12px * var(--_scale));
+  line-height: calc(16px * var(--_scale));
+  font-weight: 500;
+  white-space: nowrap;
+  color: #3a5bc7;
+  background: #e1e9ff;
+}

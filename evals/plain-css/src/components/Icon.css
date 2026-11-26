@@ -1,0 +1,11 @@
+.Icon {
+  --_factor: var(--scale-group2, 1);
+  --_scale: calc(var(--scale, 1) * var(--_factor));
+  --scale-group1: var(--_factor);
+  display: inline-block;
+  flex-shrink: 0;
+  vertical-align: middle;
+  width: calc(16px * var(--_scale));
+  height: calc(16px * var(--_scale));
+  overflow: visible;
+}

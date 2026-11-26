@@ -1,0 +1,43 @@
+.root {
+  --_scale: calc(var(--scale, 1) * var(--scale-group5, 1));
+  --scale-group1: var(--scale-group5, 1);
+  --scale-group2: var(--scale-group5, 1);
+  --scale-group3: var(--scale-group5, 1);
+  --scale-group4: var(--scale-group5, 1);
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  box-sizing: border-box;
+  width: calc(180px * var(--_scale));
+  height: calc(32px * var(--_scale));
+  padding: 0 calc(8px * var(--_scale));
+  gap: calc(8px * var(--_scale));
+  border: 1px solid #cdced6;
+  border-radius: calc(4px * var(--_scale));
+  font-size: calc(14px * var(--_scale));
+  line-height: calc(20px * var(--_scale));
+  background: #fff;
+  color: #60646c;
+  cursor: text;
+}
+
+.root:focus-within {
+  border-color: #0d74ce;
+}
+
+.field {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font: inherit;
+  color: #1c2024;
+}
+
+.field::placeholder {
+  color: #8b8d98;
+}

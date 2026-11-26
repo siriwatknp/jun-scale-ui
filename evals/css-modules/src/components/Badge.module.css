@@ -1,0 +1,19 @@
+.root {
+  --_scale: calc(var(--scale, 1) * var(--scale-group3, 1));
+  --scale-group1: var(--scale-group3, 1);
+  --scale-group2: var(--scale-group3, 1);
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  box-sizing: border-box;
+  height: calc(20px * var(--_scale));
+  padding: 0 calc(8px * var(--_scale));
+  gap: calc(4px * var(--_scale));
+  border-radius: calc(3px * var(--_scale));
+  font-size: calc(12px * var(--_scale));
+  line-height: calc(16px * var(--_scale));
+  font-weight: 500;
+  white-space: nowrap;
+  background: #e6f4fe;
+  color: #0d74ce;
+}

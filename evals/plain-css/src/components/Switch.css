@@ -1,0 +1,61 @@
+.Switch {
+  --_factor: var(--scale-group3, 1);
+  --_scale: calc(var(--scale, 1) * var(--_factor));
+  --scale-group1: var(--_factor);
+  --scale-group2: var(--_factor);
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+  vertical-align: middle;
+  width: calc(40px * var(--_scale));
+  height: calc(24px * var(--_scale));
+}
+
+.Switch-input {
+  display: block;
+  appearance: none;
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  background: #d9d9e0;
+  cursor: pointer;
+  transition: background-color 150ms;
+}
+
+.Switch-input:checked {
+  background: #3e63dd;
+}
+
+.Switch-input:focus-visible {
+  outline: 2px solid #3e63dd;
+  outline-offset: 2px;
+}
+
+.Switch-input:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.Switch-thumb {
+  position: absolute;
+  top: calc(4px * var(--_scale));
+  left: calc(4px * var(--_scale));
+  width: calc(16px * var(--_scale));
+  height: calc(16px * var(--_scale));
+  border-radius: 9999px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.2);
+  pointer-events: none;
+  transition: translate 150ms;
+}
+
+.Switch-input:checked + .Switch-thumb {
+  translate: calc(16px * var(--_scale)) 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .Switch-input,
+  .Switch-thumb {
+    transition: none;
+  }
+}

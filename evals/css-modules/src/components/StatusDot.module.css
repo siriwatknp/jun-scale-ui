@@ -1,0 +1,9 @@
+.root {
+  --_scale: calc(var(--scale, 1) * var(--scale-group1, 1));
+  display: inline-block;
+  flex: none;
+  width: calc(8px * var(--_scale));
+  height: calc(8px * var(--_scale));
+  border-radius: 9999px;
+  background: #30a46c;
+}

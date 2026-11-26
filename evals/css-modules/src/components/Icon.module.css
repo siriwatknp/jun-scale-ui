@@ -1,0 +1,9 @@
+.root {
+  --_scale: calc(var(--scale, 1) * var(--scale-group2, 1));
+  --scale-group1: var(--scale-group2, 1);
+  display: inline-block;
+  flex: none;
+  vertical-align: middle;
+  width: calc(16px * var(--_scale));
+  height: calc(16px * var(--_scale));
+}

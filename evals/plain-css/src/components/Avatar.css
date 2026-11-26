@@ -1,0 +1,22 @@
+.Avatar {
+  --_factor: var(--scale-group4, 1);
+  --_scale: calc(var(--scale, 1) * var(--_factor));
+  --scale-group1: var(--_factor);
+  --scale-group2: var(--_factor);
+  --scale-group3: var(--_factor);
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  width: calc(32px * var(--_scale));
+  height: calc(32px * var(--_scale));
+  border-radius: 9999px;
+  overflow: hidden;
+  font-size: calc(14px * var(--_scale));
+  line-height: calc(20px * var(--_scale));
+  font-weight: 500;
+  white-space: nowrap;
+  color: #1c2024;
+  background: #e0e1e6;
+}
