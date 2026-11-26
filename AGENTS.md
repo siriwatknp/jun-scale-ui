@@ -4,8 +4,8 @@ jun-scale-ui is a minimal CSS framework built around a scaling system. UI scales
 
 ## Layout
 
-- `PRINCIPLE.md` states the scaling rules without saying how to code them. `src/` is one implementation of it. When the two disagree, fix the implementation or raise the question with the owner.
-- `verify/` checks that the principle is complete. `verify/make-kit.py <folder>` copies the principle, `verify/brief.md` and the fixture markup into a folder for a fresh agent, which writes `scale.css` from them alone. `verify/run.sh <folder>` runs black-box checks on that `scale.css`. `verify/runs/` keeps what each principle version produced. `verify/run.sh runs/v0-src` checks `src/` itself.
+- `PRINCIPLE.md` states the scaling rules without saying how to code them. `SPEC.md` describes the components. `src/` is one implementation of both. When they disagree, fix the implementation or raise the question with the owner.
+- `verify/` checks that the principle is complete. `verify/make-kit.py <folder>` copies the principle, the spec, `verify/brief.md` and the fixture markup into a folder for a fresh agent, which writes `scale.css` from them alone. `verify/run.sh <folder>` runs black-box checks on that `scale.css`. `verify/runs/` keeps what each principle version produced. `verify/run.sh runs/v0-src` checks `src/` itself.
 - `src/` is the framework, plain CSS. `src/index.css` imports everything.
   - `src/scale.css` registers `--scale`, `--scale-group1` to `--scale-group7` and `--component-scale` as numbers with `@property`, so DevTools shows their computed values.
   - `src/tokens.css` holds base sizes (`--space-*`, `--font-size-*`, `--line-height-*`, `--radius-*`) and colors. Base sizes are constants, never scaled.
@@ -20,54 +20,16 @@ jun-scale-ui is a minimal CSS framework built around a scaling system. UI scales
 - `tools/scale-control.js` sets `--scale` on the root from the `?scale=` URL parameter and from any `[data-scale-input]` slider.
 - `scripts/shot.sh` takes screenshots into `screenshots/`, which git ignores.
 
-## Scaling model
+## Scaling rules and components
 
-Every component has one default size. To change size, change `--scale` on the root or on a container. These properties follow the scale: width, height, margin, padding, gap, font-size, line-height and border-radius.
-
-Components are sorted into groups. A bigger group may contain a smaller group, never the other way round. A bigger group controls the scale of the smaller groups inside it with `--scale-group<N>`, which defaults to `1`.
-
-- A component in group N renders at `--scale × --scale-group<N>`. Each factor takes the value of the nearest element that sets it, through normal CSS inheritance.
-- A component of group N sets every smaller group's factor to its own factor times a default (1 unless a child must be smaller to fit), so the components inside scale with it. `src/groups.css` does the pass-down for every component; component files override the defaults, for example `.Checkbox { --scale-group2: calc(0.5 * var(--scale-group3)); }`.
-- Known limitation: a factor for a smaller group set on a page container does not reach components of that group inside a bigger component. Set it on the bigger component instead. See `PRINCIPLE.md` rule 7.
-- A component, or one of its parts, may set the factor for a smaller group it contains. `Checkbox` sets `--scale-group2: 0.5`, so its checkmark `Icon` is 8px. `Callout` sets `--scale-group2: 0.75`, so its `Icon` is 12px. `.Select-trigger` sets `--scale-group4: 0.75`, so an `Avatar` inside it is 24px. `.Field-label` and `.Field-help` set `--scale-group3: 0.8`, so a 20px `Badge` or `Kbd` in label or help text is 16px, while a `Checkbox` next to the label stays 16px.
-- A component may contain components of its own group, and they share one factor. It cannot set that factor for them, because the same variable also sets its own scale. `Field` holds `Input`, `Button` and `Select`, and they all follow `--scale-group5` together. When a same-group child would not fit, build it as a part instead: the button inside `Input` is the part `.Input-action` (24px), not an `IconButton` (32px).
-- Text has no group. It follows the component that renders it.
-
-Components multiply base tokens where they use them, never inside the tokens. A custom property is resolved on the element that declares it, so a scaled token declared on the root would ignore every scale set lower in the tree.
-
-Groups, smallest first. Each component has one default size, which is its base size:
-
-| N | Group | Base size | Components |
-| --- | --- | --- | --- |
-| 1 | Dot | 8px | StatusDot |
-| 2 | Icon | 16px | Icon, Spinner |
-| 3 | Inline | 16–24px | Badge, Kbd, Checkbox, Radio, Switch |
-| 4 | BigInline | 24–32px | Avatar |
-| 5 | Control | 32–64px | Button, IconButton, Input, Select, Combobox, TextArea, Slider, Progress, Field |
-| 6 | Panel | fits its content | Callout, DropdownMenu |
-| 7 | Container | layout | Card, Dialog, Popover (not built yet) |
-
-## Whole pixels
-
-The framework applies the scale exactly and never rounds. Browsers snap box edges to whole CSS pixels, so a size or gap that lands on half a pixel rounds up on one side and down on the other, and a centered part ends up 1px off. `experiments/004-pixel-snapping` measures this on the `Switch` thumb.
-
-The framework keeps three promises so that a simple rule works for users:
-
-- Every box size and offset has a base that is a multiple of 4px. Border radius is exempt, because a fractional radius only softens a curve.
-- A part centered inside another differs from it by a multiple of 8px, so the gap on each side is a multiple of 4px. The `Switch` track is 24px and its thumb 16px. A `Button` is 32px and its `Icon` 16px.
-- Every factor the framework sets is a step of 0.25, so it keeps those bases on whole pixels: 0.5 in `Checkbox`, 0.75 in `Callout` and `.Select-trigger`.
-
-Known exceptions, accepted in `PRINCIPLE.md` rule 10: a 20px `Badge` or `Kbd` centered in a 32px box, and a box centered on a 20px text line, such as a `Badge` in `.Field-label` at 0.8, can sit 1px off center at quarter scales such as 0.75 or 1.25.
-
-The rule for users: set `--scale` and each `--scale-group<N>` in steps of 0.25, such as 0.75, 1, 1.25 or 1.5. Every size and every centered gap then lands on a whole pixel. Other values work, but some parts can be 1px off.
-
-## Naming components
-
-- Refer to components by their PascalCase name: `Button`, `IconButton`, `DropdownMenu`, `StatusDot`. CSS classes use the same name: `.Button`.
-- A part's class is the component name, a hyphen and the part name: `.Select-trigger`, `.Checkbox-input`. `.Popup`, `.Popup-item` and `.Popup-separator` are parts shared by `Select`, `Combobox` and `DropdownMenu`.
-- `Field` parts: `.Field-label`, `.Field-help`, `.Field-error`, `.Field-group` (controls joined on a shared edge), `.Field-addon` (prefix or suffix text in a group) and `.Field-option` (one row in a list of `Radio` or `Checkbox` options). Its layout is set with `data-layout`: stacked by default, `horizontal`, or `inline` for a `Checkbox` or `Switch` beside its label. `data-invalid` on `Field` shows the error state.
-- A component's parts belong to it and are never listed as components. The Slider thumb is part of `Slider`, and the Switch thumb is part of `Switch`.
-- A glyph inside a component is the `Icon` component. The chevron in `Select` and the checkmark in `Checkbox` are each an `Icon` inside that component.
+- `PRINCIPLE.md` holds the scaling rules. `SPEC.md` holds the groups, components, base sizes, parts, default factors and accepted centering deviations. Read both before changing `src/`, and don't restate them in this file.
+- To add or change a component, update `SPEC.md` first, then `src/`, then its template in `playground/index.html`.
+- Notes on how `src/` implements them:
+  - `src/groups.css` sets `--component-scale` to `--scale × --scale-group<N>` on every component root, and passes the component's factor down to every smaller group.
+  - Component files override the defaults the spec lists, multiplied by their own factor, for example `.Checkbox { --scale-group2: calc(0.5 * var(--scale-group3)); }`.
+  - A size a component applies to a child component goes through a custom property declared on the component, so it uses the component's scale: `.Callout > .Icon { margin-top: var(--Callout-icon-offset); }`.
+  - `experiments/004-pixel-snapping` measures why sizes must land on whole pixels.
+- In conversation, refer to components by their PascalCase names, as `SPEC.md` does. A component's parts are never listed as components, and a glyph inside a component is the `Icon` component.
 
 ## Workflow
 

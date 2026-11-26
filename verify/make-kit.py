@@ -8,6 +8,7 @@ kit = Path(sys.argv[1])
 kit.mkdir(parents=True, exist_ok=True)
 
 shutil.copy(verify.parent / "PRINCIPLE.md", kit / "PRINCIPLE.md")
+shutil.copy(verify.parent / "SPEC.md", kit / "SPEC.md")
 shutil.copy(verify / "brief.md", kit / "brief.md")
 
 fixtures = (verify / "fixtures.part.html").read_text()
