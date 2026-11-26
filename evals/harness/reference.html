@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Eval harness reference</title>
+    <link rel="stylesheet" href="../../src/index.css" />
+    <style>
+      body { margin: 24px; font: 13px/1.5 system-ui, sans-serif; }
+      [data-results] { list-style: none; padding: 0; font: 12px/1.6 ui-monospace, Menlo, monospace; }
+      .is-fail { color: #ce2c31; }
+      .detail { white-space: pre; }
+      [data-stage] { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 16px; margin-top: 24px; }
+    </style>
+    <script src="./harness.js" defer></script>
+    <script>addEventListener("load", () => window.runHarness());</script>
+  </head>
+  <body>
+    <h1>Eval harness reference</h1>
+    <p>The fixtures from <code>verify/</code> with <code>data-slot</code> added, styled by <code>src/</code>. It checks the harness itself.</p>
+    <p data-summary>running…</p>
+    <ul data-results></ul>
+    <div data-stage></div>
+    <template data-fixture="StatusDot" data-group="1">
+      <span class="StatusDot" data-slot="StatusDot"></span>
+    </template>
+
+    <template data-fixture="Icon" data-group="2">
+      <svg class="Icon" data-slot="Icon" viewBox="0 0 16 16"><path d="M8 2l1.8 4 4.2.5-3.1 2.9.8 4.1L8 11.5l-3.7 2 .8-4.1L2 6.5l4.2-.5z" fill="none" stroke="currentColor" stroke-linejoin="round" /></svg>
+    </template>
+
+    <template data-fixture="Badge" data-group="3">
+      <span class="Badge" data-slot="Badge">New</span>
+    </template>
+
+    <template data-fixture="Checkbox" data-group="3">
+      <span class="Checkbox" data-slot="Checkbox"><input class="Checkbox-input" data-slot="Checkbox-input" type="checkbox" checked aria-label="Agree" /><svg class="Icon" data-slot="Icon" viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
+    </template>
+
+    <template data-fixture="Switch" data-group="3">
+      <input class="Switch" data-slot="Switch" type="checkbox" role="switch" aria-label="Sync" />
+    </template>
+
+    <template data-fixture="Avatar" data-group="4">
+      <span class="Avatar" data-slot="Avatar">AK</span>
+    </template>
+
+    <template data-fixture="Button" data-group="5">
+      <button class="Button" data-slot="Button"><svg class="Icon" data-slot="Icon" viewBox="0 0 16 16"><path d="M4 2.5h8v11l-4-3-4 3z" fill="none" stroke="currentColor" stroke-linejoin="round" /></svg>Save</button>
+    </template>
+
+    <template data-fixture="Input" data-group="5">
+      <label class="Input" data-slot="Input"><svg class="Icon" data-slot="Icon" viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5" fill="none" stroke="currentColor" /><path d="M10.5 10.5L14 14" stroke="currentColor" /></svg><input class="Input-field" data-slot="Input-field" placeholder="Search" /></label>
+    </template>
+
+    <template data-fixture="Select" data-group="5">
+      <div class="Select" data-slot="Select"><button class="Select-trigger" data-slot="Select-trigger"><span class="Avatar" data-slot="Avatar">AK</span>Alex Kim<svg class="Icon" data-slot="Icon" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" /></svg></button></div>
+    </template>
+
+    <template data-fixture="Field" data-group="5">
+      <div class="Field" data-slot="Field"><label class="Field-label" data-slot="Field-label">Email</label><label class="Input" data-slot="Input"><input class="Input-field" data-slot="Input-field" placeholder="you@example.com" /></label><p class="Field-help" data-slot="Field-help">We reply within a day.</p></div>
+    </template>
+
+    <template data-fixture="Callout" data-group="6">
+      <div class="Callout" data-slot="Callout"><svg class="Icon" data-slot="Icon" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" /><path d="M8 7v4.5M8 4.5v.5" stroke="currentColor" stroke-linecap="round" /></svg><p class="Callout-text" data-slot="Callout-text">You need admin access to install this app.</p></div>
+    </template>
+
+    <template data-fixture="CheckboxOverride" data-group="3">
+      <span class="Checkbox" data-slot="Checkbox" style="--scale-group2: 1"><input class="Checkbox-input" data-slot="Checkbox-input" type="checkbox" checked aria-label="Agree" /><svg class="Icon" data-slot="Icon" viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
+    </template>
+
+    <template data-fixture="ButtonScaled" data-group="5">
+      <button class="Button" data-slot="Button" style="--scale-group5: 1.2"><svg class="Icon" data-slot="Icon" viewBox="0 0 16 16"><path d="M4 2.5h8v11l-4-3-4 3z" fill="none" stroke="currentColor" stroke-linejoin="round" /></svg>Save</button>
+    </template>
+
+    <template data-fixture="ButtonWithBadge" data-group="5">
+      <button class="Button" data-slot="Button" style="--scale-group3: 0.5">Inbox<span class="Badge" data-slot="Badge">12</span></button>
+    </template>
+
+    <template data-fixture="Spinner" data-group="2">
+      <span class="Spinner" data-slot="Spinner"></span>
+    </template>
+
+    <template data-fixture="Kbd" data-group="3">
+      <kbd class="Kbd" data-slot="Kbd">K</kbd>
+    </template>
+
+    <template data-fixture="IconButton" data-group="5">
+      <button class="IconButton" data-slot="IconButton" aria-label="Add"><svg class="Icon" data-slot="Icon" viewBox="0 0 16 16"><path d="M8 3v10M3 8h10" fill="none" stroke="currentColor" stroke-linecap="round" /></svg></button>
+    </template>
+  </body>
+</html>

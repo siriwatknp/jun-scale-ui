@@ -1,0 +1,1 @@
+Style each component with a CSS Module, `<Name>.module.css`, imported by that component. Class names in the markup come from the module, so they are hashed. Use global CSS only for what a module cannot hold, such as `@property` rules or values on `:root`, and list each global rule in `notes.md` with the reason.

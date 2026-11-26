@@ -1,0 +1,1 @@
+Style the components with plain CSS files and global class names. No preprocessors, CSS-in-JS, CSS Modules or Tailwind. Put the CSS in `src/components/` and import it from the components or from `src/components/index.ts`.
