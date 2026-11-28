@@ -13,7 +13,7 @@ if "error" in data:
     print(data["error"])
     sys.exit(1)
 print(f"{data['total']} checks, {data['failed']} failed")
-for test, counts in data["byTest"].items():
+for test, counts in (data["byTest"].items() if "--verbose" in sys.argv else []):
     mark = "x" if counts["failed"] else "ok"
     print(f"  [{mark}] {test}: {counts['total'] - counts['failed']}/{counts['total']}")
 for failure in data["failures"]:

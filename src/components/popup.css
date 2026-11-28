@@ -18,7 +18,7 @@
   gap: calc(var(--space-2) * var(--component-scale));
   box-sizing: border-box;
   height: calc(var(--space-6) * var(--component-scale));
-  padding-inline: calc(var(--space-3) * var(--component-scale));
+  padding: 0 calc(var(--space-3) * var(--component-scale));
   border-radius: calc(var(--radius-2) * var(--component-scale));
   color: var(--color-text);
   white-space: nowrap;

@@ -13,7 +13,7 @@ name="$(basename "$folder")"
 out="$repo/screenshots/eval-$name"
 port=$((20000 + RANDOM % 20000))
 
-pnpm -C "$folder" build >/dev/null
+pnpm --silent -C "$folder" build >/dev/null
 python3 -m http.server "$port" --bind 127.0.0.1 --directory "$folder/dist" >/dev/null 2>&1 &
 disown
 server=$!
