@@ -36,6 +36,7 @@ MUTATIONS = [
     ("Group 7 doesn't pass its factor down", [("src/groups.css", ":where(.Card, .Dialog, .Popover) {\n", ":where(.Nothing) {\n")]),
     ("Checkbox default has class specificity", [("src/components/checkbox.css", ":where(.Checkbox) {", ".Checkbox {")]),
     ("Badge loses its 0.75 Icon default", [("src/components/badge.css", "  --scale-group2: calc(0.75 * var(--scale-group3));\n", "")]),
+    ("Checkbox CSS outside the cascade layer", [("src/index.css", '@import "./components/checkbox.css" layer(jun-scale-ui);', '@import "./components/checkbox.css";')]),
     ("Kbd font size doesn't scale", [("src/components/kbd.css", "  font-size: calc(var(--font-size-1) * var(--component-scale));", "  font-size: 12px;")]),
 ]
 

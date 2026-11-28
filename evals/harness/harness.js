@@ -463,6 +463,13 @@ function testFactorBehavior() {
   const checkbox = mount("Checkbox").querySelector(slot("Checkbox"));
   checkbox.classList.add("user-full-icon");
   expectEqual(userClass, "Checkbox Icon with a class setting --scale-group2: 1, written before the component CSS", px(checkbox.querySelector(slot("Icon")), "width"), icon);
+  const layered = document.createElement("style");
+  layered.textContent = "@layer user-utilities { .user-layer-full-icon { --scale-group2: 1; } }";
+  document.head.append(layered);
+  const layeredCheckbox = mount("Checkbox").querySelector(slot("Checkbox"));
+  layeredCheckbox.classList.add("user-layer-full-icon");
+  expectEqual(userClass, "Checkbox Icon with a class in a user cascade layer, such as a utility", px(layeredCheckbox.querySelector(slot("Icon")), "width"), icon);
+  layered.remove();
   const callout = mount("Callout").querySelector(slot("Callout"));
   callout.classList.add("user-full-icon");
   expectEqual(userClass, "Callout Icon with a class setting --scale-group2: 1", px(callout.querySelector(slot("Icon")), "width"), icon);

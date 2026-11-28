@@ -32,6 +32,7 @@ jun-scale-ui is a minimal CSS framework built around a scaling system. UI scales
   - `src/groups.css` sets `--component-scale` to `--scale × --scale-group<N>` on every component root. It passes the component's factor down to every smaller group inside `:where()`, so any user declaration on the same element wins.
   - Component files set the defaults the spec lists inside `:where()` too, multiplied by their own factor, for example `:where(.Checkbox) { --scale-group2: calc(0.5 * var(--scale-group3)); }`. They come after `groups.css`, so they win over the pass-down.
   - A size a component applies to a child component reads the component's scale under its own name, for example `--Button-scale` for the margin on a Button's leading Icon. `--component-scale` on the child is the child's scale.
+  - `src/index.css` loads everything into `@layer jun-scale-ui`. Unlayered user CSS, and user rules in a later layer such as Tailwind utilities, then win over every component rule, as rule 7 requires.
   - Every padding is written as the full shorthand, `padding: 0 <value>`, never `padding-inline` alone, because browsers give controls different default padding.
   - A child component that must be centered on a text line sits in a grid row one line tall, with `align-self: center`, as in `Callout` and the inline `Field`. A fixed offset would be wrong once the child's factor changes.
   - `experiments/004-pixel-snapping` measures why sizes must land on whole pixels.
