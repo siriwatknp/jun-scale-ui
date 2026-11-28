@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-[[ $# -eq 2 ]] || { echo "Usage: evals/make-eval.sh <plain-css|css-modules|tailwind> <title>" >&2; exit 1; }
+[[ $# -eq 2 || $# -eq 3 ]] || { echo "Usage: evals/make-eval.sh <plain-css|css-modules|tailwind> <title> [output-folder]" >&2; exit 1; }
 
 evals="$(cd "$(dirname "$0")" && pwd)"
 repo="$(dirname "$evals")"
 framework="$1"
 title="$2"
-folder="$evals/$framework"
+folder="${3:-$evals/$framework}"
 [[ -e "$folder" ]] && { echo "Exists: $folder" >&2; exit 1; }
 
 mkdir -p "$folder"

@@ -1,12 +1,16 @@
 .Select {
+  position: relative;
   display: inline-flex;
   flex-direction: column;
   align-items: flex-start;
   gap: calc(var(--space-1) * var(--component-scale));
 }
 
-.Select-trigger {
+:where(.Select-trigger) {
   --scale-group4: calc(0.75 * var(--scale-group5));
+}
+
+.Select-trigger {
   display: inline-flex;
   align-items: center;
   gap: calc(var(--space-2) * var(--component-scale));

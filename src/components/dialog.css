@@ -1,0 +1,33 @@
+.Dialog {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--space-4) * var(--component-scale));
+  box-sizing: border-box;
+  width: calc(400px * var(--component-scale));
+  padding: calc(var(--space-5) * var(--component-scale));
+  border: 1px solid var(--color-border);
+  border-radius: calc(var(--radius-4) * var(--component-scale));
+  background: var(--color-surface);
+  box-shadow: 0 calc(8px * var(--component-scale)) calc(32px * var(--component-scale)) var(--color-shadow);
+  color: var(--color-text);
+  font-size: calc(var(--font-size-2) * var(--component-scale));
+  line-height: calc(var(--line-height-2) * var(--component-scale));
+}
+
+.Dialog-title {
+  margin: 0;
+  font-size: calc(var(--font-size-3) * var(--component-scale));
+  line-height: calc(var(--line-height-3) * var(--component-scale));
+  font-weight: 600;
+}
+
+.Dialog-description {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.Dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: calc(var(--space-2) * var(--component-scale));
+}

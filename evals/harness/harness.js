@@ -33,6 +33,18 @@ const BRIEF = [
   ["FieldLabelBadge", "Field-label Badge", "height", 16],
   ["Callout", "Callout", "padding-top", 16],
   ["Callout", "Callout Icon", "width", 12],
+  ["BadgeIcon", "Badge Icon", "width", 12],
+  ["Button", "Button Icon", "margin-left", -4],
+  ["InputAction", "Input-action", "width", 24],
+  ["InputAction", "Input-action", "height", 24],
+  ["Card", "Card", "padding-top", 16],
+  ["Card", "Card", "row-gap", 12],
+  ["Dialog", "Dialog", "width", 400],
+  ["Dialog", "Dialog", "padding-top", 24],
+  ["Dialog", "Dialog-title", "font-size", 16],
+  ["Dialog", "Dialog Button", "height", 32],
+  ["Popover", "Popover-content", "width", 240],
+  ["Popover", "Popover-content", "padding-top", 12],
 ];
 
 const MARKERS = {
@@ -44,13 +56,20 @@ const MARKERS = {
   Checkbox: { Checkbox: { check: "width height", centerBoth: "Icon" }, "Checkbox Icon": { check: "width height" } },
   Switch: { Switch: { check: "width height", part: "Switch-thumb", inset: true } },
   Avatar: { Avatar: { check: "width height font-size line-height" } },
-  Button: { Button: { check: "height padding-left font-size line-height border-top-left-radius", centerY: "Icon" }, "Button Icon": { check: "width height" } },
+  Button: { Button: { check: "height padding-left font-size line-height border-top-left-radius", centerY: "Icon" }, "Button Icon": { check: "width height margin-left" } },
   IconButton: { IconButton: { check: "width height", centerBoth: "Icon" }, "IconButton Icon": { check: "width height" } },
   Input: { Input: { check: "width height padding-left font-size line-height border-top-left-radius", centerY: "Icon" }, "Input Icon": { check: "width" } },
   Select: { "Select-trigger": { check: "height padding-left font-size line-height border-top-left-radius", centerY: "Avatar" }, "Select-trigger Avatar": { check: "width height" }, "Select-trigger Icon": { check: "width" } },
   Field: { Field: { check: "width" }, "Field-label": { check: "font-size line-height" }, "Field Input": { check: "height", spaceBefore: true }, "Field-help": { check: "font-size" } },
   Callout: { Callout: { check: "padding-top font-size line-height border-top-left-radius", iconOnFirstLine: true }, "Callout Icon": { check: "width height" } },
   FieldLabelBadge: { "Field-label": { check: "font-size" }, "Field-label Badge": { check: "height" } },
+  BadgeIcon: { Badge: { check: "height", centerY: "Icon" }, "Badge Icon": { check: "width height" } },
+  ButtonIconHalf: { Button: { check: "height" }, "Button Icon": { check: "width margin-left" } },
+  InputAction: { Input: { check: "height" }, "Input-action": { check: "width height", insetRight: 4 } },
+  SelectOpen: { Select: { overlay: "Popup", trigger: "Select-trigger" }, "Select-trigger": { check: "height" }, Popup: { check: "padding-top" } },
+  Card: { Card: { check: "padding-top row-gap border-top-left-radius font-size line-height" }, "Card Badge": { check: "height" } },
+  Dialog: { Dialog: { check: "width padding-top row-gap border-top-left-radius" }, "Dialog-title": { check: "font-size line-height" }, "Dialog-actions": { check: "column-gap" }, "Dialog Button": { check: "height" }, "Dialog Icon": { check: "width" }, "Dialog Input": { check: "height" } },
+  Popover: { Popover: { overlay: "Popover-content", trigger: "Button" }, "Popover-content": { check: "width padding-top row-gap" }, "Popover Button": { check: "height" } },
   CheckboxOverride: { Checkbox: { check: "width" }, "Checkbox Icon": { check: "width" } },
   ButtonScaled: { Button: { check: "height" }, "Button Icon": { check: "width" } },
   ButtonWithBadge: { Button: { check: "height" }, "Button Badge": { check: "height" } },
@@ -104,12 +123,17 @@ function decorate() {
       if (!element) {
         return;
       }
-      element.dataset.check = marker.check;
+      if (marker.check) element.dataset.check = marker.check;
       if (marker.centerBoth) element.dataset.centerBoth = slot(marker.centerBoth);
       if (marker.centerY) element.dataset.centerY = slot(marker.centerY);
       if (marker.iconOnFirstLine) element.dataset.iconOnFirstLine = "";
       if (marker.spaceBefore) element.dataset.spaceBefore = "";
       if (marker.inset) element.dataset.pseudoInset = "";
+      if (marker.insetRight) element.dataset.insetRight = marker.insetRight;
+      if (marker.overlay) {
+        element.dataset.overlay = slot(marker.overlay);
+        element.dataset.overlayTrigger = slot(marker.trigger);
+      }
       if (marker.part) {
         const part = element.querySelector(slot(marker.part));
         if (part) {
@@ -316,6 +340,23 @@ function testCentering() {
           record("whole pixels at 0.25 steps", `${label} gap`, whole(offset), `${round(offset)}`);
         }
       });
+      root.querySelectorAll("[data-inset-right]").forEach((element) => {
+        const parent = element.parentElement;
+        const inset = rectOf(parent).right - px(parent, "border-right-width") - rectOf(element).right;
+        const expected = Number(element.dataset.insetRight) * scale;
+        record("scales with --scale", `${name} ${nameOf(element)} inset from the right border at ${scale}`, near(inset, expected), `${round(inset)} expected ${round(expected)}`);
+      });
+      root.querySelectorAll("[data-overlay]").forEach((holder) => {
+        const popup = holder.querySelector(holder.dataset.overlay);
+        const trigger = holder.querySelector(holder.dataset.overlayTrigger);
+        if (!popup || !trigger) {
+          record("popups float over content", `${name} at ${scale}`, false, "popup or trigger not found");
+          return;
+        }
+        record("popups float over content", `${name} ${nameOf(popup)} takes no space at ${scale}`, near(rectOf(holder).height, rectOf(trigger).height), `holder ${round(rectOf(holder).height)} trigger ${round(rectOf(trigger).height)}`);
+        const gap = rectOf(popup).top - rectOf(trigger).bottom;
+        record("popups float over content", `${name} ${nameOf(popup)} sits 4 below at ${scale}`, near(gap, 4 * scale), `${round(gap)} expected ${round(4 * scale)}`);
+      });
       root.querySelectorAll("[data-space-before]").forEach((element) => {
         const previous = element.previousElementSibling;
         const space = previous ? rectOf(element).top - rectOf(previous).bottom : NaN;
@@ -399,6 +440,32 @@ function testFactorBehavior() {
   expectEqual("same group shares one factor", "Field width with --scale-group5: 0.75", measure("Field", "--scale-group5: 0.75", "Field", "width"), fieldWidth * 0.75);
   expectEqual("same group shares one factor", "Input in Field with --scale-group5: 0.75", measure("Field", "--scale-group5: 0.75", "Field Input", "height"), fieldInput * 0.75);
   expectEqual("same group shares one factor", "Field label text with --scale-group5: 0.75", measure("Field", "--scale-group5: 0.75", "Field-label", "font-size"), fieldLabel * 0.75);
+
+  const childSize = "a size a component applies to a child uses the component's scale";
+  if (hasFixture("ButtonIconHalf")) {
+    expectEqual(childSize, "leading Icon margin with the Icon at 0.5", measure("ButtonIconHalf", "", "Button Icon", "margin-left"), -4);
+    expectEqual(childSize, "same, with --scale: 1.5", measure("ButtonIconHalf", "--scale: 1.5", "Button Icon", "margin-left"), -6);
+    expectEqual(childSize, "the Icon itself is at 0.5", measure("ButtonIconHalf", "", "Button Icon", "width"), buttonIcon * 0.5);
+  }
+
+  if (hasFixture("Dialog")) {
+    const dialogButton = measure("Dialog", "", "Dialog Button", "height");
+    const dialogIcon = measure("Dialog", "", "Dialog Icon", "width");
+    expectEqual(carries, "Button inside Dialog with --scale-group7: 0.75", measure("Dialog", "--scale-group7: 0.75", "Dialog Button", "height"), dialogButton * 0.75);
+    expectEqual(carries, "Icon inside a Button inside that Dialog", measure("Dialog", "--scale-group7: 0.75", "Dialog Icon", "width"), dialogIcon * 0.75);
+    expectEqual(carries, "Dialog width with --scale-group7: 0.75", measure("Dialog", "--scale-group7: 0.75", "Dialog", "width"), 400 * 0.75);
+  }
+
+  const userClass = "a user factor set with a class wins";
+  const style = document.createElement("style");
+  style.textContent = ".user-full-icon { --scale-group2: 1; } ";
+  document.head.prepend(style);
+  const checkbox = mount("Checkbox").querySelector(slot("Checkbox"));
+  checkbox.classList.add("user-full-icon");
+  expectEqual(userClass, "Checkbox Icon with a class setting --scale-group2: 1, written before the component CSS", px(checkbox.querySelector(slot("Icon")), "width"), icon);
+  const callout = mount("Callout").querySelector(slot("Callout"));
+  callout.classList.add("user-full-icon");
+  expectEqual(userClass, "Callout Icon with a class setting --scale-group2: 1", px(callout.querySelector(slot("Icon")), "width"), icon);
 }
 
 function testUtilities() {

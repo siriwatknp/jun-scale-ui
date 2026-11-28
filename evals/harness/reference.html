@@ -91,5 +91,33 @@
     <template data-fixture="IconButton" data-group="5">
       <button class="IconButton" data-slot="IconButton" aria-label="Add"><svg class="Icon" data-slot="Icon" viewBox="0 0 16 16"><path d="M8 3v10M3 8h10" fill="none" stroke="currentColor" stroke-linecap="round" /></svg></button>
     </template>
+
+    <template data-fixture="BadgeIcon" data-group="3">
+      <span class="Badge" data-slot="Badge"><svg class="Icon" data-slot="Icon" viewBox="0 0 16 16"><path d="M8 2l1.8 4 4.2.5-3.1 2.9.8 4.1L8 11.5l-3.7 2 .8-4.1L2 6.5l4.2-.5z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" /></svg>New</span>
+    </template>
+
+    <template data-fixture="ButtonIconHalf" data-group="5">
+      <button class="Button" data-slot="Button" style="--scale-group2: 0.5"><svg class="Icon" data-slot="Icon" viewBox="0 0 16 16"><path d="M4 2.5h8v11l-4-3-4 3z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" /></svg>Save</button>
+    </template>
+
+    <template data-fixture="InputAction" data-group="5">
+      <label class="Input" data-slot="Input"><input class="Input-field" data-slot="Input-field" placeholder="Search" /><button class="Input-action" data-slot="Input-action" aria-label="Clear"><svg class="Icon" data-slot="Icon" viewBox="0 0 16 16"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" /></svg></button></label>
+    </template>
+
+    <template data-fixture="SelectOpen" data-group="5">
+      <div class="Select" data-slot="Select"><button class="Select-trigger" data-slot="Select-trigger"><span class="Avatar" data-slot="Avatar">AK</span>Alex Kim<svg class="Icon" data-slot="Icon" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" /></svg></button><div class="Popup" data-slot="Popup" role="listbox"><div class="Popup-item" data-slot="Popup-item" role="option"><span class="Avatar" data-slot="Avatar">AK</span>Alex Kim</div><div class="Popup-item" data-slot="Popup-item" role="option">Jo Smith</div></div></div>
+    </template>
+
+    <template data-fixture="Card" data-group="7">
+      <div class="Card" data-slot="Card"><span class="Badge" data-slot="Badge">New</span>Your trial ends in three days.</div>
+    </template>
+
+    <template data-fixture="Dialog" data-group="7">
+      <div class="Dialog" data-slot="Dialog" role="dialog"><h2 class="Dialog-title" data-slot="Dialog-title">Invite people</h2><p class="Dialog-description" data-slot="Dialog-description">They get an email with a link.</p><div class="Field" data-slot="Field"><label class="Field-label" data-slot="Field-label">Email</label><label class="Input" data-slot="Input"><input class="Input-field" data-slot="Input-field" placeholder="you@example.com" /></label></div><div class="Dialog-actions" data-slot="Dialog-actions"><button class="Button" data-slot="Button">Cancel</button><button class="Button" data-slot="Button"><svg class="Icon" data-slot="Icon" viewBox="0 0 16 16"><path d="M8 3v10M3 8h10" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" /></svg>Invite</button></div></div>
+    </template>
+
+    <template data-fixture="Popover" data-group="7">
+      <div class="Popover" data-slot="Popover"><button class="Button" data-slot="Button">Share</button><div class="Popover-content" data-slot="Popover-content">Anyone with the link can view.<button class="Button" data-slot="Button">Copy link</button></div></div>
+    </template>
   </body>
 </html>

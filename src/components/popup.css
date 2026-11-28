@@ -48,3 +48,12 @@
   margin: calc(var(--space-1) * var(--component-scale)) calc(var(--space-3) * var(--component-scale));
   background: var(--color-border);
 }
+
+.Select > .Popup,
+.Combobox > .Popup,
+.DropdownMenu > .Popup {
+  position: absolute;
+  top: calc(100% + var(--space-1) * var(--component-scale));
+  left: 0;
+  z-index: 10;
+}

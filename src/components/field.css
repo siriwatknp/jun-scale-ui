@@ -13,8 +13,11 @@
   width: auto;
 }
 
-.Field-label {
+:where(.Field-label) {
   --scale-group3: calc(0.8 * var(--scale-group5));
+}
+
+.Field-label {
   display: flex;
   align-items: center;
   gap: calc(var(--space-1) * var(--component-scale));
@@ -22,9 +25,12 @@
   font-weight: 500;
 }
 
+:where(.Field-help, .Field-error) {
+  --scale-group3: calc(0.8 * var(--scale-group5));
+}
+
 .Field-help,
 .Field-error {
-  --scale-group3: calc(0.8 * var(--scale-group5));
   margin: 0;
   font-size: calc(var(--font-size-1) * var(--component-scale));
   line-height: calc(var(--line-height-1) * var(--component-scale));
@@ -51,6 +57,10 @@
   flex: 1;
   width: auto;
   min-width: 0;
+}
+
+.Field-group > .Button {
+  border: 1px solid var(--color-accent);
 }
 
 .Field-group > * + * {

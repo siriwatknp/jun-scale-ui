@@ -1,6 +1,6 @@
 # Scaling principle
 
-Version 11
+Version 12
 
 This document states the rules of the jun-scale-ui scaling system. It says what must be true, not how to write it. `SPEC.md` describes the components themselves: their groups, base sizes, parts and default factors. An implementation is correct when it follows both.
 
@@ -28,6 +28,8 @@ Border widths and outline widths do not scale. They are not part of the base siz
 
 Shadows and outline offsets are decoration. They may scale or not. An SVG drawing scales with the box it is drawn in, including its strokes.
 
+Angles, such as a rotation, are not sizes and do not scale. A rotation doesn't change the box that layout gives the element.
+
 ### 3. The global scale
 
 `--scale` is a number. It is 1 unless set. It can be set on the root or on any element, and it applies to that element and every component inside it. When an element inside sets `--scale` again, that nearer value replaces the outer one for that element and everything inside it.
@@ -54,6 +56,8 @@ Any element may set `--scale-group<N>`: a page container, a component or a part.
 - A component sets these factors on its own root element. When only the children inside one part need a different default, that part sets it, still multiplied by the component's own group factor, which the part inherits from the component. For example, a label part can make the badges inside it smaller without changing a checkbox next to the label.
 - A component never sets the factor of its own group, because that would also change the component itself. Components of the same group inside one another share one factor, so they render at the same scale.
 - A factor a user sets on the component element itself replaces the factor the component sets, and is used as it is. To keep the child following the component, the user multiplies by the component's factor as well, for example `--scale-group2` set to 0.8 × `--scale-group5` on a group 5 component.
+- The user's factor wins however the user sets it: in an inline style, or with a class or a utility of any specificity, in any order. So the factors a component sets on its own elements must lose to any declaration the user puts on the same element.
+- A default that a part sets is nearer to the children inside that part than the component element is, so it still wins over a factor the user sets on the component. To change it, the user sets the factor on the part.
 
 For example, take a button in group 5 that sets the factor of its icon, in group 2, to 0.75 × its own factor:
 
@@ -93,7 +97,7 @@ A spec may not be able to meet these constraints everywhere, for example when on
 
 The rules for users follow:
 
-- Set `--scale` in steps of 0.25, such as 0.75, 1, 1.25 or 1.5. Every size the components define then lands on a whole pixel, including sizes changed by the factors components set themselves. Centered children land on whole pixels too, apart from the cases `SPEC.md` lists.
+- Set `--scale` in steps of 0.25, such as 0.75, 1, 1.25 or 1.5. Every size the components define then lands on a whole pixel, including sizes changed by the factors components set themselves, as long as each child is the one its factor was chosen for. Centered children land on whole pixels too, apart from the cases `SPEC.md` lists.
 - The values you set multiply with each other and with the factors components pass down, so keep the product of the values you set in steps of 0.25. `--scale: 1.25` with `--scale-group5: 1.2` around a group 5 component gives 1.5 for it and everything in it, which is fine. `--scale: 1.25` with `--scale-group5: 1.25` gives 1.5625, which can leave a centered child 1px off.
 - When you set a factor for a group directly, pick one that keeps that group's base sizes on multiples of 4px.
 

@@ -5,6 +5,9 @@
 .Icon,
 .Spinner {
   --component-scale: calc(var(--scale) * var(--scale-group2));
+}
+
+:where(.Icon, .Spinner) {
   --scale-group1: var(--scale-group2);
 }
 
@@ -14,12 +17,18 @@
 .Radio,
 .Switch {
   --component-scale: calc(var(--scale) * var(--scale-group3));
+}
+
+:where(.Badge, .Kbd, .Checkbox, .Radio, .Switch) {
   --scale-group1: var(--scale-group3);
   --scale-group2: var(--scale-group3);
 }
 
 .Avatar {
   --component-scale: calc(var(--scale) * var(--scale-group4));
+}
+
+:where(.Avatar) {
   --scale-group1: var(--scale-group4);
   --scale-group2: var(--scale-group4);
   --scale-group3: var(--scale-group4);
@@ -35,6 +44,9 @@
 .Progress,
 .Field {
   --component-scale: calc(var(--scale) * var(--scale-group5));
+}
+
+:where(.Button, .IconButton, .Input, .Select, .Combobox, .TextArea, .Slider, .Progress, .Field) {
   --scale-group1: var(--scale-group5);
   --scale-group2: var(--scale-group5);
   --scale-group3: var(--scale-group5);
@@ -44,9 +56,27 @@
 .Callout,
 .DropdownMenu {
   --component-scale: calc(var(--scale) * var(--scale-group6));
+}
+
+:where(.Callout, .DropdownMenu) {
   --scale-group1: var(--scale-group6);
   --scale-group2: var(--scale-group6);
   --scale-group3: var(--scale-group6);
   --scale-group4: var(--scale-group6);
   --scale-group5: var(--scale-group6);
+}
+
+.Card,
+.Dialog,
+.Popover {
+  --component-scale: calc(var(--scale) * var(--scale-group7));
+}
+
+:where(.Card, .Dialog, .Popover) {
+  --scale-group1: var(--scale-group7);
+  --scale-group2: var(--scale-group7);
+  --scale-group3: var(--scale-group7);
+  --scale-group4: var(--scale-group7);
+  --scale-group5: var(--scale-group7);
+  --scale-group6: var(--scale-group7);
 }

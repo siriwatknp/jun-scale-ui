@@ -45,6 +45,10 @@
       <span class="Badge" data-spec="height=20 padding-left=8 font-size=12 border-top-left-radius=3">New</span>
     </template>
 
+    <template data-component="Badge" data-title="Badge · with an Icon" data-note="contains Icon at 0.75">
+      <span class="Badge" data-spec="height=20"><svg class="Icon" viewBox="0 0 15 15" data-spec="width=16"><use href="#icon-star" /></svg>New</span>
+    </template>
+
     <template data-component="Kbd">
       <kbd class="Kbd" data-spec="height=20 padding-left=4 font-size=12">⌘K</kbd>
     </template>
@@ -66,7 +70,11 @@
     </template>
 
     <template data-component="Button" data-note="contains Icon">
-      <button class="Button" data-spec="height=32 padding-left=12 font-size=14 border-top-left-radius=4"><svg class="Icon" viewBox="0 0 15 15" data-spec="width=16"><use href="#icon-bookmark" /></svg>Bookmark</button>
+      <button class="Button" data-spec="height=32 padding-left=12 font-size=14 border-top-left-radius=4"><svg class="Icon" viewBox="0 0 15 15" data-spec="width=16 margin-left=-4"><use href="#icon-bookmark" /></svg>Bookmark</button>
+    </template>
+
+    <template data-component="Button" data-title="Button · Icon at 0.5, margin still follows the Button" data-note="the Icon's margin uses the Button's scale">
+      <button class="Button" style="--scale-group2: calc(0.5 * var(--scale-group5))"><svg class="Icon" viewBox="0 0 15 15" data-spec="width=16"><use href="#icon-bookmark" /></svg>Bookmark</button>
     </template>
 
     <template data-component="IconButton" data-note="contains Icon">
@@ -233,6 +241,33 @@
           <div class="Popup-item" role="menuitem">Duplicate<span class="Popup-shortcut">⌘D</span></div>
           <div class="Popup-separator" role="separator"></div>
           <div class="Popup-item" role="menuitem" data-tone="danger">Delete<span class="Popup-shortcut">⌘⌫</span></div>
+        </div>
+      </div>
+    </template>
+
+    <template data-component="Card" data-note="contains anything smaller">
+      <div class="Card" data-spec="padding-top=16 row-gap=12 border-top-left-radius=8 font-size=14">
+        <span class="Badge" data-spec="height=20">New</span>
+        Your trial ends in three days.
+        <button class="Button" data-spec="height=32">Add a card</button>
+      </div>
+    </template>
+
+    <template data-component="Dialog" data-note="contains Field and Buttons">
+      <div class="Dialog" role="dialog" data-spec="width=400 padding-top=24 row-gap=16 border-top-left-radius=8">
+        <h2 class="Dialog-title" data-spec="font-size=16 line-height=24">Invite people</h2>
+        <p class="Dialog-description">They get an email with a link.</p>
+        <div class="Field"><label class="Field-label">Email</label><label class="Input" data-spec="height=32"><input class="Input-field" placeholder="you@example.com" /></label></div>
+        <div class="Dialog-actions" data-spec="column-gap=8"><button class="Button" data-variant="soft">Cancel</button><button class="Button" data-spec="height=32"><svg class="Icon" viewBox="0 0 15 15" data-spec="width=16"><use href="#icon-plus" /></svg>Invite</button></div>
+      </div>
+    </template>
+
+    <template data-component="Popover" data-note="contains Button; floats over the content below">
+      <div class="Popover">
+        <button class="Button" data-variant="soft">Share</button>
+        <div class="Popover-content" data-spec="width=240 padding-top=12 row-gap=8">
+          Anyone with the link can view.
+          <button class="Button" data-spec="height=32">Copy link</button>
         </div>
       </div>
     </template>

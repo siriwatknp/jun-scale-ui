@@ -5,7 +5,11 @@ jun-scale-ui is a minimal CSS framework built around a scaling system. UI scales
 ## Layout
 
 - `PRINCIPLE.md` states the scaling rules without saying how to code them. `SPEC.md` describes the components. `src/` is one implementation of both. When they disagree, fix the implementation or raise the question with the owner.
-- `verify/` checks that the principle is complete. `verify/make-kit.py <folder>` copies the principle, the spec, `verify/brief.md` and the fixture markup into a folder for a fresh agent, which writes `scale.css` from them alone. `verify/run.sh <folder>` runs black-box checks on that `scale.css`. `verify/runs/` keeps what each principle version produced. `verify/run.sh runs/v0-src` checks `src/` itself.
+- `evals/` checks that the principle and spec are complete, and that `src/` follows them. It is the current harness:
+  - `evals/run.sh reference` checks `src/` in Chrome, WebKit and Firefox. Run it after every change to `src/`.
+  - `python3 evals/harness/mutations.py` breaks `src/` on purpose in many ways and confirms the harness catches each break. Run it after changing the harness, and add a break for each new rule.
+  - `evals/make-eval.sh <framework> <title> [folder]` creates a kit for a fresh agent, and `evals/run.sh <folder>` checks what it built. Create blind kits outside this repo, so the agent doesn't read this file. `evals/README.md` has the results.
+- `verify/` is the older CSS-only harness, kept for the history of principle versions 1 to 10 in `verify/runs/`. `verify/run.sh runs/v0-src` still checks `src/`.
 - `src/` is the framework, plain CSS. `src/index.css` imports everything.
   - `src/scale.css` registers `--scale`, `--scale-group1` to `--scale-group7` and `--component-scale` as numbers with `@property`, so DevTools shows their computed values.
   - `src/tokens.css` holds base sizes (`--space-*`, `--font-size-*`, `--line-height-*`, `--radius-*`) and colors. Base sizes are constants, never scaled.
@@ -25,8 +29,10 @@ jun-scale-ui is a minimal CSS framework built around a scaling system. UI scales
 - `PRINCIPLE.md` holds the scaling rules. `SPEC.md` holds the groups, components, base sizes, parts, default factors and accepted centering deviations. Read both before changing `src/`, and don't restate them in this file.
 - To add or change a component, update `SPEC.md` first, then `src/`, then its template in `playground/index.html`.
 - Notes on how `src/` implements them:
-  - `src/groups.css` sets `--component-scale` to `--scale × --scale-group<N>` on every component root, and passes the component's factor down to every smaller group.
-  - Component files override the defaults the spec lists, multiplied by their own factor, for example `.Checkbox { --scale-group2: calc(0.5 * var(--scale-group3)); }`.
+  - `src/groups.css` sets `--component-scale` to `--scale × --scale-group<N>` on every component root. It passes the component's factor down to every smaller group inside `:where()`, so any user declaration on the same element wins.
+  - Component files set the defaults the spec lists inside `:where()` too, multiplied by their own factor, for example `:where(.Checkbox) { --scale-group2: calc(0.5 * var(--scale-group3)); }`. They come after `groups.css`, so they win over the pass-down.
+  - A size a component applies to a child component reads the component's scale under its own name, for example `--Button-scale` for the margin on a Button's leading Icon. `--component-scale` on the child is the child's scale.
+  - Every padding is written as the full shorthand, `padding: 0 <value>`, never `padding-inline` alone, because browsers give controls different default padding.
   - A child component that must be centered on a text line sits in a grid row one line tall, with `align-self: center`, as in `Callout` and the inline `Field`. A fixed offset would be wrong once the child's factor changes.
   - `experiments/004-pixel-snapping` measures why sizes must land on whole pixels.
 - In conversation, refer to components by their PascalCase names, as `SPEC.md` does. A component's parts are never listed as components, and a glyph inside a component is the `Icon` component.

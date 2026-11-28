@@ -13,13 +13,13 @@ MUTATIONS = [
     ("Checkbox loses its 0.5 Icon default", [("src/components/checkbox.css", "  --scale-group2: calc(0.5 * var(--scale-group3));\n", "")]),
     ("Callout Icon dropped", [("src/components/callout.css", "  --scale-group2: calc(0.75 * var(--scale-group6));\n", "")]),
     ("Select trigger Avatar default dropped", [("src/components/select.css", "  --scale-group4: calc(0.75 * var(--scale-group5));\n", "")]),
-    ("Field label Inline default dropped", [("src/components/field.css", "  --scale-group3: calc(0.8 * var(--scale-group5));\n  display: flex;", "  display: flex;")]),
+    ("Field label Inline default dropped", [("src/components/field.css", ":where(.Field-label) {\n  --scale-group3: calc(0.8 * var(--scale-group5));\n}", ":where(.Field-label) {\n}")]),
     ("Callout Icon placed with a fixed offset", [("src/components/callout.css", "  grid-row: 1;\n  align-self: center;", "  grid-row: 1;\n  align-self: start;\n  margin-top: 4px;")]),
     ("Input border scales", [("src/components/input.css", "  border: 1px solid var(--color-border);\n  border-radius: calc(var(--radius-2)", "  border: calc(1px * var(--component-scale)) solid var(--color-border);\n  border-radius: calc(var(--radius-2)")]),
     ("Badge padding doesn't scale", [("src/components/badge.css", "  padding: 0 calc(var(--space-2) * var(--component-scale));", "  padding: 0 8px;")]),
     ("Badge line height doesn't scale", [("src/components/badge.css", "  line-height: calc(var(--line-height-1) * var(--component-scale));", "  line-height: 16px;")]),
     ("Button radius doesn't scale", [("src/components/button.css", "  border-radius: calc(var(--radius-2) * var(--component-scale));", "  border-radius: 4px;")]),
-    ("Avatar in group 3 instead of 4", [("src/groups.css", ".Avatar {\n  --component-scale: calc(var(--scale) * var(--scale-group4));\n  --scale-group1: var(--scale-group4);\n  --scale-group2: var(--scale-group4);\n  --scale-group3: var(--scale-group4);\n}", ".Avatar {\n  --component-scale: calc(var(--scale) * var(--scale-group3));\n  --scale-group1: var(--scale-group3);\n  --scale-group2: var(--scale-group3);\n}")]),
+    ("Avatar in group 3 instead of 4", [("src/groups.css", ".Avatar {\n  --component-scale: calc(var(--scale) * var(--scale-group4));\n}\n\n:where(.Avatar) {\n  --scale-group1: var(--scale-group4);\n  --scale-group2: var(--scale-group4);\n  --scale-group3: var(--scale-group4);\n}", ".Avatar {\n  --component-scale: calc(var(--scale) * var(--scale-group3));\n}\n\n:where(.Avatar) {\n  --scale-group1: var(--scale-group3);\n  --scale-group2: var(--scale-group3);\n}")]),
     ("Group factor ignores the global scale", [("src/groups.css", "  --component-scale: calc(var(--scale) * var(--scale-group5));", "  --component-scale: var(--scale-group5);")]),
     ("Select trigger computes its own scale", [("src/components/select.css", ".Select-trigger {\n", ".Select-trigger {\n  --component-scale: calc(var(--scale) * var(--scale-group5));\n")]),
     ("Scaled size stored on :root", [
@@ -31,6 +31,11 @@ MUTATIONS = [
     ("Checkbox default beats the user with !important", [("src/components/checkbox.css", "  --scale-group2: calc(0.5 * var(--scale-group3));", "  --scale-group2: calc(0.5 * var(--scale-group3)) !important;")]),
     ("Button padding off the 4px grid", [("src/components/button.css", "  padding: 0 calc(var(--space-3) * var(--component-scale));", "  padding: 0 calc(13px * var(--component-scale));")]),
     ("Button sets its own group factor", [("src/components/button.css", ".Button {\n", ".Button {\n  --scale-group5: 1;\n")]),
+    ("Leading Icon margin reads the Icon's own scale", [("src/components/button.css", "  margin-left: calc(-4px * var(--Button-scale));", "  margin-left: calc(-4px * var(--component-scale));")]),
+    ("Popup takes space in the layout", [("src/components/popup.css", "  position: absolute;\n  top: calc(100% + var(--space-1) * var(--component-scale));", "  position: static;\n  margin-top: calc(var(--space-1) * var(--component-scale));")]),
+    ("Group 7 doesn't pass its factor down", [("src/groups.css", ":where(.Card, .Dialog, .Popover) {\n", ":where(.Nothing) {\n")]),
+    ("Checkbox default has class specificity", [("src/components/checkbox.css", ":where(.Checkbox) {", ".Checkbox {")]),
+    ("Badge loses its 0.75 Icon default", [("src/components/badge.css", "  --scale-group2: calc(0.75 * var(--scale-group3));\n", "")]),
     ("Kbd font size doesn't scale", [("src/components/kbd.css", "  font-size: calc(var(--font-size-1) * var(--component-scale));", "  font-size: 12px;")]),
 ]
 

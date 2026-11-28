@@ -1,5 +1,8 @@
-.Checkbox {
+:where(.Checkbox) {
   --scale-group2: calc(0.5 * var(--scale-group3));
+}
+
+.Checkbox {
   position: relative;
   display: inline-grid;
   place-items: center;

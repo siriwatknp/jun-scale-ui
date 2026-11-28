@@ -7,6 +7,8 @@ async (page, results) => {
   });
   for (const scale of scales) {
     const handle = await page.evaluateHandle((value) => {
+      document.querySelector("[data-stage]").replaceChildren();
+      window.scrollTo(0, 0);
       const box = mount("Switch", `--scale: ${value}; background: #ff00ff; padding: 4px; display: inline-block;`);
       box.classList.add("pixel-probe");
       return box.querySelector("[data-pseudo-inset]");

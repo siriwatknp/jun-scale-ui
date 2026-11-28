@@ -13,3 +13,4 @@ export const info = (
     <path d="M8 7v4.5M8 4.5v.5" stroke="currentColor" strokeLinecap="round" />
   </>
 );
+export const close = <path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" strokeLinecap="round" />;

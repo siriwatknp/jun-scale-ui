@@ -10,7 +10,7 @@ const GROUPS = {
     components: ["Button", "IconButton", "Input", "Select", "Combobox", "TextArea", "Slider", "Progress", "Field"],
   },
   6: { name: "Panel", base: "fits its content", contains: "Control and below", components: ["Callout", "DropdownMenu"] },
-  7: { name: "Container", base: "layout", contains: "everything", components: [] },
+  7: { name: "Container", base: "fits its content", contains: "everything", components: ["Card", "Dialog", "Popover"] },
 };
 
 const PIXEL_TOLERANCE = 0.05;
