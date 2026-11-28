@@ -1,0 +1,37 @@
+@layer jun-scale {
+  .IconButton {
+    --IconButton-scale: calc(var(--scale, 1) * var(--scale-group5, 1));
+    --scale-group1: var(--scale-group5, 1);
+    --scale-group2: var(--scale-group5, 1);
+    --scale-group3: var(--scale-group5, 1);
+    --scale-group4: var(--scale-group5, 1);
+    display: inline-grid;
+    place-items: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    width: calc(32px * var(--IconButton-scale));
+    height: calc(32px * var(--IconButton-scale));
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: calc(4px * var(--IconButton-scale));
+    background: #f0f0f3;
+    color: #1c2024;
+    cursor: pointer;
+    vertical-align: middle;
+  }
+
+  .IconButton:hover {
+    background: #e8e8ec;
+  }
+
+  .IconButton:focus-visible {
+    outline: 1px solid #3e63dd;
+    outline-offset: 2px;
+  }
+
+  .IconButton:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}

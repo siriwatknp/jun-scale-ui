@@ -1,0 +1,76 @@
+@layer jun-scale {
+  .Input {
+    --Input-scale: calc(var(--scale, 1) * var(--scale-group5, 1));
+    --scale-group1: var(--scale-group5, 1);
+    --scale-group2: var(--scale-group5, 1);
+    --scale-group3: var(--scale-group5, 1);
+    --scale-group4: var(--scale-group5, 1);
+    display: inline-flex;
+    align-items: center;
+    box-sizing: border-box;
+    width: calc(180px * var(--Input-scale));
+    height: calc(32px * var(--Input-scale));
+    padding: 0 calc(8px * var(--Input-scale));
+    gap: calc(8px * var(--Input-scale));
+    border: 1px solid #cdced6;
+    border-radius: calc(4px * var(--Input-scale));
+    font-family: inherit;
+    font-size: calc(14px * var(--Input-scale));
+    line-height: calc(20px * var(--Input-scale));
+    background: #fff;
+    color: #1c2024;
+    cursor: text;
+    vertical-align: middle;
+  }
+
+  .Input:focus-within {
+    border-color: #3e63dd;
+    outline: 1px solid #3e63dd;
+    outline-offset: 0;
+  }
+
+  .Input > .Icon {
+    color: #60646c;
+  }
+
+  .Input-field {
+    flex: 1 1 0;
+    align-self: stretch;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    background: transparent;
+    color: inherit;
+    outline: none;
+  }
+
+  .Input-field::placeholder {
+    color: #8b8d98;
+  }
+
+  .Input-action {
+    display: inline-grid;
+    place-items: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    width: calc(24px * var(--Input-scale));
+    height: calc(24px * var(--Input-scale));
+    margin: 0 calc(-4px * var(--Input-scale)) 0 0;
+    padding: 0;
+    border: 0;
+    border-radius: calc(3px * var(--Input-scale));
+    background: transparent;
+    color: #60646c;
+    cursor: pointer;
+  }
+
+  .Input-action:hover {
+    background: #f0f0f3;
+  }
+
+  .Input-action:focus-visible {
+    outline: 1px solid #3e63dd;
+  }
+}

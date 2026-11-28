@@ -1,0 +1,12 @@
+@layer jun-scale-ui {
+  .root {
+    --StatusDot-scale: calc(var(--scale, 1) * var(--scale-group1, 1));
+    display: inline-block;
+    flex-shrink: 0;
+    vertical-align: middle;
+    width: calc(8px * var(--StatusDot-scale));
+    height: calc(8px * var(--StatusDot-scale));
+    border-radius: 999px;
+    background: #30a46c;
+  }
+}

@@ -1,0 +1,47 @@
+@layer jun-scale {
+  .Button {
+    --Button-scale: calc(var(--scale, 1) * var(--scale-group5, 1));
+    --scale-group1: var(--scale-group5, 1);
+    --scale-group2: var(--scale-group5, 1);
+    --scale-group3: var(--scale-group5, 1);
+    --scale-group4: var(--scale-group5, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    height: calc(32px * var(--Button-scale));
+    margin: 0;
+    padding: 0 calc(12px * var(--Button-scale));
+    gap: calc(8px * var(--Button-scale));
+    border: 0;
+    border-radius: calc(4px * var(--Button-scale));
+    font-family: inherit;
+    font-size: calc(14px * var(--Button-scale));
+    line-height: calc(20px * var(--Button-scale));
+    font-weight: 500;
+    white-space: nowrap;
+    background: #f0f0f3;
+    color: #1c2024;
+    cursor: pointer;
+    vertical-align: middle;
+  }
+
+  .Button:hover {
+    background: #e8e8ec;
+  }
+
+  .Button:focus-visible {
+    outline: 1px solid #3e63dd;
+    outline-offset: 2px;
+  }
+
+  .Button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .Button--startIcon > .Icon:first-child {
+    margin-left: calc(-4px * var(--Button-scale));
+  }
+}

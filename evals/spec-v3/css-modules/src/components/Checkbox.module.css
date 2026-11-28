@@ -1,0 +1,47 @@
+@layer jun-scale-ui {
+  .root {
+    --Checkbox-scale: calc(var(--scale, 1) * var(--scale-group3, 1));
+    --scale-group1: var(--scale-group3, 1);
+    --scale-group2: calc(var(--scale-group3, 1) * 0.5);
+    display: inline-grid;
+    flex-shrink: 0;
+    place-items: center;
+    vertical-align: middle;
+    width: calc(16px * var(--Checkbox-scale));
+    height: calc(16px * var(--Checkbox-scale));
+  }
+
+  .input {
+    grid-area: 1 / 1;
+    appearance: none;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #b9bbc6;
+    border-radius: calc(3px * var(--Checkbox-scale));
+    background: #fff;
+    cursor: pointer;
+  }
+
+  .input:checked {
+    border-color: #0d74ce;
+    background: #0d74ce;
+  }
+
+  .input:focus-visible {
+    outline: 1px solid #0d74ce;
+    outline-offset: 2px;
+  }
+
+  .check {
+    grid-area: 1 / 1;
+    color: #fff;
+    pointer-events: none;
+  }
+
+  .input:not(:checked) + .check {
+    visibility: hidden;
+  }
+}

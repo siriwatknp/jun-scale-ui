@@ -1,0 +1,23 @@
+@layer jun-scale {
+  .Kbd {
+    --Kbd-scale: calc(var(--scale, 1) * var(--scale-group3, 1));
+    --scale-group1: var(--scale-group3, 1);
+    --scale-group2: var(--scale-group3, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    height: calc(20px * var(--Kbd-scale));
+    min-width: calc(20px * var(--Kbd-scale));
+    padding: 0 calc(4px * var(--Kbd-scale));
+    border: 1px solid #cdced6;
+    border-radius: calc(3px * var(--Kbd-scale));
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: calc(12px * var(--Kbd-scale));
+    line-height: calc(16px * var(--Kbd-scale));
+    white-space: nowrap;
+    background: #f9f9fb;
+    color: #60646c;
+  }
+}

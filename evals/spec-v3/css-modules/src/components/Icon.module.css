@@ -1,0 +1,11 @@
+@layer jun-scale-ui {
+  .root {
+    --Icon-scale: calc(var(--scale, 1) * var(--scale-group2, 1));
+    --scale-group1: var(--scale-group2, 1);
+    display: inline-block;
+    flex-shrink: 0;
+    vertical-align: middle;
+    width: calc(16px * var(--Icon-scale));
+    height: calc(16px * var(--Icon-scale));
+  }
+}

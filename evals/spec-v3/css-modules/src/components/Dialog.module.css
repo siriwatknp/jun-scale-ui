@@ -1,0 +1,47 @@
+@layer jun-scale-ui {
+  .root {
+    --Dialog-scale: calc(var(--scale, 1) * var(--scale-group7, 1));
+    --scale-group1: var(--scale-group7, 1);
+    --scale-group2: var(--scale-group7, 1);
+    --scale-group3: var(--scale-group7, 1);
+    --scale-group4: var(--scale-group7, 1);
+    --scale-group5: var(--scale-group7, 1);
+    --scale-group6: var(--scale-group7, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    box-sizing: border-box;
+    width: calc(400px * var(--Dialog-scale));
+    padding: calc(24px * var(--Dialog-scale));
+    gap: calc(16px * var(--Dialog-scale));
+    border: 1px solid #d9d9e0;
+    border-radius: calc(8px * var(--Dialog-scale));
+    font-size: calc(14px * var(--Dialog-scale));
+    line-height: calc(20px * var(--Dialog-scale));
+    background: #fff;
+    color: #1c2024;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
+  }
+
+  .title {
+    margin: 0;
+    font-size: calc(16px * var(--Dialog-scale));
+    line-height: calc(24px * var(--Dialog-scale));
+    font-weight: 600;
+  }
+
+  .description {
+    margin: 0;
+    font-size: calc(14px * var(--Dialog-scale));
+    line-height: calc(20px * var(--Dialog-scale));
+    color: #60646c;
+  }
+
+  .actions {
+    display: flex;
+    align-self: stretch;
+    justify-content: flex-end;
+    align-items: center;
+    gap: calc(8px * var(--Dialog-scale));
+  }
+}

@@ -1,0 +1,32 @@
+@layer jun-scale-ui {
+  .root {
+    --IconButton-scale: calc(var(--scale, 1) * var(--scale-group5, 1));
+    --scale-group1: var(--scale-group5, 1);
+    --scale-group2: var(--scale-group5, 1);
+    --scale-group3: var(--scale-group5, 1);
+    --scale-group4: var(--scale-group5, 1);
+    display: inline-grid;
+    flex-shrink: 0;
+    place-items: center;
+    vertical-align: middle;
+    box-sizing: border-box;
+    width: calc(32px * var(--IconButton-scale));
+    height: calc(32px * var(--IconButton-scale));
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: calc(4px * var(--IconButton-scale));
+    background: #e8e8ec;
+    color: #1c2024;
+    cursor: pointer;
+  }
+
+  .root:hover {
+    background: #e0e1e6;
+  }
+
+  .root:focus-visible {
+    outline: 1px solid #0d74ce;
+    outline-offset: 2px;
+  }
+}

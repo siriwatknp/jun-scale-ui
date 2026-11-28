@@ -1,0 +1,33 @@
+@layer jun-scale-ui {
+  .root {
+    --Callout-scale: calc(var(--scale, 1) * var(--scale-group6, 1));
+    --scale-group1: var(--scale-group6, 1);
+    --scale-group2: calc(var(--scale-group6, 1) * 0.75);
+    --scale-group3: var(--scale-group6, 1);
+    --scale-group4: var(--scale-group6, 1);
+    --scale-group5: var(--scale-group6, 1);
+    display: flex;
+    align-items: flex-start;
+    box-sizing: border-box;
+    max-width: calc(180px * var(--Callout-scale));
+    padding: calc(16px * var(--Callout-scale));
+    gap: calc(12px * var(--Callout-scale));
+    border-radius: calc(6px * var(--Callout-scale));
+    font-size: calc(14px * var(--Callout-scale));
+    line-height: calc(20px * var(--Callout-scale));
+    background: #e6f4fe;
+    color: #113264;
+  }
+
+  .icon {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    height: calc(20px * var(--Callout-scale));
+    color: #0d74ce;
+  }
+
+  .text {
+    min-width: 0;
+  }
+}

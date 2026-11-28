@@ -1,0 +1,36 @@
+@layer jun-scale {
+  .Popover {
+    --Popover-scale: calc(var(--scale, 1) * var(--scale-group7, 1));
+    --scale-group1: var(--scale-group7, 1);
+    --scale-group2: var(--scale-group7, 1);
+    --scale-group3: var(--scale-group7, 1);
+    --scale-group4: var(--scale-group7, 1);
+    --scale-group5: var(--scale-group7, 1);
+    --scale-group6: var(--scale-group7, 1);
+    display: inline-flex;
+    position: relative;
+    vertical-align: middle;
+  }
+
+  .Popover-content {
+    position: absolute;
+    top: calc(100% + 4px * var(--Popover-scale));
+    left: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    box-sizing: border-box;
+    width: calc(240px * var(--Popover-scale));
+    padding: calc(12px * var(--Popover-scale));
+    gap: calc(8px * var(--Popover-scale));
+    border: 1px solid #e0e1e6;
+    border-radius: calc(6px * var(--Popover-scale));
+    font-family: inherit;
+    font-size: calc(14px * var(--Popover-scale));
+    line-height: calc(20px * var(--Popover-scale));
+    background: #fff;
+    color: #1c2024;
+    box-shadow: 0 4px 16px rgb(0 0 0 / 0.12);
+  }
+}

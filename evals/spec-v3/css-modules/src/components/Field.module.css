@@ -1,0 +1,54 @@
+@layer jun-scale-ui {
+  .root {
+    --Field-scale: calc(var(--scale, 1) * var(--scale-group5, 1));
+    --scale-group1: var(--scale-group5, 1);
+    --scale-group2: var(--scale-group5, 1);
+    --scale-group3: var(--scale-group5, 1);
+    --scale-group4: var(--scale-group5, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    box-sizing: border-box;
+    width: calc(240px * var(--Field-scale));
+    gap: calc(8px * var(--Field-scale));
+    font-size: calc(14px * var(--Field-scale));
+    line-height: calc(20px * var(--Field-scale));
+    color: #1c2024;
+  }
+
+  .root > [data-slot="Input"],
+  .root > [data-slot="Select"] {
+    align-self: stretch;
+    width: auto;
+  }
+
+  .root[data-invalid] > [data-slot="Input"] {
+    border-color: #ce2c31;
+  }
+
+  .label {
+    --scale-group3: calc(var(--scale-group5, 1) * 0.8);
+    display: flex;
+    align-items: center;
+    gap: calc(4px * var(--Field-scale));
+    font-size: calc(14px * var(--Field-scale));
+    line-height: calc(20px * var(--Field-scale));
+    font-weight: 500;
+  }
+
+  .help,
+  .error {
+    --scale-group3: calc(var(--scale-group5, 1) * 0.8);
+    margin: 0;
+    font-size: calc(12px * var(--Field-scale));
+    line-height: calc(16px * var(--Field-scale));
+  }
+
+  .help {
+    color: #60646c;
+  }
+
+  .error {
+    color: #ce2c31;
+  }
+}

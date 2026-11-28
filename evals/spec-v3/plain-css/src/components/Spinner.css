@@ -1,0 +1,28 @@
+@layer jun-scale {
+  .Spinner {
+    --Spinner-scale: calc(var(--scale, 1) * var(--scale-group2, 1));
+    --scale-group1: var(--scale-group2, 1);
+    display: inline-block;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    width: calc(16px * var(--Spinner-scale));
+    height: calc(16px * var(--Spinner-scale));
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 9999px;
+    vertical-align: middle;
+    animation: jun-scale-spin 0.8s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .Spinner {
+      animation-duration: 2.4s;
+    }
+  }
+
+  @keyframes jun-scale-spin {
+    to {
+      rotate: 360deg;
+    }
+  }
+}

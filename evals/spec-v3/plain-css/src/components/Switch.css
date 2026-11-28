@@ -1,0 +1,64 @@
+@layer jun-scale {
+  .Switch {
+    --Switch-scale: calc(var(--scale, 1) * var(--scale-group3, 1));
+    --scale-group1: var(--scale-group3, 1);
+    --scale-group2: var(--scale-group3, 1);
+    display: inline-grid;
+    align-items: center;
+    justify-items: start;
+    flex-shrink: 0;
+    width: calc(40px * var(--Switch-scale));
+    height: calc(24px * var(--Switch-scale));
+    vertical-align: middle;
+  }
+
+  .Switch-input {
+    grid-area: 1 / 1;
+    appearance: none;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 9999px;
+    background: #d9d9e0;
+    cursor: pointer;
+  }
+
+  .Switch-input:checked {
+    background: #3e63dd;
+  }
+
+  .Switch-input:focus-visible {
+    outline: 1px solid #3e63dd;
+    outline-offset: 2px;
+  }
+
+  .Switch-input:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .Switch-thumb {
+    grid-area: 1 / 1;
+    width: calc(16px * var(--Switch-scale));
+    height: calc(16px * var(--Switch-scale));
+    margin-left: calc(4px * var(--Switch-scale));
+    border-radius: 9999px;
+    background: #fff;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.2);
+    pointer-events: none;
+    transition: translate 150ms ease;
+  }
+
+  .Switch-input:checked + .Switch-thumb {
+    translate: calc(16px * var(--Switch-scale)) 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .Switch-thumb {
+      transition: none;
+    }
+  }
+}

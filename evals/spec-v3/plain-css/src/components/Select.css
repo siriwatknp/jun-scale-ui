@@ -1,0 +1,45 @@
+@layer jun-scale {
+  .Select {
+    --Select-scale: calc(var(--scale, 1) * var(--scale-group5, 1));
+    --Popup-scale: var(--Select-scale);
+    --scale-group1: var(--scale-group5, 1);
+    --scale-group2: var(--scale-group5, 1);
+    --scale-group3: var(--scale-group5, 1);
+    --scale-group4: var(--scale-group5, 1);
+    display: inline-grid;
+    position: relative;
+    vertical-align: middle;
+  }
+
+  .Select-trigger {
+    --scale-group4: calc(var(--scale-group5, 1) * 0.75);
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    height: calc(32px * var(--Select-scale));
+    margin: 0;
+    padding: 0 calc(12px * var(--Select-scale));
+    gap: calc(8px * var(--Select-scale));
+    border: 1px solid #cdced6;
+    border-radius: calc(4px * var(--Select-scale));
+    font-family: inherit;
+    font-size: calc(14px * var(--Select-scale));
+    line-height: calc(20px * var(--Select-scale));
+    text-align: start;
+    white-space: nowrap;
+    background: #fff;
+    color: #1c2024;
+    cursor: pointer;
+  }
+
+  .Select-trigger:focus-visible {
+    border-color: #3e63dd;
+    outline: 1px solid #3e63dd;
+    outline-offset: 0;
+  }
+
+  .Select-trigger > .Icon:last-child {
+    margin-left: auto;
+    color: #60646c;
+  }
+}

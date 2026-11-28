@@ -1,0 +1,24 @@
+@layer jun-scale-ui {
+  .root {
+    --Card-scale: calc(var(--scale, 1) * var(--scale-group7, 1));
+    --scale-group1: var(--scale-group7, 1);
+    --scale-group2: var(--scale-group7, 1);
+    --scale-group3: var(--scale-group7, 1);
+    --scale-group4: var(--scale-group7, 1);
+    --scale-group5: var(--scale-group7, 1);
+    --scale-group6: var(--scale-group7, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    box-sizing: border-box;
+    width: fit-content;
+    padding: calc(16px * var(--Card-scale));
+    gap: calc(12px * var(--Card-scale));
+    border: 1px solid #d9d9e0;
+    border-radius: calc(8px * var(--Card-scale));
+    font-size: calc(14px * var(--Card-scale));
+    line-height: calc(20px * var(--Card-scale));
+    background: #fff;
+    color: #1c2024;
+  }
+}

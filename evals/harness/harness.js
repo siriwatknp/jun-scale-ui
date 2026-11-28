@@ -34,7 +34,6 @@ const BRIEF = [
   ["Callout", "Callout", "padding-top", 16],
   ["Callout", "Callout Icon", "width", 12],
   ["BadgeIcon", "Badge Icon", "width", 12],
-  ["Button", "Button Icon", "margin-left", -4],
   ["InputAction", "Input-action", "width", 24],
   ["InputAction", "Input-action", "height", 24],
   ["Card", "Card", "padding-top", 16],
@@ -443,8 +442,14 @@ function testFactorBehavior() {
 
   const childSize = "a size a component applies to a child uses the component's scale";
   if (hasFixture("ButtonIconHalf")) {
-    expectEqual(childSize, "leading Icon margin with the Icon at 0.5", measure("ButtonIconHalf", "", "Button Icon", "margin-left"), -4);
-    expectEqual(childSize, "same, with --scale: 1.5", measure("ButtonIconHalf", "--scale: 1.5", "Button Icon", "margin-left"), -6);
+    const iconInset = (name, style) => {
+      const button = mount(name, style).querySelector(slot("Button"));
+      return rectOf(button.querySelector(slot("Icon"))).left - rectOf(button).left;
+    };
+    expectEqual(childSize, "leading Icon sits 8 from the Button's edge", iconInset("Button", ""), 8);
+    expectEqual(childSize, "same, with --scale: 1.5", iconInset("Button", "--scale: 1.5"), 12);
+    expectEqual(childSize, "same, with the Icon at 0.5", iconInset("ButtonIconHalf", ""), 8);
+    expectEqual(childSize, "same, with the Icon at 0.5 and --scale: 1.5", iconInset("ButtonIconHalf", "--scale: 1.5"), 12);
     expectEqual(childSize, "the Icon itself is at 0.5", measure("ButtonIconHalf", "", "Button Icon", "width"), buttonIcon * 0.5);
   }
 

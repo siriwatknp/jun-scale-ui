@@ -1,0 +1,25 @@
+@layer jun-scale {
+  .Avatar {
+    --Avatar-scale: calc(var(--scale, 1) * var(--scale-group4, 1));
+    --scale-group1: var(--scale-group4, 1);
+    --scale-group2: var(--scale-group4, 1);
+    --scale-group3: var(--scale-group4, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    width: calc(32px * var(--Avatar-scale));
+    height: calc(32px * var(--Avatar-scale));
+    overflow: hidden;
+    border-radius: 9999px;
+    font-family: inherit;
+    font-size: calc(14px * var(--Avatar-scale));
+    line-height: calc(20px * var(--Avatar-scale));
+    font-weight: 500;
+    white-space: nowrap;
+    background: #e0e1e6;
+    color: #1c2024;
+    vertical-align: middle;
+  }
+}

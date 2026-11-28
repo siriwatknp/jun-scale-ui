@@ -1,0 +1,37 @@
+@layer jun-scale {
+  .Popup {
+    position: absolute;
+    top: calc(100% + 4px * var(--Popup-scale));
+    left: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    min-width: calc(128px * var(--Popup-scale));
+    padding: calc(4px * var(--Popup-scale));
+    border: 1px solid #cdced6;
+    border-radius: calc(6px * var(--Popup-scale));
+    font-family: inherit;
+    font-size: calc(14px * var(--Popup-scale));
+    line-height: calc(20px * var(--Popup-scale));
+    background: #fff;
+    color: #1c2024;
+    box-shadow: 0 4px 16px rgb(0 0 0 / 0.12);
+  }
+
+  .Popup-item {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    height: calc(32px * var(--Popup-scale));
+    padding: 0 calc(12px * var(--Popup-scale));
+    gap: calc(8px * var(--Popup-scale));
+    border-radius: calc(4px * var(--Popup-scale));
+    white-space: nowrap;
+    cursor: default;
+  }
+
+  .Popup-item:hover {
+    background: #f0f0f3;
+  }
+}

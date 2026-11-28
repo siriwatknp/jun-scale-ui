@@ -1,0 +1,72 @@
+@layer jun-scale-ui {
+  .root {
+    --Input-scale: calc(var(--scale, 1) * var(--scale-group5, 1));
+    --scale-group1: var(--scale-group5, 1);
+    --scale-group2: var(--scale-group5, 1);
+    --scale-group3: var(--scale-group5, 1);
+    --scale-group4: var(--scale-group5, 1);
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    vertical-align: middle;
+    box-sizing: border-box;
+    width: calc(180px * var(--Input-scale));
+    height: calc(32px * var(--Input-scale));
+    padding: 0 calc(8px * var(--Input-scale));
+    gap: calc(8px * var(--Input-scale));
+    border: 1px solid #d9d9e0;
+    border-radius: calc(4px * var(--Input-scale));
+    font-size: calc(14px * var(--Input-scale));
+    line-height: calc(20px * var(--Input-scale));
+    background: #fff;
+    color: #60646c;
+    cursor: text;
+  }
+
+  .root:focus-within {
+    outline: 1px solid #0d74ce;
+    outline-offset: -1px;
+    border-color: #0d74ce;
+  }
+
+  .field {
+    flex: 1 1 0;
+    align-self: stretch;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    font: inherit;
+    color: #1c2024;
+  }
+
+  .field::placeholder {
+    color: #8b8d98;
+  }
+
+  .action {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    box-sizing: border-box;
+    width: calc(24px * var(--Input-scale));
+    height: calc(24px * var(--Input-scale));
+    margin: 0 calc(-4px * var(--Input-scale)) 0 0;
+    padding: 0;
+    border: 0;
+    border-radius: calc(3px * var(--Input-scale));
+    background: transparent;
+    color: #60646c;
+    cursor: pointer;
+  }
+
+  .action:hover {
+    background: #f0f0f3;
+  }
+
+  .action:focus-visible {
+    outline: 1px solid #0d74ce;
+  }
+}

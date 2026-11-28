@@ -1,0 +1,13 @@
+.kit-page { margin: 24px; font: 13px/1.5 system-ui, sans-serif; color: #1c2024; }
+.kit-page > h1 { font-size: 18px; margin: 0 0 4px; }
+.kit-page > h2 { font-size: 14px; margin: 32px 0 8px; }
+.kit-table { border-collapse: collapse; }
+.kit-table th { padding: 8px 16px 8px 0; text-align: left; font: 600 12px system-ui, sans-serif; vertical-align: top; }
+.kit-table thead th { color: #60646c; font-weight: 500; }
+.kit-table td { padding: 12px 16px; vertical-align: top; border-top: 1px solid #e8e8ec; }
+.kit-results { list-style: none; padding: 0; font: 12px/1.6 ui-monospace, Menlo, monospace; }
+.kit-results .is-fail { color: #ce2c31; }
+.kit-results .detail { white-space: pre; }
+.kit-stage { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 16px; margin-top: 24px; }
+.kit-table tr[data-block="Select open"] td { padding-bottom: calc(88px * var(--scale)); }
+.kit-table tr[data-block="SelectOpen"] td, .kit-table tr[data-block="Popover"] td { padding-bottom: calc(120px * var(--scale)); }

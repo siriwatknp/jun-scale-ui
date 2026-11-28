@@ -1,0 +1,197 @@
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@source "./";
+
+@theme inline {
+  --spacing: calc(4px * var(--ui-effective-scale, 1));
+  --text-xs: calc(12px * var(--ui-effective-scale, 1));
+  --text-xs--line-height: calc(16px * var(--ui-effective-scale, 1));
+  --text-sm: calc(14px * var(--ui-effective-scale, 1));
+  --text-sm--line-height: calc(20px * var(--ui-effective-scale, 1));
+  --text-base: calc(16px * var(--ui-effective-scale, 1));
+  --text-base--line-height: calc(24px * var(--ui-effective-scale, 1));
+  --radius-xs: calc(3px * var(--ui-effective-scale, 1));
+  --radius-sm: calc(4px * var(--ui-effective-scale, 1));
+  --radius-md: calc(6px * var(--ui-effective-scale, 1));
+  --radius-lg: calc(8px * var(--ui-effective-scale, 1));
+}
+
+@utility ui-group-1 {
+  --ui-factor: var(--scale-group1, 1);
+  --ui-effective-scale: calc(var(--scale, 1) * var(--ui-factor));
+}
+
+@utility ui-group-2 {
+  --ui-factor: var(--scale-group2, 1);
+  --ui-effective-scale: calc(var(--scale, 1) * var(--ui-factor));
+}
+
+@utility ui-group-3 {
+  --ui-factor: var(--scale-group3, 1);
+  --ui-effective-scale: calc(var(--scale, 1) * var(--ui-factor));
+}
+
+@utility ui-group-4 {
+  --ui-factor: var(--scale-group4, 1);
+  --ui-effective-scale: calc(var(--scale, 1) * var(--ui-factor));
+}
+
+@utility ui-group-5 {
+  --ui-factor: var(--scale-group5, 1);
+  --ui-effective-scale: calc(var(--scale, 1) * var(--ui-factor));
+}
+
+@utility ui-group-6 {
+  --ui-factor: var(--scale-group6, 1);
+  --ui-effective-scale: calc(var(--scale, 1) * var(--ui-factor));
+}
+
+@utility ui-group-7 {
+  --ui-factor: var(--scale-group7, 1);
+  --ui-effective-scale: calc(var(--scale, 1) * var(--ui-factor));
+}
+
+@utility ui-pass-below-2 {
+  @layer ui-defaults {
+    :where(&) {
+      --scale-group1: var(--ui-factor);
+    }
+  }
+}
+
+@utility ui-pass-below-3 {
+  @layer ui-defaults {
+    :where(&) {
+      --scale-group1: var(--ui-factor);
+      --scale-group2: var(--ui-factor);
+    }
+  }
+}
+
+@utility ui-pass-below-4 {
+  @layer ui-defaults {
+    :where(&) {
+      --scale-group1: var(--ui-factor);
+      --scale-group2: var(--ui-factor);
+      --scale-group3: var(--ui-factor);
+    }
+  }
+}
+
+@utility ui-pass-below-5 {
+  @layer ui-defaults {
+    :where(&) {
+      --scale-group1: var(--ui-factor);
+      --scale-group2: var(--ui-factor);
+      --scale-group3: var(--ui-factor);
+      --scale-group4: var(--ui-factor);
+    }
+  }
+}
+
+@utility ui-pass-below-6 {
+  @layer ui-defaults {
+    :where(&) {
+      --scale-group1: var(--ui-factor);
+      --scale-group2: var(--ui-factor);
+      --scale-group3: var(--ui-factor);
+      --scale-group4: var(--ui-factor);
+      --scale-group5: var(--ui-factor);
+    }
+  }
+}
+
+@utility ui-pass-below-7 {
+  @layer ui-defaults {
+    :where(&) {
+      --scale-group1: var(--ui-factor);
+      --scale-group2: var(--ui-factor);
+      --scale-group3: var(--ui-factor);
+      --scale-group4: var(--ui-factor);
+      --scale-group5: var(--ui-factor);
+      --scale-group6: var(--ui-factor);
+    }
+  }
+}
+
+@utility ui-pass-group1-* {
+  @layer ui-defaults {
+    & {
+      --scale-group1: calc(--value(number, [number]) * var(--ui-factor));
+    }
+  }
+}
+
+@utility ui-pass-group2-* {
+  @layer ui-defaults {
+    & {
+      --scale-group2: calc(--value(number, [number]) * var(--ui-factor));
+    }
+  }
+}
+
+@utility ui-pass-group3-* {
+  @layer ui-defaults {
+    & {
+      --scale-group3: calc(--value(number, [number]) * var(--ui-factor));
+    }
+  }
+}
+
+@utility ui-pass-group4-* {
+  @layer ui-defaults {
+    & {
+      --scale-group4: calc(--value(number, [number]) * var(--ui-factor));
+    }
+  }
+}
+
+@utility ui-pass-group5-* {
+  @layer ui-defaults {
+    & {
+      --scale-group5: calc(--value(number, [number]) * var(--ui-factor));
+    }
+  }
+}
+
+@utility ui-pass-group6-* {
+  @layer ui-defaults {
+    & {
+      --scale-group6: calc(--value(number, [number]) * var(--ui-factor));
+    }
+  }
+}
+
+@utility ui-scale-* {
+  --scale: --value(number, [*]);
+}
+
+@utility ui-scale-group1-* {
+  --scale-group1: --value(number, [*]);
+}
+
+@utility ui-scale-group2-* {
+  --scale-group2: --value(number, [*]);
+}
+
+@utility ui-scale-group3-* {
+  --scale-group3: --value(number, [*]);
+}
+
+@utility ui-scale-group4-* {
+  --scale-group4: --value(number, [*]);
+}
+
+@utility ui-scale-group5-* {
+  --scale-group5: --value(number, [*]);
+}
+
+@utility ui-scale-group6-* {
+  --scale-group6: --value(number, [*]);
+}
+
+@utility ui-scale-group7-* {
+  --scale-group7: --value(number, [*]);
+}

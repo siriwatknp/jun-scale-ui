@@ -1,0 +1,22 @@
+@layer jun-scale-ui {
+  .root {
+    --Badge-scale: calc(var(--scale, 1) * var(--scale-group3, 1));
+    --scale-group1: var(--scale-group3, 1);
+    --scale-group2: calc(var(--scale-group3, 1) * 0.75);
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    vertical-align: middle;
+    box-sizing: border-box;
+    height: calc(20px * var(--Badge-scale));
+    padding: 0 calc(8px * var(--Badge-scale));
+    gap: calc(4px * var(--Badge-scale));
+    border-radius: calc(3px * var(--Badge-scale));
+    font-size: calc(12px * var(--Badge-scale));
+    line-height: calc(16px * var(--Badge-scale));
+    font-weight: 500;
+    white-space: nowrap;
+    background: #e6f4fe;
+    color: #0d74ce;
+  }
+}

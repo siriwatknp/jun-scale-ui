@@ -1,0 +1,80 @@
+@layer jun-scale-ui {
+  .root {
+    --Select-scale: calc(var(--scale, 1) * var(--scale-group5, 1));
+    --scale-group1: var(--scale-group5, 1);
+    --scale-group2: var(--scale-group5, 1);
+    --scale-group3: var(--scale-group5, 1);
+    --scale-group4: var(--scale-group5, 1);
+    position: relative;
+    display: inline-flex;
+    flex-shrink: 0;
+    vertical-align: middle;
+    font-size: calc(14px * var(--Select-scale));
+    line-height: calc(20px * var(--Select-scale));
+  }
+
+  .trigger {
+    --scale-group4: calc(var(--scale-group5, 1) * 0.75);
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    box-sizing: border-box;
+    height: calc(32px * var(--Select-scale));
+    margin: 0;
+    padding: 0 calc(12px * var(--Select-scale));
+    gap: calc(8px * var(--Select-scale));
+    border: 1px solid #d9d9e0;
+    border-radius: calc(4px * var(--Select-scale));
+    font: inherit;
+    white-space: nowrap;
+    background: #fff;
+    color: #1c2024;
+    cursor: pointer;
+  }
+
+  .trigger:focus-visible {
+    outline: 1px solid #0d74ce;
+    outline-offset: -1px;
+    border-color: #0d74ce;
+  }
+
+  .chevron {
+    margin-left: auto;
+    color: #60646c;
+  }
+
+  .popup {
+    position: absolute;
+    z-index: 10;
+    top: calc(100% + 4px * var(--Select-scale));
+    left: 0;
+    box-sizing: border-box;
+    min-width: calc(128px * var(--Select-scale));
+    padding: calc(4px * var(--Select-scale));
+    border: 1px solid #d9d9e0;
+    border-radius: calc(6px * var(--Select-scale));
+    background: #fff;
+    color: #1c2024;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.08);
+  }
+
+  .item {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    height: calc(32px * var(--Select-scale));
+    padding: 0 calc(12px * var(--Select-scale));
+    gap: calc(8px * var(--Select-scale));
+    border-radius: calc(4px * var(--Select-scale));
+    white-space: nowrap;
+    cursor: default;
+  }
+
+  .item:hover {
+    background: #f0f0f3;
+  }
+
+  .item > [data-slot="Icon"]:last-child {
+    margin-left: auto;
+  }
+}

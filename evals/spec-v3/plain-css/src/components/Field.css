@@ -1,0 +1,55 @@
+@layer jun-scale {
+  .Field {
+    --Field-scale: calc(var(--scale, 1) * var(--scale-group5, 1));
+    --scale-group1: var(--scale-group5, 1);
+    --scale-group2: var(--scale-group5, 1);
+    --scale-group3: var(--scale-group5, 1);
+    --scale-group4: var(--scale-group5, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    box-sizing: border-box;
+    width: calc(240px * var(--Field-scale));
+    gap: calc(8px * var(--Field-scale));
+    font-family: inherit;
+    font-size: calc(14px * var(--Field-scale));
+    line-height: calc(20px * var(--Field-scale));
+    color: #1c2024;
+  }
+
+  .Field > .Input,
+  .Field > .Select {
+    align-self: stretch;
+    width: auto;
+  }
+
+  .Field[data-invalid] > .Input {
+    border-color: #ce2c31;
+  }
+
+  .Field[data-invalid] > .Input:focus-within {
+    outline-color: #ce2c31;
+  }
+
+  .Field-label {
+    --scale-group3: calc(var(--scale-group5, 1) * 0.8);
+    display: flex;
+    align-items: center;
+    gap: calc(4px * var(--Field-scale));
+    font-size: calc(14px * var(--Field-scale));
+    line-height: calc(20px * var(--Field-scale));
+    font-weight: 500;
+  }
+
+  .Field-help,
+  .Field-error {
+    --scale-group3: calc(var(--scale-group5, 1) * 0.8);
+    font-size: calc(12px * var(--Field-scale));
+    line-height: calc(16px * var(--Field-scale));
+    color: #60646c;
+  }
+
+  .Field-error {
+    color: #ce2c31;
+  }
+}

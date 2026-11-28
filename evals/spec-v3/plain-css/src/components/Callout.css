@@ -1,0 +1,35 @@
+@layer jun-scale {
+  .Callout {
+    --Callout-scale: calc(var(--scale, 1) * var(--scale-group6, 1));
+    --scale-group1: var(--scale-group6, 1);
+    --scale-group2: calc(var(--scale-group6, 1) * 0.75);
+    --scale-group3: var(--scale-group6, 1);
+    --scale-group4: var(--scale-group6, 1);
+    --scale-group5: var(--scale-group6, 1);
+    display: flex;
+    align-items: flex-start;
+    box-sizing: border-box;
+    max-width: calc(180px * var(--Callout-scale));
+    padding: calc(16px * var(--Callout-scale));
+    gap: calc(12px * var(--Callout-scale));
+    border-radius: calc(6px * var(--Callout-scale));
+    font-family: inherit;
+    font-size: calc(14px * var(--Callout-scale));
+    line-height: calc(20px * var(--Callout-scale));
+    background: #edf2fe;
+    color: #1f2d5c;
+  }
+
+  .Callout-icon {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    height: calc(20px * var(--Callout-scale));
+    color: #3e63dd;
+  }
+
+  .Callout-text {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+}
