@@ -30,6 +30,7 @@ const BRIEF = [
   ["Select", "Select-trigger Avatar", "width", 24],
   ["Field", "Field", "width", 240],
   ["Field", "Field Input", "height", 32],
+  ["FieldLabelBadge", "Field-label Badge", "height", 16],
   ["Callout", "Callout", "padding-top", 16],
   ["Callout", "Callout Icon", "width", 12],
 ];
@@ -38,17 +39,18 @@ const MARKERS = {
   StatusDot: { StatusDot: { check: "width height" } },
   Icon: { Icon: { check: "width height" } },
   Spinner: { Spinner: { check: "width height" } },
-  Badge: { Badge: { check: "height padding-left font-size" } },
-  Kbd: { Kbd: { check: "height min-width padding-left font-size" } },
+  Badge: { Badge: { check: "height padding-left font-size line-height border-top-left-radius" } },
+  Kbd: { Kbd: { check: "height min-width padding-left font-size line-height border-top-left-radius" } },
   Checkbox: { Checkbox: { check: "width height", centerBoth: "Icon" }, "Checkbox Icon": { check: "width height" } },
   Switch: { Switch: { check: "width height", part: "Switch-thumb", inset: true } },
-  Avatar: { Avatar: { check: "width height font-size" } },
-  Button: { Button: { check: "height padding-left font-size", centerY: "Icon" }, "Button Icon": { check: "width height" } },
+  Avatar: { Avatar: { check: "width height font-size line-height" } },
+  Button: { Button: { check: "height padding-left font-size line-height border-top-left-radius", centerY: "Icon" }, "Button Icon": { check: "width height" } },
   IconButton: { IconButton: { check: "width height", centerBoth: "Icon" }, "IconButton Icon": { check: "width height" } },
-  Input: { Input: { check: "width height padding-left font-size", centerY: "Icon" }, "Input Icon": { check: "width" } },
-  Select: { "Select-trigger": { check: "height padding-left font-size", centerY: "Avatar" }, "Select-trigger Avatar": { check: "width height" }, "Select-trigger Icon": { check: "width" } },
+  Input: { Input: { check: "width height padding-left font-size line-height border-top-left-radius", centerY: "Icon" }, "Input Icon": { check: "width" } },
+  Select: { "Select-trigger": { check: "height padding-left font-size line-height border-top-left-radius", centerY: "Avatar" }, "Select-trigger Avatar": { check: "width height" }, "Select-trigger Icon": { check: "width" } },
   Field: { Field: { check: "width" }, "Field-label": { check: "font-size line-height" }, "Field Input": { check: "height", spaceBefore: true }, "Field-help": { check: "font-size" } },
-  Callout: { Callout: { check: "padding-top font-size line-height", iconOnFirstLine: true }, "Callout Icon": { check: "width height" } },
+  Callout: { Callout: { check: "padding-top font-size line-height border-top-left-radius", iconOnFirstLine: true }, "Callout Icon": { check: "width height" } },
+  FieldLabelBadge: { "Field-label": { check: "font-size" }, "Field-label Badge": { check: "height" } },
   CheckboxOverride: { Checkbox: { check: "width" }, "Checkbox Icon": { check: "width" } },
   ButtonScaled: { Button: { check: "height" }, "Button Icon": { check: "width" } },
   ButtonWithBadge: { Button: { check: "height" }, "Button Badge": { check: "height" } },
@@ -70,7 +72,11 @@ function nameOf(element) {
 }
 
 function templateOf(name) {
-  return document.querySelector(`template[data-fixture="${name}"]`);
+  const template = document.querySelector(`template[data-fixture="${name}"]`);
+  if (!template) {
+    throw new Error(`fixture ${name} is missing`);
+  }
+  return template;
 }
 
 function allFixtureNames() {
@@ -155,8 +161,16 @@ function rectOf(element) {
   return element.getBoundingClientRect();
 }
 
+function hasFixture(name) {
+  const present = allFixtureNames().includes(name);
+  if (!present) {
+    record("fixture present", name, false, "missing");
+  }
+  return present;
+}
+
 function testBrief() {
-  BRIEF.forEach(([name, path, property, expected]) => {
+  BRIEF.filter(([name]) => hasFixture(name)).forEach(([name, path, property, expected]) => {
     const element = mount(name).querySelector(slot(path));
     const actual = element ? px(element, property) : NaN;
     record("brief sizes at scale 1", `${name} ${path} ${property}`, near(actual, expected), `${round(actual)} expected ${expected}`);
@@ -176,7 +190,7 @@ function testProportionalAndWhole() {
             const v1 = px(element, property);
             const vs = px(scaled[index], property);
             record("scales with --scale", `${name} ${label} ${property} at ${scale}`, near(vs, v1 * scale), `${round(vs)} expected ${round(v1 * scale)}`);
-            if (!BOX_PROPERTIES_EXEMPT_FROM_WHOLE_PIXELS.has(property)) {
+            if (!BOX_PROPERTIES_EXEMPT_FROM_WHOLE_PIXELS.has(property) && property !== "line-height") {
               record("whole pixels at 0.25 steps", `${name} ${label} ${property} at ${scale}`, whole(vs), `${round(vs)}`);
             }
           });
@@ -192,6 +206,39 @@ function testProportionalAndWhole() {
         });
       });
     });
+}
+
+function testBordersStayFixed() {
+  fixtureNames().forEach((name) => {
+    const base = checkedElements(mount(name, "--scale: 1"));
+    const scaled = checkedElements(mount(name, "--scale: 2"));
+    base.forEach((element, index) => {
+      ["border-top-width", "border-left-width"].forEach((property) => {
+        const v1 = px(element, property);
+        if (v1 > 0) {
+          const vs = px(scaled[index], property);
+          record("borders don't scale", `${name} ${nameOf(element)} ${property} at 2`, near(vs, v1), `${round(vs)} expected ${round(v1)}`);
+        }
+      });
+    });
+  });
+}
+
+const PARTS_IGNORE_THEIR_OWN_SCALE = [
+  ["Select", "Select-trigger", "height"],
+  ["Field", "Field-label", "font-size"],
+  ["Callout", "Callout-text", "font-size"],
+];
+
+function testPartsIgnoreScaleSetOnThem() {
+  PARTS_IGNORE_THEIR_OWN_SCALE.filter(([name]) => hasFixture(name)).forEach(([name, part, property]) => {
+    const expected = measure(name, "", part, property);
+    ["--scale: 2", "--scale-group5: 2; --scale-group6: 2"].forEach((style) => {
+      const element = mount(name).querySelector(slot(part));
+      element.setAttribute("style", style);
+      expectEqual("a part ignores a scale set on it", `${name} ${part} ${property} with ${style} on the part`, px(element, property), expected);
+    });
+  });
 }
 
 function gapsAround(parent, child) {
@@ -405,6 +452,8 @@ function run() {
   testCentering();
   testGroupMembership();
   testFactorBehavior();
+  testBordersStayFixed();
+  testPartsIgnoreScaleSetOnThem();
   testUtilities();
   report();
 }

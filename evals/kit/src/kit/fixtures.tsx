@@ -21,6 +21,7 @@ export const fixtures: Fixture[] = [
   { name: "Input", group: 5, render: () => <Input start={<Icon>{search}</Icon>} placeholder="Search" /> },
   { name: "Select", group: 5, render: () => <Select><Avatar>AK</Avatar>Alex Kim</Select> },
   { name: "Field", group: 5, render: () => <Field label="Email" help="We reply within a day."><Input placeholder="you@example.com" /></Field> },
+  { name: "FieldLabelBadge", group: 5, render: () => <Field label={<>Email<Badge>Required</Badge></>}><Input placeholder="you@example.com" /></Field> },
   { name: "Callout", group: 6, render: () => <Callout icon={<Icon>{info}</Icon>}>You need admin access to install this app.</Callout> },
   { name: "CheckboxOverride", group: 3, render: () => <Checkbox defaultChecked aria-label="Agree" style={cssVariables({ "--scale-group2": 1 })} /> },
   { name: "ButtonScaled", group: 5, render: () => <Button style={cssVariables({ "--scale-group5": 1.2 })}><Icon>{bookmark}</Icon>Save</Button> },
